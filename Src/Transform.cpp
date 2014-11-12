@@ -1,6 +1,6 @@
 #include "Transform.h"
 
-Transform::Transform()
+Transform::Transform(): ScenegraphNode(true)
 {
     currentRotation.x = 0 ;
     currentRotation.y = 0 ;
@@ -305,7 +305,10 @@ void Transform::updateZTranslationDecrement()
 
 void Transform::applyTransformation()
 {
-    glPushMatrix();
+    /*
+         Actual order of applying these transforms is Scale-Rotate-Transfor.
+         But because of being pushed into stack, they are passed on in reverse.
+    */
 
     glTranslatef(currentTranslation.x,currentTranslation.y,currentTranslation.z);
 

@@ -1,8 +1,19 @@
 #include <QtWidgets>
 #include <QtOpenGL>
-
+#include <GroupNode.h>
 #include <math.h>
 #include "GLRenderer.h"
+#include <LightSource.h>
+#include <Camera.h>
+#include "RobotTorseModel.h"
+
+GroupNode   *scenegraphRootNode = new GroupNode() ;
+GroupNode   *robotRootNode      = new GroupNode() ;
+LightSource *centralLightSource = new LightSource();
+Camera      *camera             = new Camera();
+Transform   *robotTorsoTransform = new Transform();
+RobotTorsoModel * robotTorso = new RobotTorsoModel();
+
 
 GLRenderer::GLRenderer(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
@@ -20,50 +31,16 @@ GLRenderer::GLRenderer(QWidget *parent)
     lightPositionZ = 1.5 ;
     lightMovementEnabled = false ;
 
-//    mainScene->addChild(&mainTransformBelt1);
-//    mainScene->addChild(&mainTransformBelt2);
-//    mainScene->addChild(&mainTransformRobot);
-//    mainScene->addChild(&transformBox);
+    /*
+        Only set the scenegraph here. Don't write any rendering related code inside.
+    */
 
-//    mainTransformBelt1.addChild(&belt1);
-//    mainTransformBelt2.addChild(&belt2);
-//    mainTransformRobot.addChild(&robotBase);
-//    mainTransformRobot.setColor(1.0,1.0,1.0);
+    scenegraphRootNode->addChild(camera);
+    scenegraphRootNode->addChild(centralLightSource);
+    scenegraphRootNode->addChild(robotRootNode);
 
-//    transformRobotArm2.addChild(&joint1);
-//    transformRobotArm3.addChild(&joint2);
-
-//    robotBase.addChild(&transformRobotArm1);
-//    transformRobotArm1.addChild(&robotArm1);
-//    robotArm1.addChild(&transformRobotArm2);
-//    transformRobotArm2.addChild(&robotArm2);
-//    robotArm2.addChild(&transformRobotArm3);
-//    transformRobotArm3.addChild(&robotArm3);
-
-//    transformBox.addChild(&box);
-//    transformBox.interpolateTranslationTo(-2,-.15,-2);
-
-//    transformRobotArm1.interpolateTranslationTo(0,0,0);
-//    transformRobotArm2.interpolateTranslationTo(0,0,1.5);
-//    transformRobotArm3.interpolateTranslationTo(0,0,.5);
-
-//    transformRobotArm1.interpolateRotationTo(0,0,0);
-//    transformRobotArm2.interpolateRotationTo(0,0,0);
-//    transformRobotArm3.interpolateRotationTo(0,0,0);
-
-//    mainTransformBelt1.interpolateTranslationTo(-2,0,0);
-//    mainTransformBelt2.interpolateTranslationTo(1.8,-.25,0);
-//    mainTransformBelt1.interpolateRotationTo(0,0,90);
-//    mainTransformBelt2.interpolateRotationTo(0,0,90);
-
-//    transformBox.interpolateScaleTo(.35,.35,.35);
-
-//    transformRobotArm1.setColor(1,0,0);
-//    transformRobotArm2.setColor(0,1,1);
-//    transformRobotArm3.setColor(0,0,.85);
-//    transformBox.setColor(1,1,0);
-//    mainTransformBelt1.setColor((double)130/255,(double)130/255,(double)130/255);
-//    mainTransformBelt2.setColor((double)130/255,(double)130/255,(double)130/255);
+    robotRootNode->addChild(robotTorsoTransform);
+    robotTorsoTransform->addChild(robotTorso);
 }
 
 GLRenderer::~GLRenderer()
@@ -154,12 +131,49 @@ void GLRenderer::paintGL()
     glEnable(GL_COLOR_MATERIAL);
     glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 
-    //mainScene->depthFirstTraversal();
+    // Scenegraph Traversal
+    glPushMatrix();
+    scenegraphRootNode->depthFirstTraversal();
+    glPopMatrix();
 
-    // Axis
+    // Draw  Axis
+    renderAxes();
+    update();
+}
+
+void GLRenderer::resizeGL(int width, int height)
+{
+    int side = qMin(width, height);
+    //@TBD To check, why this ?
+    glViewport((width - side) / 2, (height - side) / 2, side, side);
+    //glViewport(0,0,width,height);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-0.5, +0.5, -0.5, +0.5, 4.0, 15.0);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+void GLRenderer::mousePressEvent(QMouseEvent *event)
+{
+    lastPos = event->pos();
+}
+
+/*
+    Handle key press events
+*/
+void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
+{
+
+
+    glDraw();
+    update();
+}
+
+void GLRenderer::renderAxes()
+{
     float length = 100.0;
-
-    glLineWidth(0.50);
+    glLineWidth(2);
     glColor3f(.1,.2,.5);
 
     glBegin(GL_LINES);
@@ -175,125 +189,6 @@ void GLRenderer::paintGL()
     glVertex3f(0,0,0);
     glVertex3f(0,0,length);
     glEnd();
-
-    //glutSolidCone(.55,.55,22,22);
-
-    update();
-}
-
-void GLRenderer::resizeGL(int width, int height)
-{
-    int side = qMin(width, height);
-    //@TBD To check, why this ?
-    //glViewport((width - side) / 2, (height - side) / 2, side, side);
-    glViewport(0,0,width,height);
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(-0.5, +0.5, -0.5, +0.5, 4.0, 15.0);
-    glMatrixMode(GL_MODELVIEW);
-}
-
-void GLRenderer::mousePressEvent(QMouseEvent *event)
-{
-    lastPos = event->pos();
-}
-
-void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
-{
-//    // Scale
-//    if( keyevent->key() == Qt::Key_Q )
-//    {
-//        std::cout << "Updated Arm 1" << std::endl ;
-//        transformRobotArm1.interpolateRotationTo(transformRobotArm1.getRotationX()+5,transformRobotArm1.getRotationY(),transformRobotArm1.getRotationZ());
-//    }
-
-//    else if( keyevent->key() == Qt::Key_W )
-//    {
-//        std::cout << "Updated Arm 1" << std::endl ;
-//        transformRobotArm1.interpolateRotationTo(transformRobotArm1.getRotationX(),transformRobotArm1.getRotationY()+5,transformRobotArm1.getRotationZ());
-//    }
-
-//    else if( keyevent->key() == Qt::Key_E )
-//    {
-//        std::cout << "Updated Arm 1" << std::endl ;
-//        transformRobotArm1.interpolateRotationTo(transformRobotArm1.getRotationX(),transformRobotArm1.getRotationY(),transformRobotArm1.getRotationZ()+5);
-//    }
-
-//    else if( keyevent->key() == Qt::Key_A )
-//    {
-//        std::cout << "Updated Arm 2" << std::endl ;
-//        transformRobotArm2.interpolateRotationTo(transformRobotArm2.getRotationX()+5,transformRobotArm2.getRotationY(),transformRobotArm2.getRotationZ());
-//    }
-
-//    else if( keyevent->key() == Qt::Key_S )
-//    {
-//        std::cout << "Updated Arm 2" << std::endl ;
-//        transformRobotArm2.interpolateRotationTo(transformRobotArm2.getRotationX(),transformRobotArm2.getRotationY()+5,transformRobotArm2.getRotationZ());
-//    }
-
-//    else if( keyevent->key() == Qt::Key_D )
-//    {
-//        std::cout << "Updated Arm 2" << std::endl ;
-//        transformRobotArm2.interpolateRotationTo(transformRobotArm2.getRotationX(),transformRobotArm2.getRotationY(),transformRobotArm2.getRotationZ()+5);
-//    }
-
-//    else if( keyevent->key() == Qt::Key_Z )
-//    {
-//        std::cout << "Updated Arm 3" << std::endl ;
-//        transformRobotArm3.interpolateRotationTo(transformRobotArm3.getRotationX()+5,transformRobotArm3.getRotationY(),transformRobotArm3.getRotationZ());
-//    }
-
-//    else if( keyevent->key() == Qt::Key_X )
-//    {
-//        std::cout << "Updated Arm 3" << std::endl ;
-//        transformRobotArm3.interpolateRotationTo(transformRobotArm3.getRotationX(),transformRobotArm3.getRotationY()+5,transformRobotArm3.getRotationZ());
-//    }
-
-//    else if( keyevent->key() == Qt::Key_C )
-//    {
-//        std::cout << "Updated Arm 3" << std::endl ;
-//        transformRobotArm3.interpolateRotationTo(transformRobotArm3.getRotationX(),transformRobotArm3.getRotationY(),transformRobotArm3.getRotationZ()+5);
-//    }
-
-//    else if( keyevent->key() == Qt::Key_P )
-//    {
-//        transformRobotArm1.interpolateRotationTo(90, -20, 260, 2000);
-//        transformRobotArm2.interpolateRotationTo(60, 15, 75, 2000);
-//        transformRobotArm3.interpolateRotationTo(45, 310, 55, 2000);
-//    }
-
-//    else if( keyevent->key() == Qt::Key_O )
-//    {
-//        transformRobotArm1.interpolateRotationTo(95, 10, 80, 4000);
-//        transformRobotArm2.interpolateRotationTo(60, 15, 75, 4000);
-//        transformRobotArm3.interpolateRotationTo(40, 295, 52, 4000);
-//    }
-
-//    else if( keyevent->key() == Qt::Key_K )
-//    {
-//        transformRobotArm3.addChild(&transformBox);
-//        mainScene->removeChild(3);
-//        transformBox.stopTranslation();
-//        transformBox.interpolateTranslationTo(0,0,1.5);
-//    }
-
-//    else if( keyevent->key() == Qt::Key_L )
-//    {
-//        mainScene->addChild(&transformBox);
-//        transformRobotArm3.removeChild(2);
-//        transformBox.interpolateTranslationTo(1.8,-.25,0);
-//        transformBox.interpolateTranslationTo(1.8,-.45,0);
-//        transformBox.interpolateTranslationTo(1.8,-.45,2,1);
-//    }
-
-//    else if( keyevent->key() == Qt::Key_I )
-//    {
-//        transformBox.interpolateTranslationTo(-2,-.2, 2,1);
-//    }
-
-    glDraw();
-    update();
 }
 
 void GLRenderer::mouseMoveEvent(QMouseEvent *event)

@@ -16,7 +16,6 @@ protected:
     void keyPressEvent(QKeyEvent *event);
 
 private:
-
 };
 
 #endif

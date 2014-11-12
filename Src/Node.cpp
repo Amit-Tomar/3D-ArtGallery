@@ -2,7 +2,7 @@
 
 ScenegraphNode::ScenegraphNode(bool isTransformationNode)
 {
-    this->isTransformationNode = isTransformationNode;
+    this->isTransformationNode  = isTransformationNode;
 }
 
 ScenegraphNode::~ScenegraphNode()

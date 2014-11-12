@@ -5,7 +5,9 @@ HEADERS       = \
     Transform.h \
     Node.h \
     LightSource.h \
-    Camera.h
+    Camera.h \
+    GroupNode.h \
+    RobotTorseModel.h
 
     TransformTypes.h \
 
@@ -18,7 +20,9 @@ SOURCES       = main.cpp \
     Transform.cpp \
     Node.cpp \
     LightSource.cpp \
-    Camera.cpp
+    Camera.cpp \
+    GroupNode.cpp \
+    RobotTorseModel.cpp
 
 
 QT           += opengl widgets
