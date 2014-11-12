@@ -6,14 +6,17 @@
 #include <LightSource.h>
 #include <Camera.h>
 #include "RobotTorseModel.h"
+#include "RoomModel.h"
 
-GroupNode   *scenegraphRootNode = new GroupNode() ;
-GroupNode   *robotRootNode      = new GroupNode() ;
-LightSource *centralLightSource = new LightSource();
-Camera      *camera             = new Camera();
-Transform   *robotTorsoTransform = new Transform();
-RobotTorsoModel * robotTorso = new RobotTorsoModel();
-
+GroupNode       *scenegraphRootNode   = new GroupNode() ;
+GroupNode       *robotRootNode        = new GroupNode() ;
+GroupNode       *roomRootNode         = new GroupNode() ;
+LightSource     *centralLightSource   = new LightSource();
+Camera          *camera               = new Camera();
+Transform       *robotTorsoTransform  = new Transform();
+Transform       *roomCentralTransform = new Transform();
+RoomModel       *roomModel            = new RoomModel();
+RobotTorsoModel * robotTorso          = new RobotTorsoModel();
 
 GLRenderer::GLRenderer(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
@@ -32,15 +35,17 @@ GLRenderer::GLRenderer(QWidget *parent)
     lightMovementEnabled = false ;
 
     /*
-        Only set the scenegraph here. Don't write any rendering related code inside.
+        Only set the scenegraph here. Don't write any rendering related code here.
     */
 
     scenegraphRootNode->addChild(camera);
     scenegraphRootNode->addChild(centralLightSource);
     scenegraphRootNode->addChild(robotRootNode);
+    scenegraphRootNode->addChild(roomRootNode);
 
     robotRootNode->addChild(robotTorsoTransform);
     robotTorsoTransform->addChild(robotTorso);
+    roomRootNode->addChild(roomCentralTransform);
 }
 
 GLRenderer::~GLRenderer()

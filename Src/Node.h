@@ -16,13 +16,11 @@ public:
     void depthFirstTraversal();
     void deleteAllChildren();
     void removeChild(unsigned int);
-
     bool  isTransformationNode ;
 
 private:
 
     std::vector<ScenegraphNode*> childrenList;
-
 };
 
 #endif // NODE_H
