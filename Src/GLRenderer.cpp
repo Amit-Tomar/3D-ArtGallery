@@ -7,16 +7,39 @@
 #include <Camera.h>
 #include "RobotTorseModel.h"
 #include "RoomModel.h"
+#include "RobotArmBottom.h"
+#include "RobotArmTop.h"
+#include "RobotLegBottom.h"
+#include "RobotLegTop.h"
+#include "RobotHead.h"
 
 GroupNode       *scenegraphRootNode   = new GroupNode() ;
-GroupNode       *robotRootNode        = new GroupNode() ;
-GroupNode       *roomRootNode         = new GroupNode() ;
 LightSource     *centralLightSource   = new LightSource();
 Camera          *camera               = new Camera();
+GroupNode       *robotRootNode        = new GroupNode() ;
+GroupNode       *roomRootNode         = new GroupNode() ;
 Transform       *robotTorsoTransform  = new Transform();
 Transform       *roomCentralTransform = new Transform();
 RoomModel       *roomModel            = new RoomModel();
-RobotTorsoModel * robotTorso          = new RobotTorsoModel();
+RobotTorsoModel *robotTorso           = new RobotTorsoModel();
+RobotLegTop     *robotLeftLegTop      = new RobotLegTop();
+RobotLegTop     *robotRightLegTop     = new RobotLegTop();
+RobotLegBottom  *robotLeftLegBottom   = new RobotLegBottom();
+RobotLegBottom  *robotRightLegBottom  = new RobotLegBottom();
+RobotArmTop     *robotRightArmTop     = new RobotArmTop();
+RobotArmTop     *robotLeftArmTop      = new RobotArmTop();
+RobotArmBottom  *robotRightBottom     = new RobotArmBottom();
+RobotArmBottom  *robotLeftBottom      = new RobotArmBottom();
+RobotHead       *robotHead            = new RobotHead();
+Transform       *robotLeftThighTransform     = new Transform();
+Transform       *robotRightThighTransform    = new Transform();
+Transform       *robotLeftKneeTransform      = new Transform();
+Transform       *robotRightKneeTransform     = new Transform();
+Transform       *robotLeftShoulderTransform  = new Transform();
+Transform       *robotRightShoulderTransform = new Transform();
+Transform       *robotLeftElbowTransform     = new Transform();
+Transform       *robotRightElbowTransform    = new Transform();
+Transform       *robotHeadTransform          = new Transform();
 
 GLRenderer::GLRenderer(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
@@ -45,7 +68,67 @@ GLRenderer::GLRenderer(QWidget *parent)
 
     robotRootNode->addChild(robotTorsoTransform);
     robotTorsoTransform->addChild(robotTorso);
+    robotTorso->addChild(robotHeadTransform);
+    robotHeadTransform->addChild(robotHead);
+
+    // Left Leg
+    robotTorso->addChild(robotLeftThighTransform);
+    robotLeftThighTransform->addChild(robotLeftLegTop);
+    robotLeftLegTop->addChild(robotLeftKneeTransform);
+    robotLeftKneeTransform->addChild(robotLeftLegBottom);
+
+    // Right Leg
+    robotTorso->addChild(robotRightThighTransform);
+    robotRightThighTransform->addChild(robotRightLegTop);
+    robotRightLegTop->addChild(robotRightKneeTransform);
+    robotRightKneeTransform->addChild(robotRightLegBottom);
+
+    // Left Hand
+    robotTorso->addChild(robotLeftShoulderTransform);
+    robotLeftShoulderTransform->addChild(robotLeftArmTop);
+    robotLeftArmTop->addChild(robotLeftElbowTransform);
+    robotLeftElbowTransform->addChild(robotLeftBottom);
+
+    // Right hand
+    robotTorso->addChild(robotRightShoulderTransform);
+    robotRightShoulderTransform->addChild(robotRightArmTop);
+    robotRightArmTop->addChild(robotRightElbowTransform);
+    robotRightElbowTransform->addChild(robotRightBottom);
+
     roomRootNode->addChild(roomCentralTransform);
+
+    robotHeadTransform->interpolateTranslationTo(0,1.35,0);
+    robotHeadTransform->setColor(1,0,0);
+
+    robotTorsoTransform->setColor(1,1,0);
+
+    robotLeftThighTransform->interpolateTranslationTo(-.30,-1.25,0);
+    robotLeftThighTransform->setColor(.8,.5,0);
+
+    robotRightThighTransform->interpolateTranslationTo( .30,-1.25,0);
+    robotRightThighTransform->setColor(.8,.5,0);
+
+    robotLeftKneeTransform->interpolateTranslationTo(0,-.75,0);
+    robotLeftKneeTransform->setColor(.6,.3,0);
+
+    robotRightKneeTransform->interpolateTranslationTo(0,-.75,0);
+    robotRightKneeTransform->setColor(.6,.3,0);
+
+    robotLeftShoulderTransform->interpolateTranslationTo(-.35,.85,0);
+    robotLeftShoulderTransform->interpolateRotationTo(90,-25,0);
+    robotLeftShoulderTransform->setColor(0,.8,.25);
+
+    robotRightShoulderTransform->interpolateTranslationTo(.35,.85,0);
+    robotRightShoulderTransform->interpolateRotationTo(90,25,0);
+    robotRightShoulderTransform->setColor(0,.8,.25);
+
+    robotLeftElbowTransform->interpolateTranslationTo(0,0,.90);
+    robotLeftElbowTransform->interpolateRotationTo(0,20,0);
+    robotLeftElbowTransform->setColor(0,.5,.15);
+
+    robotRightElbowTransform->interpolateTranslationTo(0,0,.90);
+    robotRightElbowTransform->interpolateRotationTo(0,-20,0);
+    robotRightElbowTransform->setColor(0,.5,.15);
 }
 
 GLRenderer::~GLRenderer()

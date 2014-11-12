@@ -11,5 +11,8 @@ void RobotTorsoModel::traverseNode()
 
 void RobotTorsoModel::renderTorso()
 {
+    glPushMatrix();
+    glScalef(1,2,1);
     glutSolidCube(1);
+    glPopMatrix();
 }

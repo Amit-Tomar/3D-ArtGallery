@@ -8,7 +8,12 @@ HEADERS       = \
     Camera.h \
     GroupNode.h \
     RobotTorseModel.h \
-    RoomModel.h
+    RoomModel.h \
+    RobotArmTop.h \
+    RobotArmBottom.h \
+    RobotLegTop.h \
+    RobotLegBottom.h \
+    RobotHead.h
 
     TransformTypes.h \
 
@@ -24,7 +29,12 @@ SOURCES       = main.cpp \
     Camera.cpp \
     GroupNode.cpp \
     RobotTorseModel.cpp \
-    RoomModel.cpp
+    RoomModel.cpp \
+    RobotArmTop.cpp \
+    RobotArmBottom.cpp \
+    RobotLegTop.cpp \
+    RobotLegBottom.cpp \
+    RobotHead.cpp
 
 
 QT           += opengl widgets
