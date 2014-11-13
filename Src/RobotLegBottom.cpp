@@ -12,7 +12,7 @@ void RobotLegBottom::traverseNode()
 void RobotLegBottom::renderRobotLegBottom()
 {
     glPushMatrix();
-    glScalef(1,2.5,1);
+    glScalef(1,3,1);
     glutSolidCube(.35);
     glPopMatrix();
 }

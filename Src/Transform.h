@@ -28,23 +28,23 @@ public:
     void stopRotation();
     void stopTranslation();
 
-public slots :
+private slots :
 
-    void updateXRotationIncrement();
-    void updateYRotationIncrement();
-    void updateZRotationIncrement();
+    void incrementXRotation();
+    void incrementYRotation();
+    void incrementZRotation();
 
-    void updateXRotationDecrement();
-    void updateYRotationDecrement();
-    void updateZRotationDecrement();
+    void decrementXRotation();
+    void decrementYRotation();
+    void decrementZRotation();
 
-    void updateXTranslationIncrement();
-    void updateYTranslationIncrement();
-    void updateZTranslationIncrement();
+    void incrementXTranslation();
+    void incrementYTranslation();
+    void incrementZTranslation();
 
-    void updateXTranslationDecrement();
-    void updateYTranslationDecrement();
-    void updateZTranslationDecrement();
+    void decrementXTranslation();
+    void decrementYTranslation();
+    void decrementZTranslation();
 
 private:
 

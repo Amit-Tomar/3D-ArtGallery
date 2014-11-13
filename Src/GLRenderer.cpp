@@ -1,45 +1,10 @@
 #include <QtWidgets>
 #include <QtOpenGL>
-#include <GroupNode.h>
 #include <math.h>
 #include "GLRenderer.h"
-#include <LightSource.h>
-#include <Camera.h>
-#include "RobotTorseModel.h"
-#include "RoomModel.h"
-#include "RobotArmBottom.h"
-#include "RobotArmTop.h"
-#include "RobotLegBottom.h"
-#include "RobotLegTop.h"
-#include "RobotHead.h"
+#include "FactoryData.h"
 
-GroupNode       *scenegraphRootNode   = new GroupNode() ;
-LightSource     *centralLightSource   = new LightSource();
-Camera          *camera               = new Camera();
-GroupNode       *robotRootNode        = new GroupNode() ;
-GroupNode       *roomRootNode         = new GroupNode() ;
-Transform       *robotTorsoTransform  = new Transform();
-Transform       *roomCentralTransform = new Transform();
-RoomModel       *roomModel            = new RoomModel();
-RobotTorsoModel *robotTorso           = new RobotTorsoModel();
-RobotLegTop     *robotLeftLegTop      = new RobotLegTop();
-RobotLegTop     *robotRightLegTop     = new RobotLegTop();
-RobotLegBottom  *robotLeftLegBottom   = new RobotLegBottom();
-RobotLegBottom  *robotRightLegBottom  = new RobotLegBottom();
-RobotArmTop     *robotRightArmTop     = new RobotArmTop();
-RobotArmTop     *robotLeftArmTop      = new RobotArmTop();
-RobotArmBottom  *robotRightBottom     = new RobotArmBottom();
-RobotArmBottom  *robotLeftBottom      = new RobotArmBottom();
-RobotHead       *robotHead            = new RobotHead();
-Transform       *robotLeftThighTransform     = new Transform();
-Transform       *robotRightThighTransform    = new Transform();
-Transform       *robotLeftKneeTransform      = new Transform();
-Transform       *robotRightKneeTransform     = new Transform();
-Transform       *robotLeftShoulderTransform  = new Transform();
-Transform       *robotRightShoulderTransform = new Transform();
-Transform       *robotLeftElbowTransform     = new Transform();
-Transform       *robotRightElbowTransform    = new Transform();
-Transform       *robotHeadTransform          = new Transform();
+using namespace Factory;
 
 GLRenderer::GLRenderer(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
@@ -48,6 +13,8 @@ GLRenderer::GLRenderer(QWidget *parent)
     yRot = 5;
     zRot = 145;
 
+    RobotController *robotController = new RobotController();
+
     qtGreen = QColor::fromCmykF(0.40, 0.0, 1.0, 0.0);
     qtPurple = QColor::fromCmykF(0.39, 0.39, 0.0, 0.0);
     setFocusPolicy(Qt::ClickFocus);
@@ -55,7 +22,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     lightPositionX = 1.5 ;
     lightPositionY = 1.5 ;
     lightPositionZ = 1.5 ;
-    lightMovementEnabled = false ;
+    lightMovementEnabled = true ;
 
     /*
         Only set the scenegraph here. Don't write any rendering related code here.
@@ -71,17 +38,6 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotTorso->addChild(robotHeadTransform);
     robotHeadTransform->addChild(robotHead);
 
-    // Left Leg
-    robotTorso->addChild(robotLeftThighTransform);
-    robotLeftThighTransform->addChild(robotLeftLegTop);
-    robotLeftLegTop->addChild(robotLeftKneeTransform);
-    robotLeftKneeTransform->addChild(robotLeftLegBottom);
-
-    // Right Leg
-    robotTorso->addChild(robotRightThighTransform);
-    robotRightThighTransform->addChild(robotRightLegTop);
-    robotRightLegTop->addChild(robotRightKneeTransform);
-    robotRightKneeTransform->addChild(robotRightLegBottom);
 
     // Left Hand
     robotTorso->addChild(robotLeftShoulderTransform);
@@ -95,23 +51,38 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightArmTop->addChild(robotRightElbowTransform);
     robotRightElbowTransform->addChild(robotRightBottom);
 
-    roomRootNode->addChild(roomCentralTransform);
+    // Left Leg
+    robotTorso->addChild(robotLeftThighTransform);
+    robotLeftThighTransform->addChild(robotLeftLegTop);
+    robotLeftLegTop->addChild(robotLeftKneeTransform);
+    robotLeftKneeTransform->addChild(robotLeftLegBottom);
 
-    robotHeadTransform->interpolateTranslationTo(0,1.35,0);
+    // Right Leg
+    robotTorso->addChild(robotRightThighTransform);
+    robotRightThighTransform->addChild(robotRightLegTop);
+    robotRightLegTop->addChild(robotRightKneeTransform);
+    robotRightKneeTransform->addChild(robotRightLegBottom);
+
+    roomRootNode->addChild(roomCentralTransform);
+    roomCentralTransform->addChild(roomModel);
+
+    robotHeadTransform->interpolateTranslationTo(0,1.50,0);
     robotHeadTransform->setColor(1,0,0);
+    robotHeadTransform->interpolateScaleTo(1,1.25,1);
 
     robotTorsoTransform->setColor(1,1,0);
 
-    robotLeftThighTransform->interpolateTranslationTo(-.30,-1.25,0);
+    robotLeftThighTransform->interpolateTranslationTo(-.30,-1,0);
     robotLeftThighTransform->setColor(.8,.5,0);
 
-    robotRightThighTransform->interpolateTranslationTo( .30,-1.25,0);
+    robotRightThighTransform->interpolateTranslationTo( .30,-1,0);
     robotRightThighTransform->setColor(.8,.5,0);
 
-    robotLeftKneeTransform->interpolateTranslationTo(0,-.75,0);
+    robotLeftKneeTransform->interpolateTranslationTo(0,-1,0);
     robotLeftKneeTransform->setColor(.6,.3,0);
+    //robotLeftKneeTransform->interpolateRotationTo(20,0,0);
 
-    robotRightKneeTransform->interpolateTranslationTo(0,-.75,0);
+    robotRightKneeTransform->interpolateTranslationTo(0,-1,0);
     robotRightKneeTransform->setColor(.6,.3,0);
 
     robotLeftShoulderTransform->interpolateTranslationTo(-.35,.85,0);
@@ -123,12 +94,15 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightShoulderTransform->setColor(0,.8,.25);
 
     robotLeftElbowTransform->interpolateTranslationTo(0,0,.90);
-    robotLeftElbowTransform->interpolateRotationTo(0,20,0);
+    robotLeftElbowTransform->interpolateRotationTo(-50,20,0);
     robotLeftElbowTransform->setColor(0,.5,.15);
 
     robotRightElbowTransform->interpolateTranslationTo(0,0,.90);
-    robotRightElbowTransform->interpolateRotationTo(0,-20,0);
+    robotRightElbowTransform->interpolateRotationTo(-50,-20,0);
     robotRightElbowTransform->setColor(0,.5,.15);
+
+    robotTorsoTransform->interpolateScaleTo(.5,.5,.5);
+    robotTorsoTransform->interpolateTranslationTo(0,0,10,5000);
 }
 
 GLRenderer::~GLRenderer()

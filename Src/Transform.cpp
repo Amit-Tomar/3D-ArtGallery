@@ -23,42 +23,42 @@ Transform::Transform(): ScenegraphNode(true)
     translationIncrement.z = 0.02 ;
 
     timer1RotationIncrement = new QTimer(NULL);
-    connect(timer1RotationIncrement, SIGNAL(timeout()), this, SLOT(updateXRotationIncrement()));
+    connect(timer1RotationIncrement, SIGNAL(timeout()), this, SLOT(incrementXRotation()));
 
     timer2RotationIncrement = new QTimer(NULL);
-    connect(timer2RotationIncrement, SIGNAL(timeout()), this, SLOT(updateYRotationIncrement()));
+    connect(timer2RotationIncrement, SIGNAL(timeout()), this, SLOT(incrementYRotation()));
 
     timer3RotationIncrement = new QTimer(NULL);
-    connect(timer3RotationIncrement, SIGNAL(timeout()), this, SLOT(updateZRotationIncrement()));
+    connect(timer3RotationIncrement, SIGNAL(timeout()), this, SLOT(incrementZRotation()));
 
     timer1RotationDecrement = new QTimer(NULL);
-    connect(timer1RotationDecrement, SIGNAL(timeout()), this, SLOT(updateXRotationDecrement()));
+    connect(timer1RotationDecrement, SIGNAL(timeout()), this, SLOT(decrementXRotation()));
 
     timer2RotationDecrement = new QTimer(NULL);
-    connect(timer2RotationDecrement, SIGNAL(timeout()), this, SLOT(updateYRotationDecrement()));
+    connect(timer2RotationDecrement, SIGNAL(timeout()), this, SLOT(decrementYRotation()));
 
     timer3RotationDecrement = new QTimer(NULL);
-    connect(timer3RotationDecrement, SIGNAL(timeout()), this, SLOT(updateZRotationDecrement()));
+    connect(timer3RotationDecrement, SIGNAL(timeout()), this, SLOT(decrementZRotation()));
 
     //
 
     timer1TranslationIncrement = new QTimer(NULL);
-    connect(timer1TranslationIncrement, SIGNAL(timeout()), this, SLOT(updateXTranslationIncrement()));
+    connect(timer1TranslationIncrement, SIGNAL(timeout()), this, SLOT(incrementXTranslation()));
 
     timer2TranslationIncrement = new QTimer(NULL);
-    connect(timer2TranslationIncrement, SIGNAL(timeout()), this, SLOT(updateYTranslationIncrement()));
+    connect(timer2TranslationIncrement, SIGNAL(timeout()), this, SLOT(incrementYTranslation()));
 
     timer3TranslationIncrement = new QTimer(NULL);
-    connect(timer3TranslationIncrement, SIGNAL(timeout()), this, SLOT(updateZTranslationIncrement()));
+    connect(timer3TranslationIncrement, SIGNAL(timeout()), this, SLOT(incrementZTranslation()));
 
     timer1TranslationDecrement = new QTimer(NULL);
-    connect(timer1TranslationDecrement, SIGNAL(timeout()), this, SLOT(updateXTranslationDecrement()));
+    connect(timer1TranslationDecrement, SIGNAL(timeout()), this, SLOT(decrementXTranslation()));
 
     timer2TranslationDecrement = new QTimer(NULL);
-    connect(timer2TranslationDecrement, SIGNAL(timeout()), this, SLOT(updateYTranslationDecrement()));
+    connect(timer2TranslationDecrement, SIGNAL(timeout()), this, SLOT(decrementYTranslation()));
 
     timer3TranslationDecrement = new QTimer(NULL);
-    connect(timer3TranslationDecrement, SIGNAL(timeout()), this, SLOT(updateZTranslationDecrement()));
+    connect(timer3TranslationDecrement, SIGNAL(timeout()), this, SLOT(decrementZTranslation()));
 }
 
 Transform::~Transform()
@@ -68,7 +68,6 @@ Transform::~Transform()
 
 void Transform::traverseNode()
 {
-    // std::cout << "Traversed Node : Transform" << std::endl ;
     applyTransformation();
 }
 
@@ -145,7 +144,6 @@ void Transform::interpolateScaleTo(float xSc, float ySc, float zSc, unsigned int
 
 void Transform::setColor(double r, double g, double b)
 {
-    std::cout << " red" << r << " " << g << " " << b << std::endl ;
     red = r;
     green = g ;
     blue = b ;
@@ -171,9 +169,8 @@ void Transform::stopTranslation()
     timer3TranslationIncrement->stop();
 }
 
-void Transform::updateXRotationIncrement()
+void Transform::incrementXRotation()
 {
-    std::cout << "Here" << std::endl ;
     if( currentRotation.x < finalRotationValue.x )
     {
         currentRotation.x += rotationIncrement.x ;
@@ -184,7 +181,7 @@ void Transform::updateXRotationIncrement()
     }
 }
 
-void Transform::updateYRotationIncrement()
+void Transform::incrementYRotation()
 {
     if( currentRotation.y < finalRotationValue.y )
         currentRotation.y += rotationIncrement.y ;
@@ -192,7 +189,7 @@ void Transform::updateYRotationIncrement()
         timer2RotationIncrement->stop();
 }
 
-void Transform::updateZRotationIncrement()
+void Transform::incrementZRotation()
 {
     if( currentRotation.z < finalRotationValue.z )
         currentRotation.z += rotationIncrement.z ;
@@ -200,11 +197,8 @@ void Transform::updateZRotationIncrement()
         timer3RotationIncrement->stop();
 }
 
-//
-
-void Transform::updateXRotationDecrement()
+void Transform::decrementXRotation()
 {
-    std::cout << "Here Dec" << std::endl ;
     if( currentRotation.x > finalRotationValue.x )
     {
         currentRotation.x -= rotationIncrement.x ;
@@ -215,7 +209,7 @@ void Transform::updateXRotationDecrement()
     }
 }
 
-void Transform::updateYRotationDecrement()
+void Transform::decrementYRotation()
 {
     if( currentRotation.y > finalRotationValue.y )
         currentRotation.y -= rotationIncrement.y ;
@@ -223,7 +217,7 @@ void Transform::updateYRotationDecrement()
         timer2RotationDecrement->stop();
 }
 
-void Transform::updateZRotationDecrement()
+void Transform::decrementZRotation()
 {
     if( currentRotation.z > finalRotationValue.z )
         currentRotation.z -= rotationIncrement.z ;
@@ -231,7 +225,7 @@ void Transform::updateZRotationDecrement()
         timer3RotationDecrement->stop();
 }
 
-void Transform::updateXTranslationIncrement()
+void Transform::incrementXTranslation()
 {
     if( currentTranslation.x < finalTranslationValue.x )
     {
@@ -243,7 +237,7 @@ void Transform::updateXTranslationIncrement()
     }
 }
 
-void Transform::updateYTranslationIncrement()
+void Transform::incrementYTranslation()
 {
     if( currentTranslation.y < finalTranslationValue.y )
     {
@@ -255,7 +249,7 @@ void Transform::updateYTranslationIncrement()
     }
 }
 
-void Transform::updateZTranslationIncrement()
+void Transform::incrementZTranslation()
 {
     if( currentTranslation.z < finalTranslationValue.z )
     {
@@ -267,7 +261,7 @@ void Transform::updateZTranslationIncrement()
     }
 }
 
-void Transform::updateXTranslationDecrement()
+void Transform::decrementXTranslation()
 {
     if( currentTranslation.x > finalTranslationValue.x )
     {
@@ -279,7 +273,7 @@ void Transform::updateXTranslationDecrement()
     }
 }
 
-void Transform::updateYTranslationDecrement()
+void Transform::decrementYTranslation()
 {
     if( currentTranslation.y > finalTranslationValue.y )
     {
@@ -291,7 +285,7 @@ void Transform::updateYTranslationDecrement()
     }
 }
 
-void Transform::updateZTranslationDecrement()
+void Transform::decrementZTranslation()
 {
     if( currentTranslation.z > finalTranslationValue.z )
     {
@@ -318,4 +312,6 @@ void Transform::applyTransformation()
 
     glScalef(currentScale.x,currentScale.y,currentScale.z);
     glColor3d(red,green,blue);
+
+    glTranslatef(0.0,0.0,0.0);
 }
