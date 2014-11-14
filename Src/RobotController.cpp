@@ -61,15 +61,20 @@ void RobotController::updateRobotPosition()
                 robotLeftThighTransform->getRotationY(),
                 robotLeftThighTransform->getRotationZ());
 
-//    robotLeftKneeTransform->interpolateRotationTo(
-//                110 - robotLeftArmTopAngle + 50,
-//                robotLeftKneeTransform->getRotationY(),
-//                robotLeftKneeTransform->getRotationZ());
-
     robotRightThighTransform->interpolateRotationTo(
                 - 110 + robotLeftArmTopAngle,
                 robotRightThighTransform->getRotationY(),
                 robotRightThighTransform->getRotationZ());
+
+    robotLeftKneeTransform->interpolateRotationTo(
+                150 - robotLeftArmTopAngle,
+                robotLeftKneeTransform->getRotationY(),
+                robotLeftKneeTransform->getRotationZ());
+
+    robotRightKneeTransform->interpolateRotationTo(
+                80 - (150 - robotLeftArmTopAngle),
+                robotRightKneeTransform->getRotationY(),
+                robotRightKneeTransform->getRotationZ());
 
     std::cout << 110 - robotLeftArmTopAngle << std::endl;
 }

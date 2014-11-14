@@ -24,6 +24,15 @@ public:
     float getRotationX(){ return currentRotation.x; }
     float getRotationY(){ return currentRotation.y; }
     float getRotationZ(){ return currentRotation.z; }
+    float getScaleX(){ return currentScale.x; }
+    float getScaleY(){ return currentScale.y; }
+    float getScaleZ(){ return currentScale.z; }
+    float getTranslationX(){ return currentTranslation.x; }
+    float getTranslationY(){ return currentTranslation.y; }
+    float getTranslationZ(){ return currentTranslation.z; }
+    float getColorR(){ return red; }
+    float getColorG(){ return green; }
+    float getColorB(){ return blue; }
 
     void stopRotation();
     void stopTranslation();
@@ -45,10 +54,9 @@ private slots :
     void decrementXTranslation();
     void decrementYTranslation();
     void decrementZTranslation();
+    virtual void applyTransformation();
 
 private:
-
-    void applyTransformation();
 
     Rotation currentRotation;
     Translation currentTranslation;

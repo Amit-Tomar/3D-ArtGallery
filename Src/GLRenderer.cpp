@@ -78,12 +78,15 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightThighTransform->interpolateTranslationTo( .30,-1,0);
     robotRightThighTransform->setColor(.8,.5,0);
 
-    robotLeftKneeTransform->interpolateTranslationTo(0,-1,0);
+    robotLeftKneeTransform->interpolateTranslationTo(0,-.40,0);
     robotLeftKneeTransform->setColor(.6,.3,0);
-    //robotLeftKneeTransform->interpolateRotationTo(20,0,0);
+    robotLeftKneeTransform->interpolateRotationTo(-60,0,0);
+    robotLeftKneeTransform->setRotationPoint(0,-.55,0);
 
-    robotRightKneeTransform->interpolateTranslationTo(0,-1,0);
+    robotRightKneeTransform->interpolateTranslationTo(0,-.40,0);
     robotRightKneeTransform->setColor(.6,.3,0);
+    robotRightKneeTransform->interpolateRotationTo(-60,0,0);
+    robotRightKneeTransform->setRotationPoint(0,-.55,0);
 
     robotLeftShoulderTransform->interpolateTranslationTo(-.35,.85,0);
     robotLeftShoulderTransform->interpolateRotationTo(90,-25,0);
@@ -103,6 +106,7 @@ GLRenderer::GLRenderer(QWidget *parent)
 
     robotTorsoTransform->interpolateScaleTo(.5,.5,.5);
     robotTorsoTransform->interpolateTranslationTo(0,0,10,5000);
+    //robotTorsoTransform->interpolateRotationTo(45,0,0);
 }
 
 GLRenderer::~GLRenderer()

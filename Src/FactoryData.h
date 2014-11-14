@@ -13,37 +13,38 @@
 #include <GroupNode.h>
 #include <Transform.h>
 #include <RobotController.h>
+#include <CustomRotatableTransform.h>
 
 namespace Factory
 {
-extern GroupNode       *scenegraphRootNode   ;
-extern LightSource     *centralLightSource   ;
-extern Camera          *camera               ;
-extern GroupNode       *robotRootNode        ;
-extern GroupNode       *roomRootNode         ;
-extern Transform       *robotTorsoTransform  ;
-extern Transform       *roomCentralTransform ;
-extern RoomModel       *roomModel            ;
-extern RobotTorsoModel *robotTorso           ;
-extern RobotLegTop     *robotLeftLegTop      ;
-extern RobotLegTop     *robotRightLegTop     ;
-extern RobotLegBottom  *robotLeftLegBottom   ;
-extern RobotLegBottom  *robotRightLegBottom  ;
-extern RobotArmTop     *robotRightArmTop     ;
-extern RobotArmTop     *robotLeftArmTop      ;
-extern RobotArmBottom  *robotRightBottom     ;
-extern RobotArmBottom  *robotLeftBottom      ;
-extern RobotHead       *robotHead            ;
+extern GroupNode       *scenegraphRootNode          ;
+extern LightSource     *centralLightSource          ;
+extern Camera          *camera                      ;
+extern GroupNode       *robotRootNode               ;
+extern GroupNode       *roomRootNode                ;
+extern Transform       *robotTorsoTransform         ;
+extern Transform       *roomCentralTransform        ;
+extern RoomModel       *roomModel                   ;
+extern RobotTorsoModel *robotTorso                  ;
+extern RobotLegTop     *robotLeftLegTop             ;
+extern RobotLegTop     *robotRightLegTop            ;
+extern RobotLegBottom  *robotLeftLegBottom          ;
+extern RobotLegBottom  *robotRightLegBottom         ;
+extern RobotArmTop     *robotRightArmTop            ;
+extern RobotArmTop     *robotLeftArmTop             ;
+extern RobotArmBottom  *robotRightBottom            ;
+extern RobotArmBottom  *robotLeftBottom             ;
+extern RobotHead       *robotHead                   ;
 extern Transform       *robotLeftThighTransform     ;
 extern Transform       *robotRightThighTransform    ;
-extern Transform       *robotLeftKneeTransform      ;
-extern Transform       *robotRightKneeTransform     ;
+extern CustomRotatableTransform       *robotLeftKneeTransform      ;
+extern CustomRotatableTransform       *robotRightKneeTransform     ;
 extern Transform       *robotLeftShoulderTransform  ;
 extern Transform       *robotRightShoulderTransform ;
 extern Transform       *robotLeftElbowTransform     ;
 extern Transform       *robotRightElbowTransform    ;
 extern Transform       *robotHeadTransform          ;
-//extern RobotController *robotController             ;
+//extern RobotController *robotController           ;
 }
 
 #endif // FACTORYDATA_H

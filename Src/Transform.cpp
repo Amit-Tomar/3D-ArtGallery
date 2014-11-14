@@ -311,7 +311,6 @@ void Transform::applyTransformation()
     glRotatef(currentRotation.z, 0.0, 0.0, 1.0);
 
     glScalef(currentScale.x,currentScale.y,currentScale.z);
-    glColor3d(red,green,blue);
 
-    glTranslatef(0.0,0.0,0.0);
+    glColor3d(red,green,blue);
 }
