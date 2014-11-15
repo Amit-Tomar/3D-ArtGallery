@@ -37,6 +37,8 @@ public:
     void stopRotation();
     void stopTranslation();
 
+    void setRotationPoint(float,float,float);
+
 private slots :
 
     void incrementXRotation();
@@ -85,6 +87,11 @@ private:
     QTimer *timer3TranslationDecrement;
 
     double red,green,blue;
+
+    // Rotation will happen about these point
+    float rotationPointX;
+    float rotationPointY;
+    float rotationPointZ;
 };
 
 #endif // TRANSFORM_H

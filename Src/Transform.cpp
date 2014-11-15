@@ -22,6 +22,10 @@ Transform::Transform(): ScenegraphNode(true)
     translationIncrement.y = 0.02 ;
     translationIncrement.z = 0.02 ;
 
+    rotationPointX = 0.0;
+    rotationPointY = 0.0;
+    rotationPointZ = 0.0;
+
     timer1RotationIncrement = new QTimer(NULL);
     connect(timer1RotationIncrement, SIGNAL(timeout()), this, SLOT(incrementXRotation()));
 
@@ -304,13 +308,24 @@ void Transform::applyTransformation()
          But because of being pushed into stack, they are passed on in reverse.
     */
 
-    glTranslatef(currentTranslation.x,currentTranslation.y,currentTranslation.z);
+    // Translate back to the desired position
+    glTranslatef(getTranslationX(), getTranslationY(), getTranslationZ());
 
-    glRotatef(currentRotation.x, 1.0, 0.0, 0.0);
-    glRotatef(currentRotation.y, 0.0, 1.0, 0.0);
-    glRotatef(currentRotation.z, 0.0, 0.0, 1.0);
+    glRotatef(getRotationX(), 1.0, 0.0, 0.0);
+    glRotatef(getRotationY(), 0.0, 1.0, 0.0);
+    glRotatef(getRotationZ(), 0.0, 0.0, 1.0);
 
-    glScalef(currentScale.x,currentScale.y,currentScale.z);
+    glScalef(getScaleX(),getScaleY(),getScaleZ());
+    glColor3d(getColorR(), getColorG(),getColorB());
 
-    glColor3d(red,green,blue);
+    // Translate to rotate about a given point
+    glTranslatef(rotationPointX, rotationPointY, rotationPointZ);
 }
+
+void Transform::setRotationPoint(float x, float y, float z)
+{
+    rotationPointX = x;
+    rotationPointY = y;
+    rotationPointZ = z;
+}
+

@@ -13,6 +13,10 @@ GLRenderer::GLRenderer(QWidget *parent)
     yRot = 5;
     zRot = 145;
 
+    /*
+        Robot controller is declared here because signals/slots require a UI
+        thread of their own to be running.
+    */
     RobotController *robotController = new RobotController();
 
     qtGreen = QColor::fromCmykF(0.40, 0.0, 1.0, 0.0);
@@ -104,9 +108,9 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightElbowTransform->interpolateRotationTo(-50,-20,0);
     robotRightElbowTransform->setColor(0,.5,.15);
 
-    robotTorsoTransform->interpolateScaleTo(.5,.5,.5);
-    robotTorsoTransform->interpolateTranslationTo(0,0,10,5000);
-    //robotTorsoTransform->interpolateRotationTo(45,0,0);
+
+    robotTorsoTransform->interpolateScaleTo(.25,.25,.25);
+    robotTorsoTransform->interpolateTranslationTo(0,0,10,5000);    
 }
 
 GLRenderer::~GLRenderer()

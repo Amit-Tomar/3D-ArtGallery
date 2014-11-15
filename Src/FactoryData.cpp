@@ -22,13 +22,11 @@ RobotArmBottom  *robotLeftBottom             = new RobotArmBottom();
 RobotHead       *robotHead                   = new RobotHead();
 Transform       *robotLeftThighTransform     = new Transform();
 Transform       *robotRightThighTransform    = new Transform();
-CustomRotatableTransform       *robotLeftKneeTransform      = new CustomRotatableTransform();
-CustomRotatableTransform       *robotRightKneeTransform     = new CustomRotatableTransform();
+Transform       *robotLeftKneeTransform      = new Transform();
+Transform       *robotRightKneeTransform     = new Transform();
 Transform       *robotLeftShoulderTransform  = new Transform();
 Transform       *robotRightShoulderTransform = new Transform();
 Transform       *robotLeftElbowTransform     = new Transform();
 Transform       *robotRightElbowTransform    = new Transform();
 Transform       *robotHeadTransform          = new Transform();
-CustomRotatableTransform *customRotationTransform  = new CustomRotatableTransform();
-//RobotController *robotController             = new RobotController();
 }

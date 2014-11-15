@@ -13,7 +13,6 @@
 #include <GroupNode.h>
 #include <Transform.h>
 #include <RobotController.h>
-#include <CustomRotatableTransform.h>
 
 namespace Factory
 {
@@ -37,8 +36,8 @@ extern RobotArmBottom  *robotLeftBottom             ;
 extern RobotHead       *robotHead                   ;
 extern Transform       *robotLeftThighTransform     ;
 extern Transform       *robotRightThighTransform    ;
-extern CustomRotatableTransform       *robotLeftKneeTransform      ;
-extern CustomRotatableTransform       *robotRightKneeTransform     ;
+extern Transform       *robotLeftKneeTransform      ;
+extern Transform       *robotRightKneeTransform     ;
 extern Transform       *robotLeftShoulderTransform  ;
 extern Transform       *robotRightShoulderTransform ;
 extern Transform       *robotLeftElbowTransform     ;
