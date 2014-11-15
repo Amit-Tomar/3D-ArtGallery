@@ -30,9 +30,12 @@ public:
     float getTranslationX(){ return currentTranslation.x; }
     float getTranslationY(){ return currentTranslation.y; }
     float getTranslationZ(){ return currentTranslation.z; }
-    float getColorR(){ return red; }
+    float getFinalTranslationX(){ return finalTranslationValue.x; }
+    float getFinalTranslationY(){ return finalTranslationValue.y; }
+    float getFinalTranslationZ(){ return finalTranslationValue.z; }
+    float getColorR(){ return red;   }
     float getColorG(){ return green; }
-    float getColorB(){ return blue; }
+    float getColorB(){ return blue;  }
 
     void stopRotation();
     void stopTranslation();

@@ -15,7 +15,8 @@ HEADERS       = \
     RobotLegBottom.h \
     RobotHead.h \
     RobotController.h \
-    FactoryData.h
+    FactoryData.h \
+    ModelRenderer.h
 
     TransformTypes.h \
 
@@ -38,7 +39,8 @@ SOURCES       = main.cpp \
     RobotLegBottom.cpp \
     RobotHead.cpp \
     RobotController.cpp \
-    FactoryData.cpp
+    FactoryData.cpp \
+    ModelRenderer.cpp
 
 
 QT           += opengl widgets

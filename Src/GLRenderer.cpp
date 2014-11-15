@@ -84,12 +84,12 @@ GLRenderer::GLRenderer(QWidget *parent)
 
     robotLeftKneeTransform->interpolateTranslationTo(0,-.40,0);
     robotLeftKneeTransform->setColor(.6,.3,0);
-    robotLeftKneeTransform->interpolateRotationTo(-60,0,0);
+    robotLeftKneeTransform->interpolateRotationTo(0,0,0);
     robotLeftKneeTransform->setRotationPoint(0,-.55,0);
 
     robotRightKneeTransform->interpolateTranslationTo(0,-.40,0);
     robotRightKneeTransform->setColor(.6,.3,0);
-    robotRightKneeTransform->interpolateRotationTo(-60,0,0);
+    robotRightKneeTransform->interpolateRotationTo(0,0,0);
     robotRightKneeTransform->setRotationPoint(0,-.55,0);
 
     robotLeftShoulderTransform->interpolateTranslationTo(-.35,.85,0);
@@ -109,8 +109,13 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightElbowTransform->setColor(0,.5,.15);
 
 
+    // For testing
     robotTorsoTransform->interpolateScaleTo(.25,.25,.25);
-    robotTorsoTransform->interpolateTranslationTo(0,0,10,5000);    
+    //robotTorsoTransform->interpolateTranslationTo(-10,0,10,5000);
+    //robotTorsoTransform->interpolateRotationTo(0, atan(robotTorsoTransform->getFinalTranslationX()/robotTorsoTransform->getFinalTranslationZ()) * 57.2957795130,0);
+    //robotTorsoTransform->interpolateRotationTo(0, 180,0);
+    //std::cout << "*** " << atan(1) * 57.2957795130 << std::endl ;
+    robotController->moveRobotTo(10, 10, 5000);
 }
 
 GLRenderer::~GLRenderer()
@@ -259,6 +264,13 @@ void GLRenderer::renderAxes()
     glVertex3f(0,0,0);
     glVertex3f(0,0,length);
     glEnd();
+
+    glPushMatrix();
+    glColor3f(.8,.8,0);
+    glScalef(5,.025,5);
+    glTranslatef(0.0,-25,0.0);
+    glutSolidCube(1);
+    glPopMatrix();
 }
 
 void GLRenderer::mouseMoveEvent(QMouseEvent *event)

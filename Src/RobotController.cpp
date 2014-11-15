@@ -8,9 +8,15 @@ RobotController::RobotController()
     connect(motionTimer, SIGNAL(timeout()), this, SLOT(updateRobotPosition()));
     robotLeftArmTopAngle = 60;
     lefthandMotionForward = true;
-    startRobotMotion(1.0);
     LEFT_ARM_MIN_ANGLE = 60 ;
     LEFT_ARM_MAX_ANGLE = 160;
+}
+
+void RobotController::moveRobotTo(float x , float z, float time)
+{
+    robotTorsoTransform->interpolateTranslationTo(x,0,z,time);
+    robotTorsoTransform->interpolateRotationTo(0, atan(robotTorsoTransform->getFinalTranslationX()/robotTorsoTransform->getFinalTranslationZ()) * 57.2957795130,0);
+    startRobotMotion(time);
 }
 
 void RobotController::startRobotMotion(float speed)

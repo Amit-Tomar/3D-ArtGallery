@@ -12,7 +12,8 @@ Q_OBJECT
 
 public:
     RobotController();
-    void startRobotMotion(float);
+
+    void moveRobotTo(float, float, float);
     void stopRobotMotion();
     void jumpRobot(float);
     void turnRobot(float, float, float);
@@ -22,6 +23,8 @@ private slots :
     void updateRobotPosition();
 
 private:
+
+    void startRobotMotion(float);
 
     QTimer  * motionTimer;
     float   robotLeftArmTopAngle;
