@@ -7,8 +7,6 @@ LightSource     *centralLightSource          = new LightSource();
 Camera          *camera                      = new Camera();
 GroupNode       *robotRootNode               = new GroupNode() ;
 GroupNode       *roomRootNode                = new GroupNode() ;
-Transform       *robotTorsoTransform         = new Transform();
-Transform       *roomCentralTransform        = new Transform();
 RoomModel       *roomModel                   = new RoomModel();
 RobotTorsoModel *robotTorso                  = new RobotTorsoModel();
 RobotLegTop     *robotLeftLegTop             = new RobotLegTop();
@@ -29,4 +27,6 @@ Transform       *robotRightShoulderTransform = new Transform();
 Transform       *robotLeftElbowTransform     = new Transform();
 Transform       *robotRightElbowTransform    = new Transform();
 Transform       *robotHeadTransform          = new Transform();
+Transform       *robotTorsoTransform         = new Transform();
+Transform       *roomCentralTransform        = new Transform();
 }

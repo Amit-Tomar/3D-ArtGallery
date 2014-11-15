@@ -17,7 +17,7 @@ GLRenderer::GLRenderer(QWidget *parent)
         Robot controller is declared here because signals/slots require a UI
         thread of their own to be running.
     */
-    RobotController *robotController = new RobotController();
+    robotController = new RobotController();
 
     qtGreen = QColor::fromCmykF(0.40, 0.0, 1.0, 0.0);
     qtPurple = QColor::fromCmykF(0.39, 0.39, 0.0, 0.0);
@@ -70,52 +70,48 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomRootNode->addChild(roomCentralTransform);
     roomCentralTransform->addChild(roomModel);
 
-    robotHeadTransform->interpolateTranslationTo(0,1.50,0);
+    robotHeadTransform->setTranslationTo(0,1.50,0);
     robotHeadTransform->setColor(1,0,0);
-    robotHeadTransform->interpolateScaleTo(1,1.25,1);
+    robotHeadTransform->setScaleTo(1,1.25,1);
 
     robotTorsoTransform->setColor(1,1,0);
 
-    robotLeftThighTransform->interpolateTranslationTo(-.30,-1,0);
+    robotLeftThighTransform->setTranslationTo(-.30,-1,0);
     robotLeftThighTransform->setColor(.8,.5,0);
 
-    robotRightThighTransform->interpolateTranslationTo( .30,-1,0);
+    robotRightThighTransform->setTranslationTo( .30,-1,0);
     robotRightThighTransform->setColor(.8,.5,0);
 
-    robotLeftKneeTransform->interpolateTranslationTo(0,-.40,0);
+    robotLeftKneeTransform->setTranslationTo(0,-.40,0);
     robotLeftKneeTransform->setColor(.6,.3,0);
-    robotLeftKneeTransform->interpolateRotationTo(0,0,0);
+    robotLeftKneeTransform->setRotationTo(0,0,0);
     robotLeftKneeTransform->setRotationPoint(0,-.55,0);
 
-    robotRightKneeTransform->interpolateTranslationTo(0,-.40,0);
+    robotRightKneeTransform->setTranslationTo(0,-.40,0);
     robotRightKneeTransform->setColor(.6,.3,0);
-    robotRightKneeTransform->interpolateRotationTo(0,0,0);
+    robotRightKneeTransform->setRotationTo(0,0,0);
     robotRightKneeTransform->setRotationPoint(0,-.55,0);
 
-    robotLeftShoulderTransform->interpolateTranslationTo(-.35,.85,0);
-    robotLeftShoulderTransform->interpolateRotationTo(90,-25,0);
+    robotLeftShoulderTransform->setTranslationTo(-.35,.85,0);
+    robotLeftShoulderTransform->setRotationTo(90,-25,0);
     robotLeftShoulderTransform->setColor(0,.8,.25);
 
-    robotRightShoulderTransform->interpolateTranslationTo(.35,.85,0);
-    robotRightShoulderTransform->interpolateRotationTo(90,25,0);
+    robotRightShoulderTransform->setTranslationTo(.35,.85,0);
+    robotRightShoulderTransform->setRotationTo(90,25,0);
     robotRightShoulderTransform->setColor(0,.8,.25);
 
-    robotLeftElbowTransform->interpolateTranslationTo(0,0,.90);
-    robotLeftElbowTransform->interpolateRotationTo(-50,20,0);
+    robotLeftElbowTransform->setTranslationTo(0,0,.90);
+    robotLeftElbowTransform->setRotationTo(-50,20,0);
     robotLeftElbowTransform->setColor(0,.5,.15);
 
-    robotRightElbowTransform->interpolateTranslationTo(0,0,.90);
-    robotRightElbowTransform->interpolateRotationTo(-50,-20,0);
+    robotRightElbowTransform->setTranslationTo(0,0,.90);
+    robotRightElbowTransform->setRotationTo(-50,-20,0);
     robotRightElbowTransform->setColor(0,.5,.15);
 
 
     // For testing
-    robotTorsoTransform->interpolateScaleTo(.25,.25,.25);
-    //robotTorsoTransform->interpolateTranslationTo(-10,0,10,5000);
-    //robotTorsoTransform->interpolateRotationTo(0, atan(robotTorsoTransform->getFinalTranslationX()/robotTorsoTransform->getFinalTranslationZ()) * 57.2957795130,0);
-    //robotTorsoTransform->interpolateRotationTo(0, 180,0);
-    //std::cout << "*** " << atan(1) * 57.2957795130 << std::endl ;
-    robotController->moveRobotTo(10, 10, 5000);
+    robotTorsoTransform->setScaleTo(.35,.35,.35);
+    robotController->moveRobotTo(-3,3);
 }
 
 GLRenderer::~GLRenderer()
@@ -232,6 +228,29 @@ void GLRenderer::resizeGL(int width, int height)
 void GLRenderer::mousePressEvent(QMouseEvent *event)
 {
     lastPos = event->pos();
+
+    float window_width,window_height;
+      float ratio_x,ratio_y,cy;
+      float click_x=event->x();
+      float click_y=event->y();
+      //  qDebug()<<"screen cx1==="<<cx1;
+      // qDebug()<<"screen cy1==="<<cy1;
+
+      window_width = 800;
+      window_height = 600;
+
+      ratio_x=30.0/window_width;
+      ratio_y=30.0/window_height;
+      cy=window_height-click_y;
+      click_x=click_x*ratio_x-10;
+      click_y=cy*ratio_y-10;
+
+      robotController->stopRobotMotion();
+      robotController->moveRobotTo(click_x,click_y);
+
+
+      qDebug()<<"original_position_on_screen x==="<<click_x;
+      qDebug()<<"original_position_on_screen y==="<<click_y;
 }
 
 /*
@@ -268,7 +287,7 @@ void GLRenderer::renderAxes()
     glPushMatrix();
     glColor3f(.8,.8,0);
     glScalef(5,.025,5);
-    glTranslatef(0.0,-25,0.0);
+    glTranslatef(0.0,-36,0.0);
     glutSolidCube(1);
     glPopMatrix();
 }

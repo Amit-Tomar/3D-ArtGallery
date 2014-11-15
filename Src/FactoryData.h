@@ -14,6 +14,8 @@
 #include <Transform.h>
 #include <RobotController.h>
 
+class Transform;
+
 namespace Factory
 {
 extern GroupNode       *scenegraphRootNode          ;
@@ -21,8 +23,6 @@ extern LightSource     *centralLightSource          ;
 extern Camera          *camera                      ;
 extern GroupNode       *robotRootNode               ;
 extern GroupNode       *roomRootNode                ;
-extern Transform       *robotTorsoTransform         ;
-extern Transform       *roomCentralTransform        ;
 extern RoomModel       *roomModel                   ;
 extern RobotTorsoModel *robotTorso                  ;
 extern RobotLegTop     *robotLeftLegTop             ;
@@ -43,6 +43,8 @@ extern Transform       *robotRightShoulderTransform ;
 extern Transform       *robotLeftElbowTransform     ;
 extern Transform       *robotRightElbowTransform    ;
 extern Transform       *robotHeadTransform          ;
+extern Transform       *robotTorsoTransform         ;
+extern Transform       *roomCentralTransform        ;
 //extern RobotController *robotController           ;
 }
 

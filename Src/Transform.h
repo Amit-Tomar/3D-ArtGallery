@@ -1,11 +1,15 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
+#include <qobject.h>
 #include <QTimer>
 #include <iostream>
 #include <cmath>
 #include "Node.h"
 #include "TransformTypes.h"
+#include <FactoryData.h>
+
+class ScenegraphNode;
 
 class Transform:  public QObject, public ScenegraphNode
 {
@@ -16,11 +20,12 @@ public:
     ~Transform();
 
     void traverseNode();
-    void interpolateRotationTo(float,float,float,unsigned int=0);
-    void interpolateTranslationTo(float,float,float,unsigned int=0);
-    void interpolateScaleTo(float,float,float,unsigned int=0);
+    void setRotationTo(float,float,float);
+    void setTranslationTo(float,float,float);
+    void setScaleTo(float,float,float);
     void setColor(double,double,double);
 
+    void  setRotationPoint(float,float,float);
     float getRotationX(){ return currentRotation.x; }
     float getRotationY(){ return currentRotation.y; }
     float getRotationZ(){ return currentRotation.z; }
@@ -30,35 +35,12 @@ public:
     float getTranslationX(){ return currentTranslation.x; }
     float getTranslationY(){ return currentTranslation.y; }
     float getTranslationZ(){ return currentTranslation.z; }
-    float getFinalTranslationX(){ return finalTranslationValue.x; }
-    float getFinalTranslationY(){ return finalTranslationValue.y; }
-    float getFinalTranslationZ(){ return finalTranslationValue.z; }
     float getColorR(){ return red;   }
     float getColorG(){ return green; }
     float getColorB(){ return blue;  }
 
-    void stopRotation();
-    void stopTranslation();
-
-    void setRotationPoint(float,float,float);
-
 private slots :
 
-    void incrementXRotation();
-    void incrementYRotation();
-    void incrementZRotation();
-
-    void decrementXRotation();
-    void decrementYRotation();
-    void decrementZRotation();
-
-    void incrementXTranslation();
-    void incrementYTranslation();
-    void incrementZTranslation();
-
-    void decrementXTranslation();
-    void decrementYTranslation();
-    void decrementZTranslation();
     virtual void applyTransformation();
 
 private:
@@ -66,28 +48,6 @@ private:
     Rotation currentRotation;
     Translation currentTranslation;
     Scale currentScale;
-
-    Rotation rotationIncrement;
-    Translation translationIncrement;
-
-    Rotation finalRotationValue;
-    Translation finalTranslationValue;
-
-    QTimer *timer1RotationIncrement;
-    QTimer *timer2RotationIncrement;
-    QTimer *timer3RotationIncrement;
-
-    QTimer *timer1RotationDecrement;
-    QTimer *timer2RotationDecrement;
-    QTimer *timer3RotationDecrement;
-
-    QTimer *timer1TranslationIncrement;
-    QTimer *timer2TranslationIncrement;
-    QTimer *timer3TranslationIncrement;
-
-    QTimer *timer1TranslationDecrement;
-    QTimer *timer2TranslationDecrement;
-    QTimer *timer3TranslationDecrement;
 
     double red,green,blue;
 

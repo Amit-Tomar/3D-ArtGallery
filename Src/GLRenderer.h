@@ -51,6 +51,7 @@ private:
     float lightPositionY;
     float lightPositionZ;
     bool  lightMovementEnabled;
+    RobotController *robotController;
 
     Quaternions quaternion;
 };
