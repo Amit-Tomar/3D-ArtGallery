@@ -18,6 +18,8 @@ RobotArmTop     *robotLeftArmTop             = new RobotArmTop();
 RobotArmBottom  *robotRightBottom            = new RobotArmBottom();
 RobotArmBottom  *robotLeftBottom             = new RobotArmBottom();
 RobotHead       *robotHead                   = new RobotHead();
+RobotShoe       *robotLeftShoe               = new RobotShoe();
+RobotShoe       *robotRightShoe              = new RobotShoe();
 Transform       *robotLeftThighTransform     = new Transform();
 Transform       *robotRightThighTransform    = new Transform();
 Transform       *robotLeftKneeTransform      = new Transform();
@@ -29,4 +31,6 @@ Transform       *robotRightElbowTransform    = new Transform();
 Transform       *robotHeadTransform          = new Transform();
 Transform       *robotTorsoTransform         = new Transform();
 Transform       *roomCentralTransform        = new Transform();
+Transform       *robotLeftShoeTransform      = new Transform();
+Transform       *robotRightShoeTransform     = new Transform();
 }

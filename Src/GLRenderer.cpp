@@ -67,8 +67,18 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightLegTop->addChild(robotRightKneeTransform);
     robotRightKneeTransform->addChild(robotRightLegBottom);
 
+    // Left shoe
+    robotLeftLegBottom->addChild(robotLeftShoeTransform);
+    robotLeftShoeTransform->addChild(robotLeftShoe);
+
+    // Right shoe
+    robotRightLegBottom->addChild(robotRightShoeTransform);
+    robotRightShoeTransform->addChild(robotRightShoe);
+
     roomRootNode->addChild(roomCentralTransform);
     roomCentralTransform->addChild(roomModel);
+
+    // Apply Transforms
 
     robotHeadTransform->setTranslationTo(0,1.50,0);
     robotHeadTransform->setColor(1,0,0);
@@ -108,10 +118,16 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightElbowTransform->setRotationTo(-50,-20,0);
     robotRightElbowTransform->setColor(0,.5,.15);
 
+    robotLeftShoeTransform->setTranslationTo(0,-.70,.15);
+    robotLeftShoeTransform->setRotationTo(90,0,0);
+
+    robotRightShoeTransform->setTranslationTo(0,-.70,.15);
+    robotRightShoeTransform->setRotationTo(90,0,0);
+
 
     // For testing
     robotTorsoTransform->setScaleTo(.35,.35,.35);
-    robotController->moveRobotTo(-3,3);
+    robotController->moveRobotTo(5,3);
 }
 
 GLRenderer::~GLRenderer()
@@ -245,12 +261,11 @@ void GLRenderer::mousePressEvent(QMouseEvent *event)
       click_x=click_x*ratio_x-10;
       click_y=cy*ratio_y-10;
 
-      robotController->stopRobotMotion();
-      robotController->moveRobotTo(click_x,click_y);
+      //robotController->stopRobotMotion();
+      //robotController->moveRobotTo(click_x,click_y);
 
-
-      qDebug()<<"original_position_on_screen x==="<<click_x;
-      qDebug()<<"original_position_on_screen y==="<<click_y;
+      //qDebug()<<"original_position_on_screen x==="<<click_x;
+      //qDebug()<<"original_position_on_screen y==="<<click_y;
 }
 
 /*
@@ -258,8 +273,6 @@ void GLRenderer::mousePressEvent(QMouseEvent *event)
 */
 void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
 {
-
-
     glDraw();
     update();
 }
@@ -287,7 +300,7 @@ void GLRenderer::renderAxes()
     glPushMatrix();
     glColor3f(.8,.8,0);
     glScalef(5,.025,5);
-    glTranslatef(0.0,-36,0.0);
+    glTranslatef(0.0,-40,0.0);
     glutSolidCube(1);
     glPopMatrix();
 }

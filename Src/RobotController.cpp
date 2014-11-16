@@ -6,20 +6,20 @@ RobotController::RobotController()
 {
     robotLeftArmTopAngle = 60;
     lefthandMotionForward = true;
-    LEFT_ARM_MIN_ANGLE   = 50 ;
-    LEFT_ARM_MAX_ANGLE   = 150;
-    LEFT_THIGH_MIN_ANGLE = 50 ;
-    LEFT_THIGH_MAX_ANGLE = -50;
-    robotSpeed = .0001;
+    INTERPOLATION_MIN   = 0 ;
+    INTERPOLATION_MAX   = 100;
+    robotSpeed = .0003;
     animationRobotX = new QPropertyAnimation(this, "robotX");
+    animationRobotY = new QPropertyAnimation(this, "robotY");
     animationRobotZ = new QPropertyAnimation(this, "robotZ");
-    animationLeftHandShoulderAngle  = new QPropertyAnimation(this, "leftHandShoulderAngle");
-    animationLeftLegThighAngle      = new QPropertyAnimation(this, "leftLegThighAngle");
+    interpolationVariableAnimation  = new QPropertyAnimation(this, "interpolationVariable");
 
-    QObject::connect(this, SIGNAL(robotZChanged(float)), this, SLOT(updateRobotZ()));
     QObject::connect(this, SIGNAL(robotXChanged(float)), this, SLOT(updateRobotX()));
-    QObject::connect(this, SIGNAL(leftHandShoulderAngleChanged(float)), this, SLOT(updateRobotLeftShoulderAngle()));
-    QObject::connect(this, SIGNAL(leftLegThighAngleChanged(float)), this, SLOT(updateLeftLegThighAngle()));
+    QObject::connect(this, SIGNAL(robotYChanged(float)), this, SLOT(updateRobotY()));
+    QObject::connect(this, SIGNAL(robotZChanged(float)), this, SLOT(updateRobotZ()));
+
+    QObject::connect(animationRobotX, SIGNAL(finished()), this, SLOT(stopRobotMotion()));
+    QObject::connect(this, SIGNAL(interpolationVariableChanged(float)), this, SLOT(updateRobotLeftShoulderAngle()));
 }
 
 void RobotController::moveRobotTo(float finalX , float finalZ )
@@ -37,8 +37,7 @@ void RobotController::moveRobotTo(float finalX , float finalZ )
 
     animationRobotX->setDuration(time);
     animationRobotZ->setDuration(time);
-    animationLeftHandShoulderAngle->setDuration(2000);
-    animationLeftLegThighAngle->setDuration(2000);
+    interpolationVariableAnimation->setDuration(2000);
 
     animationRobotX->setKeyValueAt (0, robotTorsoTransform->getTranslationX());
     animationRobotX->setKeyValueAt (1, finalX );
@@ -48,24 +47,30 @@ void RobotController::moveRobotTo(float finalX , float finalZ )
     animationRobotZ->setKeyValueAt (1, finalZ );
     animationRobotZ->start();
 
-    animationLeftHandShoulderAngle->setKeyValueAt(0,LEFT_ARM_MIN_ANGLE);
-    animationLeftHandShoulderAngle->setKeyValueAt(.5,LEFT_ARM_MAX_ANGLE);
-    animationLeftHandShoulderAngle->setKeyValueAt(1,LEFT_ARM_MIN_ANGLE);
-    animationLeftHandShoulderAngle->setLoopCount(-1);
-    animationLeftHandShoulderAngle->start();
-
-    animationLeftLegThighAngle->setKeyValueAt(0,LEFT_THIGH_MIN_ANGLE);
-    animationLeftLegThighAngle->setKeyValueAt(.5,LEFT_THIGH_MAX_ANGLE);
-    animationLeftLegThighAngle->setKeyValueAt(1,LEFT_THIGH_MIN_ANGLE);
-    animationLeftLegThighAngle->setLoopCount(-1);
-    animationLeftLegThighAngle->start();
+    interpolationVariableAnimation->setKeyValueAt(0,INTERPOLATION_MIN);
+    interpolationVariableAnimation->setKeyValueAt(.5,INTERPOLATION_MAX);
+    interpolationVariableAnimation->setKeyValueAt(1,INTERPOLATION_MIN);
+    interpolationVariableAnimation->setLoopCount(-1);
+    interpolationVariableAnimation->start();
 }
 
 void RobotController::stopRobotMotion()
 {
-    animationLeftHandShoulderAngle->stop();
+    interpolationVariableAnimation->stop();
     animationRobotX->stop();
     animationRobotZ->stop();
+
+    robotLeftThighTransform->setTranslationTo(-.30,-1,0);
+    robotRightThighTransform->setTranslationTo( .30,-1,0);
+    robotLeftThighTransform->setRotationTo(0,0,0);
+    robotRightThighTransform->setRotationTo(0,0,0);
+    robotLeftKneeTransform->setRotationTo(0,0,0);
+    robotRightKneeTransform->setRotationTo(0,0,0);
+
+    robotLeftShoulderTransform->setRotationTo(90,-25,0);
+    robotRightShoulderTransform->setRotationTo(90,25,0);
+    robotLeftElbowTransform->setRotationTo(-50,20,0);
+    robotRightElbowTransform->setRotationTo(-50,-20,0);
 }
 
 void RobotController::jumpRobot(float height)
@@ -83,6 +88,11 @@ void RobotController::updateRobotX()
     robotTorsoTransform->setTranslationTo(m_robotX,robotTorsoTransform->getTranslationY(),robotTorsoTransform->getTranslationZ());
 }
 
+void RobotController::updateRobotY()
+{
+    robotTorsoTransform->setTranslationTo(robotTorsoTransform->getTranslationX(),m_robotY,robotTorsoTransform->getTranslationZ());
+}
+
 void RobotController::updateRobotZ()
 {
     robotTorsoTransform->setTranslationTo(robotTorsoTransform->getTranslationX(),robotTorsoTransform->getTranslationY(), m_robotZ);
@@ -90,48 +100,58 @@ void RobotController::updateRobotZ()
 
 void RobotController::updateRobotLeftShoulderAngle()
 {
-    robotLeftShoulderTransform->setRotationTo(m_leftHandShoulderAngle,robotLeftShoulderTransform->getRotationY(), robotLeftShoulderTransform->getRotationZ());
+    /*
+        If var X goes from 0 - 100
+        and we want to interpolate Y from c to d
+
+        Y = (d-c)*X/100 + c
+
+        If var X goes from a - b
+        and we want to interpolate Y from c to d
+
+        Y = (d-c)*(X-a)/(b-a) + c
+    */
+    robotLeftShoulderTransform->setRotationTo( ((130-70)*m_interpolationVariable)/100 + 70  ,robotLeftShoulderTransform->getRotationY(), robotLeftShoulderTransform->getRotationZ());
     updateRobotRightShoulderAngle();
+    updateLeftLegThighAngle();
+    updateLeftLegKneeAngle();
+    updateRightLegKneeAngle();
+    updateRightLegThighAngle();
 }
 
 void RobotController::updateRobotRightShoulderAngle()
 {
-    robotRightShoulderTransform->setRotationTo(LEFT_ARM_MAX_ANGLE + LEFT_ARM_MIN_ANGLE - m_leftHandShoulderAngle,robotRightShoulderTransform->getRotationY(), robotRightShoulderTransform->getRotationZ());
+    robotRightShoulderTransform->setRotationTo( ((70-130)*m_interpolationVariable)/100 + 130   ,robotRightShoulderTransform->getRotationY(), robotRightShoulderTransform->getRotationZ());
 }
 
 void RobotController::updateLeftLegThighAngle()
 {
         robotLeftThighTransform->setRotationTo(
-                    m_leftLegThighAngle,
+                    ((-35-30)*m_interpolationVariable)/100 + 30,
                     robotLeftThighTransform->getRotationY(),
                     robotLeftThighTransform->getRotationZ());
-
-        updateLeftLegKneeAngle();
-        updateRightLegThighAngle();
-}
-
-void RobotController::updateRightLegThighAngle()
-{
-    robotRightThighTransform->setRotationTo(
-                -m_leftLegThighAngle,
-                robotRightThighTransform->getRotationY(),
-                robotRightThighTransform->getRotationZ());
-
-    updateRightLegKneeAngle();
-}
-
-void RobotController::updateRightLegKneeAngle()
-{
-    robotRightKneeTransform->setRotationTo(
-                -((LEFT_THIGH_MAX_ANGLE - m_leftLegThighAngle)/3),
-                robotRightKneeTransform->getRotationY(),
-                robotRightThighTransform->getRotationZ());
 }
 
 void RobotController::updateLeftLegKneeAngle()
 {
     robotLeftKneeTransform->setRotationTo(
-                (LEFT_THIGH_MIN_ANGLE - m_leftLegThighAngle)/3,
+                ((5-20)*m_interpolationVariable)/100 + 20,
                 robotLeftKneeTransform->getRotationY(),
                 robotLeftKneeTransform->getRotationZ());
+}
+
+void RobotController::updateRightLegThighAngle()
+{
+    robotRightThighTransform->setRotationTo(
+                -((-35-30)*m_interpolationVariable)/100 - 30,
+                robotRightThighTransform->getRotationY(),
+                robotRightThighTransform->getRotationZ());
+}
+
+void RobotController::updateRightLegKneeAngle()
+{
+    robotRightKneeTransform->setRotationTo(
+                ((5-20)*m_interpolationVariable)/100 + 20,
+                robotRightKneeTransform->getRotationY(),
+                robotRightThighTransform->getRotationZ());
 }

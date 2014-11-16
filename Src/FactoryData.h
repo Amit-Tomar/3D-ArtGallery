@@ -13,6 +13,7 @@
 #include <GroupNode.h>
 #include <Transform.h>
 #include <RobotController.h>
+#include <RobotShoe.h>
 
 class Transform;
 
@@ -34,6 +35,8 @@ extern RobotArmTop     *robotLeftArmTop             ;
 extern RobotArmBottom  *robotRightBottom            ;
 extern RobotArmBottom  *robotLeftBottom             ;
 extern RobotHead       *robotHead                   ;
+extern RobotShoe       *robotLeftShoe               ;
+extern RobotShoe       *robotRightShoe              ;
 extern Transform       *robotLeftThighTransform     ;
 extern Transform       *robotRightThighTransform    ;
 extern Transform       *robotLeftKneeTransform      ;
@@ -45,6 +48,8 @@ extern Transform       *robotRightElbowTransform    ;
 extern Transform       *robotHeadTransform          ;
 extern Transform       *robotTorsoTransform         ;
 extern Transform       *roomCentralTransform        ;
+extern Transform       *robotLeftShoeTransform      ;
+extern Transform       *robotRightShoeTransform     ;
 //extern RobotController *robotController           ;
 }
 

@@ -12,11 +12,10 @@ class RobotController : public QObject
 Q_OBJECT
 
 Q_PROPERTY(float robotX READ robotX WRITE setRobotX NOTIFY robotXChanged)
+Q_PROPERTY(float robotY READ robotY WRITE setRobotY NOTIFY robotYChanged)
 Q_PROPERTY(float robotZ READ robotZ WRITE setRobotZ NOTIFY robotZChanged)
 
-Q_PROPERTY(float leftHandShoulderAngle  READ leftHandShoulderAngle  WRITE setLeftHandShoulderAngle  NOTIFY leftHandShoulderAngleChanged )
-
-Q_PROPERTY(float leftLegThighAngle  READ leftLegThighAngle  WRITE setLeftLegThighAngle  NOTIFY leftLegThighAngleChanged )
+Q_PROPERTY(float interpolationVariable  READ interpolationVariable  WRITE setInterpolationVariable  NOTIFY interpolationVariableChanged )
 
 public:
     RobotController();
@@ -24,18 +23,22 @@ public:
     void  moveRobotTo(float, float);
     void  jumpRobot(float);
     void  turnRobot(float, float, float);
-    void  setRobotX(float robotX){ m_robotX = robotX; emit robotXChanged(robotX);}
-    float robotX() const { return m_robotX; }
-    void  setRobotZ(float robotZ){ m_robotZ = robotZ; emit robotZChanged(robotZ);}
+
     float robotZ() const { return m_robotZ; }
-    void  setLeftHandShoulderAngle( float angle ){ m_leftHandShoulderAngle = angle; emit leftHandShoulderAngleChanged(angle); }
-    float leftHandShoulderAngle()const { return m_leftHandShoulderAngle; }
-    float leftLegThighAngle()const { return m_leftLegThighAngle; }
-    void  setLeftLegThighAngle(float angle) { m_leftLegThighAngle = angle ; emit leftLegThighAngleChanged(angle) ; }
+    float robotX() const { return m_robotX; }
+    float robotY() const { return m_robotY; }
+
+    void  setRobotX(float robotX){ m_robotX = robotX; emit robotXChanged(robotX);}
+    void  setRobotY(float robotY){ m_robotY = robotY; emit robotYChanged(robotY);}
+    void  setRobotZ(float robotZ){ m_robotZ = robotZ; emit robotZChanged(robotZ);}
+
+    void  setInterpolationVariable( float value ){ m_interpolationVariable = value; emit interpolationVariableChanged(value); }
+    float interpolationVariable()const { return m_interpolationVariable; }
 
 private slots:
 
     void updateRobotX();
+    void updateRobotY();
     void updateRobotZ();
     void updateRobotLeftShoulderAngle();
     void updateRobotRightShoulderAngle();
@@ -46,9 +49,9 @@ private slots:
 
 signals:
     void    robotXChanged(float);
+    void    robotYChanged(float);
     void    robotZChanged(float);
-    float   leftHandShoulderAngleChanged(float);
-    float   leftLegThighAngleChanged(float);
+    float   interpolationVariableChanged(float);
 
 public slots:
 
@@ -60,23 +63,22 @@ private:
 
     float   robotLeftArmTopAngle;
     bool    lefthandMotionForward;
-    float   LEFT_ARM_MIN_ANGLE;
-    float   LEFT_ARM_MAX_ANGLE;
-    float   LEFT_THIGH_MIN_ANGLE;
-    float   LEFT_THIGH_MAX_ANGLE;
+    float   INTERPOLATION_MIN;
+    float   INTERPOLATION_MAX;
     float   robotSpeed;
     float   robotDestinationX;
+    float   robotDestinationY;
     float   robotDestinationZ;
 
     float   m_robotX;
+    float   m_robotY;
     float   m_robotZ;
-    float   m_leftHandShoulderAngle;
-    float   m_leftLegThighAngle;
+    float   m_interpolationVariable;
 
     QPropertyAnimation * animationRobotX;
+    QPropertyAnimation * animationRobotY;
     QPropertyAnimation * animationRobotZ;
-    QPropertyAnimation * animationLeftHandShoulderAngle;
-    QPropertyAnimation * animationLeftLegThighAngle;
+    QPropertyAnimation * interpolationVariableAnimation;
 };
 
 #endif // ROBOTCONTROLLER_H
