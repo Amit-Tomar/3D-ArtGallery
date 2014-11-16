@@ -18,8 +18,7 @@ HEADERS       = \
     ModelRenderer.h \
     RobotShoe.h \
     RobotTorsoModel.h \
-    BuildingBlock.h
-
+    BuildingBlock.h \
     TransformTypes.h \
 
 
@@ -49,7 +48,7 @@ SOURCES       = main.cpp \
 
 QT           += opengl widgets
 
-LIBS += -lassimp -lGL -lGLU -lGLEW -lglut
+LIBS += -lGL -lGLU -lGLEW -lglut
 
 OTHER_FILES += \
     vshader.glsl \

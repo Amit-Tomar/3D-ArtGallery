@@ -34,5 +34,5 @@ Transform       *roomCentralTransform        = new Transform();
 Transform       *robotLeftShoeTransform      = new Transform();
 Transform       *robotRightShoeTransform     = new Transform();
 Transform       *roomFloorTransform          = new Transform();
-BuildingBlock   *roomFloor                   = new BuildingBlock("wall.bmp");
+BuildingBlock   *roomFloor                   = new BuildingBlock("../Textures/wall_small.bmp");
 }

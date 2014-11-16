@@ -1,4 +1,6 @@
-#include <QtWidgets>
+#include <QWidget>
+#include <QHBoxLayout>
+#include <QKeyEvent>
 
 #include "GLRenderer.h"
 #include "Window.h"
