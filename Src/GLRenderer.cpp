@@ -1,4 +1,4 @@
-#include <QtWidgets>
+#include <QWidget>
 #include <QtOpenGL>
 #include <math.h>
 #include "GLRenderer.h"
@@ -128,9 +128,10 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightShoeTransform->setRotationTo(90,0,0);
 
     // Room transforms
-    roomFloorTransform->setTranslationTo(0,-1.2,0);
-    roomFloorTransform->setScaleTo(10,.25,10);
-    roomFloorTransform->setColor(1,0,0);
+    roomFloorTransform->setTranslationTo(0,-1,0);
+    roomFloorTransform->setScaleTo(20,1,20);
+    //roomFloorTransform->setRotationTo(-90,0,0);
+    //roomFloorTransform->setColor(1,0,0);
 
 
     // For testing
