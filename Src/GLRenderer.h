@@ -43,6 +43,7 @@ private:
     QPoint lastPos;
     QColor qtGreen;
     QColor qtPurple;
+
     float scale;
     float translateX;
     float translateY;

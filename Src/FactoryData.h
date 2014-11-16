@@ -1,7 +1,7 @@
 #ifndef FACTORYDATA_H
 #define FACTORYDATA_H
 
-#include "RobotTorseModel.h"
+#include "RobotTorsoModel.h"
 #include "RoomModel.h"
 #include "RobotArmBottom.h"
 #include "RobotArmTop.h"
@@ -14,6 +14,7 @@
 #include <Transform.h>
 #include <RobotController.h>
 #include <RobotShoe.h>
+#include <BuildingBlock.h>
 
 class Transform;
 
@@ -50,6 +51,10 @@ extern Transform       *robotTorsoTransform         ;
 extern Transform       *roomCentralTransform        ;
 extern Transform       *robotLeftShoeTransform      ;
 extern Transform       *robotRightShoeTransform     ;
+extern Transform       *roomFloorTransform          ;
+extern BuildingBlock   *roomFloor                   ;
+
+
 //extern RobotController *robotController           ;
 }
 

@@ -7,7 +7,6 @@ HEADERS       = \
     LightSource.h \
     Camera.h \
     GroupNode.h \
-    RobotTorseModel.h \
     RoomModel.h \
     RobotArmTop.h \
     RobotArmBottom.h \
@@ -17,7 +16,9 @@ HEADERS       = \
     RobotController.h \
     FactoryData.h \
     ModelRenderer.h \
-    RobotShoe.h
+    RobotShoe.h \
+    RobotTorsoModel.h \
+    BuildingBlock.h
 
     TransformTypes.h \
 
@@ -32,7 +33,6 @@ SOURCES       = main.cpp \
     LightSource.cpp \
     Camera.cpp \
     GroupNode.cpp \
-    RobotTorseModel.cpp \
     RoomModel.cpp \
     RobotArmTop.cpp \
     RobotArmBottom.cpp \
@@ -42,7 +42,9 @@ SOURCES       = main.cpp \
     RobotController.cpp \
     FactoryData.cpp \
     ModelRenderer.cpp \
-    RobotShoe.cpp
+    RobotShoe.cpp \
+    RobotTorsoModel.cpp \
+    BuildingBlock.cpp
 
 
 QT           += opengl widgets

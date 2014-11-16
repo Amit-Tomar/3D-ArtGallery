@@ -35,7 +35,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     scenegraphRootNode->addChild(camera);
     scenegraphRootNode->addChild(centralLightSource);
     scenegraphRootNode->addChild(robotRootNode);
-    scenegraphRootNode->addChild(roomRootNode);
+    scenegraphRootNode->addChild(roomCentralTransform);
 
     robotRootNode->addChild(robotTorsoTransform);
     robotTorsoTransform->addChild(robotTorso);
@@ -75,8 +75,11 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightLegBottom->addChild(robotRightShoeTransform);
     robotRightShoeTransform->addChild(robotRightShoe);
 
-    roomRootNode->addChild(roomCentralTransform);
-    roomCentralTransform->addChild(roomModel);
+    // Add room walls
+
+    roomCentralTransform->addChild(roomRootNode);
+    roomRootNode->addChild(roomFloorTransform);
+    roomFloorTransform->addChild(roomFloor);
 
     // Apply Transforms
 
@@ -123,6 +126,11 @@ GLRenderer::GLRenderer(QWidget *parent)
 
     robotRightShoeTransform->setTranslationTo(0,-.70,.15);
     robotRightShoeTransform->setRotationTo(90,0,0);
+
+    // Room transforms
+    roomFloorTransform->setTranslationTo(0,-1.2,0);
+    roomFloorTransform->setScaleTo(10,.25,10);
+    roomFloorTransform->setColor(1,0,0);
 
 
     // For testing
@@ -229,7 +237,7 @@ void GLRenderer::paintGL()
 }
 
 void GLRenderer::resizeGL(int width, int height)
-{
+{    
     int side = qMin(width, height);
     //@TBD To check, why this ?
     glViewport((width - side) / 2, (height - side) / 2, side, side);
@@ -237,7 +245,8 @@ void GLRenderer::resizeGL(int width, int height)
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-0.5, +0.5, -0.5, +0.5, 4.0, 15.0);
+    //gluPerspective(45,width/height,1,100);
+    glOrtho(-1, +1, -1, +1, 4.0, 15.0);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -245,27 +254,38 @@ void GLRenderer::mousePressEvent(QMouseEvent *event)
 {
     lastPos = event->pos();
 
-    float window_width,window_height;
-      float ratio_x,ratio_y,cy;
-      float click_x=event->x();
-      float click_y=event->y();
-      //  qDebug()<<"screen cx1==="<<cx1;
-      // qDebug()<<"screen cy1==="<<cy1;
+//    float window_width,window_height;
+//      float ratio_x,ratio_y,cy;
+//      float click_x=event->x();
+//      float click_y=event->y();
+//      //  qDebug()<<"screen cx1==="<<cx1;
+//      // qDebug()<<"screen cy1==="<<cy1;
 
-      window_width = 800;
-      window_height = 600;
+//      window_width  = this->width();
+//      window_height = this->height();
 
-      ratio_x=30.0/window_width;
-      ratio_y=30.0/window_height;
-      cy=window_height-click_y;
-      click_x=click_x*ratio_x-10;
-      click_y=cy*ratio_y-10;
+//      ratio_x=30.0/window_width;
+//      ratio_y=30.0/window_height;
+//      cy=window_height-click_y;
+//      click_x=click_x*ratio_x-10;
+//      click_y=cy*ratio_y-10;
 
-      //robotController->stopRobotMotion();
-      //robotController->moveRobotTo(click_x,click_y);
+//      //robotController->stopRobotMotion();
+//      //robotController->moveRobotTo(click_x,click_y);
 
-      //qDebug()<<"original_position_on_screen x==="<<click_x;
-      //qDebug()<<"original_position_on_screen y==="<<click_y;
+////      //qDebug()<<"original_position_on_screen x==="<<click_x;
+////      //qDebug()<<"original_position_on_screen y==="<<click_y;
+
+//        lastPos = event->pos();
+//        GLfloat wx=click_x;
+//        GLfloat wy=click_y;
+//        GLfloat wz;
+//        glReadPixels(wx,wy,1,1,GL_DEPTH_COMPONENT,GL_FLOAT,&wz);
+//        //printf("--- %f %f %f\n", wx,wy,wz);// wx,wy and wz are x,y,z coordinates on mouse click
+//        std::cout << "---   " << wx << "  " << wy << "   " << wz << "  " << std::endl;
+
+//        //robotController->stopRobotMotion();
+//        robotController->moveRobotTo(wx,wz);
 }
 
 /*
@@ -297,12 +317,13 @@ void GLRenderer::renderAxes()
     glVertex3f(0,0,length);
     glEnd();
 
-    glPushMatrix();
-    glColor3f(.8,.8,0);
-    glScalef(5,.025,5);
-    glTranslatef(0.0,-40,0.0);
-    glutSolidCube(1);
-    glPopMatrix();
+    //Glut floor
+//    glPushMatrix();
+//    glColor3f(.8,.8,0);
+//    glScalef(5,.025,5);
+//    glTranslatef(0.0,-40,0.0);
+//    glutSolidCube(1);
+//    glPopMatrix();
 }
 
 void GLRenderer::mouseMoveEvent(QMouseEvent *event)
