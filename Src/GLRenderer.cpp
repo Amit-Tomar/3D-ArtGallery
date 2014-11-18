@@ -78,8 +78,24 @@ GLRenderer::GLRenderer(QWidget *parent)
     // Add room walls
 
     roomCentralTransform->addChild(roomRootNode);
+
     roomRootNode->addChild(roomFloorTransform);
     roomFloorTransform->addChild(roomFloor);
+
+    roomRootNode->addChild(roomLeftWallTransform);
+    roomLeftWallTransform->addChild(roomLeftWall);
+
+    roomRootNode->addChild(roomRightWallTransform);
+    roomRightWallTransform->addChild(roomRightWal);
+
+    roomRootNode->addChild(roomFrontWallTransform);
+    roomFrontWallTransform->addChild(roomFrontWal);
+
+//    roomRootNode->addChild(roomBackWallTransform);
+//    roomBackWallTransform->addChild(roomBackWall);
+
+//    roomRootNode->addChild(roomCeilingTransform);
+//    roomCeilingTransform->addChild(roomCeiling);
 
     // Apply Transforms
 
@@ -88,6 +104,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotHeadTransform->setScaleTo(1,1.25,1);
 
     robotTorsoTransform->setColor(1,1,0);
+    robotTorsoTransform->setTranslationTo(0,0,0);
 
     robotLeftThighTransform->setTranslationTo(-.30,-1,0);
     robotLeftThighTransform->setColor(.8,.5,0);
@@ -127,16 +144,28 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightShoeTransform->setTranslationTo(0,-.70,.15);
     robotRightShoeTransform->setRotationTo(90,0,0);
 
-    // Room transforms
-    roomFloorTransform->setTranslationTo(0,-1,0);
-    roomFloorTransform->setScaleTo(20,1,20);
-    //roomFloorTransform->setRotationTo(-90,0,0);
-    //roomFloorTransform->setColor(1,0,0);
 
+    unsigned int roomScale = 40 ;
+
+    // Room transforms
+    roomFloorTransform->setTranslationTo(0,-8,0);
+    roomFloorTransform->setScaleTo(roomScale* 1.5,roomScale* 1.5,roomScale* 3.5);
+
+    roomLeftWallTransform->setTranslationTo(-30,10,0);
+    roomLeftWallTransform->setScaleTo(roomScale,1,roomScale);
+    roomLeftWallTransform->setRotationTo(0,0,-90);
+
+    roomRightWallTransform->setTranslationTo(30,10,0);
+    roomRightWallTransform->setScaleTo(roomScale,1,roomScale);
+    roomRightWallTransform->setRotationTo(0,0,90);
+
+    roomFrontWallTransform->setTranslationTo(0,0,-20);
+    roomFrontWallTransform->setScaleTo(roomScale*1.5,1,roomScale*1.5);
+    roomFrontWallTransform->setRotationTo(90,0,0);
 
     // For testing
-    robotTorsoTransform->setScaleTo(.35,.35,.35);
-    robotController->moveRobotTo(5,3);
+    robotTorsoTransform->setScaleTo(2.5,2.5,2.5);
+    robotController->moveRobotTo(0,-15);
 }
 
 GLRenderer::~GLRenderer()
@@ -215,6 +244,7 @@ void GLRenderer::paintGL()
 
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
+    /* For rotating the scene using mouse
     glTranslatef( 0.0, 0.0, -10.0);
     glRotatef(xRot / 16.0, 1.0, 0.0, 0.0);
     glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
@@ -222,6 +252,7 @@ void GLRenderer::paintGL()
 
     glScalef(scale,scale,scale);
 
+    */
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
     float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
     glEnable(GL_COLOR_MATERIAL);
@@ -238,17 +269,21 @@ void GLRenderer::paintGL()
 }
 
 void GLRenderer::resizeGL(int width, int height)
-{    
-    int side = qMin(width, height);
+{
     //@TBD To check, why this ?
-    glViewport((width - side) / 2, (height - side) / 2, side, side);
-    //glViewport(0,0,width,height);
+    //glViewport((width - side) / 2, (height - side) / 2, side, side);
+    glViewport(0,0,width,height);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    //gluPerspective(45,width/height,1,100);
-    glOrtho(-1, +1, -1, +1, 4.0, 15.0);
+    gluPerspective(100,width/height,1,100);
+    //glTranslatef(-1,-1,-1);
+    //glOrtho(-1, +1, -1, +1, 4.0, 15.0);
+    gluLookAt(0,0,45,0,0,0,0,1,0);
     glMatrixMode(GL_MODELVIEW);
+    //gluLookAt(20,0,5,0,0,0,0,1,0);
+
+    //glTranslatef(1,1,1);
 }
 
 void GLRenderer::mousePressEvent(QMouseEvent *event)

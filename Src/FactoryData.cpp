@@ -34,5 +34,16 @@ Transform       *roomCentralTransform        = new Transform();
 Transform       *robotLeftShoeTransform      = new Transform();
 Transform       *robotRightShoeTransform     = new Transform();
 Transform       *roomFloorTransform          = new Transform();
-BuildingBlock   *roomFloor                   = new BuildingBlock("../Textures/wall_small.bmp");
+Transform       *roomLeftWallTransform       = new Transform();
+Transform       *roomRightWallTransform      = new Transform();
+Transform       *roomFrontWallTransform      = new Transform();
+Transform       *roomBackWallTransform       = new Transform();
+Transform       *roomCeilingTransform        = new Transform();
+
+BuildingBlock   *roomFloor                   = new BuildingBlock("../Textures/tex1.bmp");
+BuildingBlock   *roomLeftWall                = new BuildingBlock("../Textures/wall1.bmp");
+BuildingBlock   *roomRightWal                = new BuildingBlock("../Textures/wall1.bmp");
+BuildingBlock   *roomFrontWal                = new BuildingBlock("../Textures/wall1.bmp");
+BuildingBlock   *roomBackWall                = new BuildingBlock("../Textures/wall1.bmp");
+BuildingBlock   *roomCeiling                 = new BuildingBlock("../Textures/wall1.bmp");
 }

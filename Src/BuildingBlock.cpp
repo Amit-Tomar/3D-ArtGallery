@@ -1,12 +1,8 @@
 #include "BuildingBlock.h"
 
 GLfloat vertices[] =  { -0.5f, 0.0f, 0.5f,   0.5f, 0.0f, 0.5f,   0.5f, 0.0f, -0.5f,  -0.5f, 0.0f, -0.5f};
-
-        GLfloat texcoords[] =       { 0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0,
-
-                             };
-
-        GLubyte cubeIndices[24] = {0,1,2,3};
+GLfloat texcoords[] = { 0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0};
+GLubyte cubeIndices[24] = {0,1,2,3};
 
 BuildingBlock::BuildingBlock(std::string path)
 {
@@ -113,8 +109,6 @@ int BuildingBlock::loadImage()
         return 0;
     }
 
-    printf("\n here -- ");
-    std::cout << "here" << std::endl ;
     fseek(file, 16, SEEK_CUR);
     image->data = (char *) malloc(size);
 

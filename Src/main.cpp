@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     glutInit(&argc, argv); //initialize glut
     QApplication app(argc, argv);
     Window window;
-    window.setGeometry(0,0,800,600);
-    window.show();
+    window.setGeometry(0,0,1024,768);
+    window.showMaximized();
     return app.exec();
 }

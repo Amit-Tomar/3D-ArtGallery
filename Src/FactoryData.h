@@ -52,8 +52,18 @@ extern Transform       *roomCentralTransform        ;
 extern Transform       *robotLeftShoeTransform      ;
 extern Transform       *robotRightShoeTransform     ;
 extern Transform       *roomFloorTransform          ;
-extern BuildingBlock   *roomFloor                   ;
+extern Transform       *roomLeftWallTransform       ;
+extern Transform       *roomRightWallTransform      ;
+extern Transform       *roomFrontWallTransform      ;
+extern Transform       *roomBackWallTransform       ;
+extern Transform       *roomCeilingTransform        ;
 
+extern BuildingBlock   *roomFloor                   ;
+extern BuildingBlock   *roomLeftWall                ;
+extern BuildingBlock   *roomRightWal                ;
+extern BuildingBlock   *roomFrontWal                ;
+extern BuildingBlock   *roomBackWall                ;
+extern BuildingBlock   *roomCeiling                 ;
 
 //extern RobotController *robotController           ;
 }
