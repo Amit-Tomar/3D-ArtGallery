@@ -2,6 +2,7 @@
 #define ROBOTTORSOMODEL_H
 
 #include "Node.h"
+#include "FactoryData.h"
 
 class RobotTorsoModel: public ScenegraphNode
 {

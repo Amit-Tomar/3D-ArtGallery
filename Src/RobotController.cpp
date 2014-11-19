@@ -31,6 +31,7 @@ void RobotController::moveRobotTo(float finalX , float finalZ )
         robotTorsoTransform->setRotationTo(0, 180 + atan(finalX/finalZ) * 57.2957795130,0);
 
     robotDestinationX = finalX;
+    robotDestinationY = 0;
     robotDestinationZ = finalZ;
 
     float distanceToDestination = sqrt( ((finalX-robotTorsoTransform->getTranslationX()) * (finalX-robotTorsoTransform->getTranslationX()))  + ((finalZ-robotTorsoTransform->getTranslationZ()) * (finalZ-robotTorsoTransform->getTranslationZ())) );

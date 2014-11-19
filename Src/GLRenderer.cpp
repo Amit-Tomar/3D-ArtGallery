@@ -144,7 +144,6 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightShoeTransform->setTranslationTo(0,-.70,.15);
     robotRightShoeTransform->setRotationTo(90,0,0);
 
-
     unsigned int roomScale = 40 ;
 
     // Room transforms
@@ -165,7 +164,7 @@ GLRenderer::GLRenderer(QWidget *parent)
 
     // For testing
     robotTorsoTransform->setScaleTo(2.5,2.5,2.5);
-    robotController->moveRobotTo(0,-15);
+    robotController->moveRobotTo(-10,20);
 }
 
 GLRenderer::~GLRenderer()
@@ -244,19 +243,23 @@ void GLRenderer::paintGL()
 
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-    /* For rotating the scene using mouse
-    glTranslatef( 0.0, 0.0, -10.0);
-    glRotatef(xRot / 16.0, 1.0, 0.0, 0.0);
-    glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
-    glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
+    // For rotating the scene using mouse
+//    glTranslatef( 0.0, 0.0, -10.0);
+//    glRotatef(xRot / 16.0, 1.0, 0.0, 0.0);
+//    glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
+//    glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
 
-    glScalef(scale,scale,scale);
+//    glScalef(scale,scale,scale);
 
-    */
+
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
     float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
     glEnable(GL_COLOR_MATERIAL);
     glMaterialfv(GL_FRONT, GL_AMBIENT, color);
+
+    gluLookAt(robotTorsoTransform->getTranslationX(), robotTorsoTransform->getTranslationY(), robotTorsoTransform->getTranslationZ(), robotController->getRobotDestinationX(),robotController->getRobotDestinationY(),robotController->getRobotDestinationZ(),0,1,0);
+
+    std::cout << "Look at : " << robotTorsoTransform->getTranslationX() << " : " << robotTorsoTransform->getTranslationY() << " : " << robotTorsoTransform->getTranslationZ() << std::endl ;
 
     // Scenegraph Traversal
     glPushMatrix();
@@ -271,19 +274,19 @@ void GLRenderer::paintGL()
 void GLRenderer::resizeGL(int width, int height)
 {
     //@TBD To check, why this ?
-    //glViewport((width - side) / 2, (height - side) / 2, side, side);
-    glViewport(0,0,width,height);
+        //glViewport((width - side) / 2, (height - side) / 2, side, side);
+        glViewport(0,0,width,height);
 
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(100,width/height,1,100);
-    //glTranslatef(-1,-1,-1);
-    //glOrtho(-1, +1, -1, +1, 4.0, 15.0);
-    gluLookAt(0,0,45,0,0,0,0,1,0);
-    glMatrixMode(GL_MODELVIEW);
-    //gluLookAt(20,0,5,0,0,0,0,1,0);
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        gluPerspective(100,width/height,1,100);
+        //glTranslatef(-1,-1,-1);
+        //glOrtho(-1, +1, -1, +1, 4.0, 15.0);
+        //gluLookAt(0,0,45,0,0,0,0,1,0);
+        glMatrixMode(GL_MODELVIEW);
+        //gluLookAt(20,0,5,0,0,0,0,1,0);
 
-    //glTranslatef(1,1,1);
+        //glTranslatef(1,1,1);
 }
 
 void GLRenderer::mousePressEvent(QMouseEvent *event)
@@ -322,6 +325,9 @@ void GLRenderer::mousePressEvent(QMouseEvent *event)
 
 //        //robotController->stopRobotMotion();
 //        robotController->moveRobotTo(wx,wz);
+
+
+
 }
 
 /*
@@ -329,6 +335,12 @@ void GLRenderer::mousePressEvent(QMouseEvent *event)
 */
 void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
 {
+    // Scale
+    if( keyevent->key() == Qt::Key_C )
+    {
+
+    }
+
     glDraw();
     update();
 }
@@ -352,14 +364,6 @@ void GLRenderer::renderAxes()
     glVertex3f(0,0,0);
     glVertex3f(0,0,length);
     glEnd();
-
-    //Glut floor
-//    glPushMatrix();
-//    glColor3f(.8,.8,0);
-//    glScalef(5,.025,5);
-//    glTranslatef(0.0,-40,0.0);
-//    glutSolidCube(1);
-//    glPopMatrix();
 }
 
 void GLRenderer::mouseMoveEvent(QMouseEvent *event)

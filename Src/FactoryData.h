@@ -17,6 +17,7 @@
 #include <BuildingBlock.h>
 
 class Transform;
+class RobotTorsoModel;
 
 namespace Factory
 {

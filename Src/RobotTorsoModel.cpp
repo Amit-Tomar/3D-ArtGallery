@@ -144,24 +144,28 @@ void RobotTorsoModel::renderTorso()
         for (i = 0; i < 16; i++)
         {
             invOut[i] = inv[i] * det;
-            std::cout << "Matrix : " << inv[i] << std::endl ;
+            //std::cout << "Matrix : " << inv[i] << std::endl ;
         }
     }
 
-    std::cout << "\n\n\n\n " << std::endl ;
+    //std::cout << "\n\n\n\n " << std::endl ;
 
-    std::cout << "Co : " << matrix[12] << " : " << matrix[13] << " : "  << matrix[14] << std::endl;
+  //  std::cout << "Co : " << matrix[12] << " : " << matrix[13] << " : "  << matrix[14] << std::endl;
 
-//    glPushMatrix();
-//    glMatrixMode(GL_PROJECTION);
-//    glLoadIdentity();
-//    gluLookAt(matrix[12],matrix[13],matrix[14],0,0,0,0,1,0);
-//    //gluLookAt(0,0,5,0,0,0,0,1,0);
-//    glPopMatrix();
-//    glMatrixMode(GL_MODELVIEW);
+   //glPushMatrix();
+   //  glMatrixMode(GL_MODELVIEW);
+   //  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   //  glLoadIdentity();
+   //  gluLookAt(matrix[12],matrix[13],matrix[14],0,0,0,0,1,0);
+   //  //gluLookAt(0,0,5,0,0,0,0,1,0);
+   //gluLookAt(0,10,10,0,0,0,0,1,0);
+   // glPopMatrix();
+   //  glMatrixMode(GL_MODELVIEW);
+
+//    gluLookAt(0,10,10,0,0,0,0,1,0);
 
     glPushMatrix();
     glScalef(1,2,1);
     glutSolidCube(1);
     glPopMatrix();
-}
+   }

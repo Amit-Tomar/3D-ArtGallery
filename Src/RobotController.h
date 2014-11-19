@@ -32,6 +32,10 @@ public:
     void  setRobotY(float robotY){ m_robotY = robotY; emit robotYChanged(robotY);}
     void  setRobotZ(float robotZ){ m_robotZ = robotZ; emit robotZChanged(robotZ);}
 
+    float getRobotDestinationX() { return robotDestinationX; }
+    float getRobotDestinationY() { return robotDestinationY; }
+    float getRobotDestinationZ() { return robotDestinationZ; }
+
     void  setInterpolationVariable( float value ){ m_interpolationVariable = value; emit interpolationVariableChanged(value); }
     float interpolationVariable()const { return m_interpolationVariable; }
 
