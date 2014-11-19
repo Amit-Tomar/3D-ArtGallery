@@ -20,6 +20,7 @@ public:
 
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
+    RobotController * getRobotController();
 
 public slots:
     void setXRotation(int angle);

@@ -2,6 +2,7 @@
 
 namespace Factory
 {
+Window          *window                      = NULL;
 GroupNode       *scenegraphRootNode          = new GroupNode() ;
 LightSource     *centralLightSource          = new LightSource();
 Camera          *camera                      = new Camera();
@@ -40,10 +41,11 @@ Transform       *roomFrontWallTransform      = new Transform();
 Transform       *roomBackWallTransform       = new Transform();
 Transform       *roomCeilingTransform        = new Transform();
 
-BuildingBlock   *roomFloor                   = new BuildingBlock("../Textures/tex1.bmp");
-BuildingBlock   *roomLeftWall                = new BuildingBlock("../Textures/wall1.bmp");
-BuildingBlock   *roomRightWal                = new BuildingBlock("../Textures/wall1.bmp");
-BuildingBlock   *roomFrontWal                = new BuildingBlock("../Textures/wall1.bmp");
-BuildingBlock   *roomBackWall                = new BuildingBlock("../Textures/wall1.bmp");
-BuildingBlock   *roomCeiling                 = new BuildingBlock("../Textures/wall1.bmp");
+BuildingBlock    *roomFloor                   = new BuildingBlock("../Textures/tex1.bmp");
+BuildingBlock    *roomLeftWall                = new BuildingBlock("../Textures/wall1.bmp");
+BuildingBlock    *roomRightWal                = new BuildingBlock("../Textures/wall1.bmp");
+BuildingBlock    *roomFrontWal                = new BuildingBlock("../Textures/wall1.bmp");
+BuildingBlock    *roomBackWall                = new BuildingBlock("../Textures/wall1.bmp");
+BuildingBlock    *roomCeiling                 = new BuildingBlock("../Textures/wall1.bmp");
+CameraController *cameraController            = new CameraController();
 }

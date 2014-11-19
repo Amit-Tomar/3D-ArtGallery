@@ -20,6 +20,7 @@ HEADERS       = \
     RobotTorsoModel.h \
     BuildingBlock.h \
     TransformTypes.h \
+    CameraController.h
 
 
 
@@ -43,7 +44,8 @@ SOURCES       = main.cpp \
     ModelRenderer.cpp \
     RobotShoe.cpp \
     RobotTorsoModel.cpp \
-    BuildingBlock.cpp
+    BuildingBlock.cpp \
+    CameraController.cpp
 
 
 QT           += opengl widgets

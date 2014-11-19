@@ -2,7 +2,7 @@
 #include "FactoryData.h"
 using namespace Factory;
 
-RobotController::RobotController()
+RobotController::RobotController(): QObject( NULL )
 {
     robotLeftArmTopAngle = 60;
     lefthandMotionForward = true;

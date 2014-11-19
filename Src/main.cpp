@@ -7,13 +7,16 @@
 #include <QFileDialog>
 #include "Node.h"
 #include "Transform.h"
+#include "FactoryData.h"
+
+using namespace Factory;
 
 int main(int argc, char *argv[])
 {
     glutInit(&argc, argv); //initialize glut
     QApplication app(argc, argv);
-    Window window;
-    window.setGeometry(0,0,1024,768);
-    window.showMaximized();
+    window = new Window();
+    window->setGeometry(0,0,1024,768);
+    window->showMaximized();
     return app.exec();
 }

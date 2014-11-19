@@ -4,6 +4,8 @@
 #include <QWidget>
 #include "GLRenderer.h"
 
+class GLRenderer;
+
 class Window : public QWidget
 {
     Q_OBJECT

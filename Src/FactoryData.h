@@ -15,12 +15,18 @@
 #include <RobotController.h>
 #include <RobotShoe.h>
 #include <BuildingBlock.h>
+#include "Window.h"
+#include "CameraController.h"
 
 class Transform;
 class RobotTorsoModel;
+class Camera;
+class Window;
+class CameraController;
 
 namespace Factory
 {
+extern Window          *window                      ;
 extern GroupNode       *scenegraphRootNode          ;
 extern LightSource     *centralLightSource          ;
 extern Camera          *camera                      ;
@@ -59,14 +65,13 @@ extern Transform       *roomFrontWallTransform      ;
 extern Transform       *roomBackWallTransform       ;
 extern Transform       *roomCeilingTransform        ;
 
-extern BuildingBlock   *roomFloor                   ;
-extern BuildingBlock   *roomLeftWall                ;
-extern BuildingBlock   *roomRightWal                ;
-extern BuildingBlock   *roomFrontWal                ;
-extern BuildingBlock   *roomBackWall                ;
-extern BuildingBlock   *roomCeiling                 ;
-
-//extern RobotController *robotController           ;
+extern BuildingBlock    *roomFloor                   ;
+extern BuildingBlock    *roomLeftWall                ;
+extern BuildingBlock    *roomRightWal                ;
+extern BuildingBlock    *roomFrontWal                ;
+extern BuildingBlock    *roomBackWall                ;
+extern BuildingBlock    *roomCeiling                 ;
+extern CameraController *cameraController            ;
 }
 
 #endif // FACTORYDATA_H
