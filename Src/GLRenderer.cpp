@@ -158,8 +158,8 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomRightWallTransform->setScaleTo(roomScale,1,roomScale);
     roomRightWallTransform->setRotationTo(0,0,90);
 
-    roomFrontWallTransform->setTranslationTo(0,0,-20);
-    roomFrontWallTransform->setScaleTo(roomScale*1.5,1,roomScale*1.5);
+    roomFrontWallTransform->setTranslationTo(0,10,-20);
+    roomFrontWallTransform->setScaleTo(roomScale*1.5,1,roomScale);
     roomFrontWallTransform->setRotationTo(90,0,0);
 
     // For testing
@@ -264,11 +264,7 @@ void GLRenderer::paintGL()
     glEnable(GL_COLOR_MATERIAL);
     glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 
-    Factory::cameraController->repositionCamera();
-
-    //gluLookAt(robotTorsoTransform->getTranslationX(), robotTorsoTransform->getTranslationY(), robotTorsoTransform->getTranslationZ(), robotController->getRobotDestinationX(),robotController->getRobotDestinationY(),robotController->getRobotDestinationZ(),0,1,0);
-
-    //std::cout << "Look at : " << robotTorsoTransform->getTranslationX() << " : " << robotTorsoTransform->getTranslationY() << " : " << robotTorsoTransform->getTranslationZ() << std::endl ;
+    cameraController->repositionCamera();
 
     // Scenegraph Traversal
     glPushMatrix();
@@ -293,42 +289,6 @@ void GLRenderer::resizeGL(int width, int height)
 void GLRenderer::mousePressEvent(QMouseEvent *event)
 {
     lastPos = event->pos();
-
-//    float window_width,window_height;
-//      float ratio_x,ratio_y,cy;
-//      float click_x=event->x();
-//      float click_y=event->y();
-//      //  qDebug()<<"screen cx1==="<<cx1;
-//      // qDebug()<<"screen cy1==="<<cy1;
-
-//      window_width  = this->width();
-//      window_height = this->height();
-
-//      ratio_x=30.0/window_width;
-//      ratio_y=30.0/window_height;
-//      cy=window_height-click_y;
-//      click_x=click_x*ratio_x-10;
-//      click_y=cy*ratio_y-10;
-
-//      //robotController->stopRobotMotion();
-//      //robotController->moveRobotTo(click_x,click_y);
-
-////      //qDebug()<<"original_position_on_screen x==="<<click_x;
-////      //qDebug()<<"original_position_on_screen y==="<<click_y;
-
-//        lastPos = event->pos();
-//        GLfloat wx=click_x;
-//        GLfloat wy=click_y;
-//        GLfloat wz;
-//        glReadPixels(wx,wy,1,1,GL_DEPTH_COMPONENT,GL_FLOAT,&wz);
-//        //printf("--- %f %f %f\n", wx,wy,wz);// wx,wy and wz are x,y,z coordinates on mouse click
-//        std::cout << "---   " << wx << "  " << wy << "   " << wz << "  " << std::endl;
-
-//        //robotController->stopRobotMotion();
-//        robotController->moveRobotTo(wx,wz);
-
-
-
 }
 
 /*
@@ -352,7 +312,7 @@ void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
 
     if( keyevent->key() == Qt::Key_M )
     {
-        robotController->moveRobotTo( robotController->getRobotDestinationX() + 5, robotController->getRobotDestinationX() + 5);
+        robotController->moveRobotTo( robotController->getRobotDestinationX() + 5, robotController->getRobotDestinationX());
     }
 
     glDraw();
