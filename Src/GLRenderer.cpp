@@ -91,11 +91,11 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomRootNode->addChild(roomFrontWallTransform);
     roomFrontWallTransform->addChild(roomFrontWal);
 
-//    roomRootNode->addChild(roomBackWallTransform);
-//    roomBackWallTransform->addChild(roomBackWall);
+    roomRootNode->addChild(roomBackWallTransform);
+    roomBackWallTransform->addChild(roomBackWall);
 
-//    roomRootNode->addChild(roomCeilingTransform);
-//    roomCeilingTransform->addChild(roomCeiling);
+    roomRootNode->addChild(roomCeilingTransform);
+    roomCeilingTransform->addChild(roomCeiling);
 
     // Apply Transforms
 
