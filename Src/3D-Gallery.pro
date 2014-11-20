@@ -20,7 +20,9 @@ HEADERS       = \
     RobotTorsoModel.h \
     BuildingBlock.h \
     TransformTypes.h \
-    CameraController.h
+    CameraController.h \
+    GLUTBuildingBlockTypes.h \
+    AudioPlayer.h
 
 
 
@@ -44,11 +46,12 @@ SOURCES       = main.cpp \
     ModelRenderer.cpp \
     RobotShoe.cpp \
     RobotTorsoModel.cpp \
+    CameraController.cpp \
     BuildingBlock.cpp \
-    CameraController.cpp
+    AudioPlayer.cpp
 
 
-QT           += opengl widgets
+QT           += opengl widgets multimedia
 
 LIBS += -lGL -lGLU -lGLEW -lglut
 

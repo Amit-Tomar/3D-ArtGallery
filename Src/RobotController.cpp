@@ -120,6 +120,11 @@ void RobotController::updateRobotLeftShoulderAngle()
     updateLeftLegKneeAngle();
     updateRightLegKneeAngle();
     updateRightLegThighAngle();
+
+    if( robotLeftShoulderTransform->getRotationX() > 120 || robotLeftShoulderTransform->getRotationX() < 80  )
+        audioPlayer->playBootSound();
+
+    std::cout << robotLeftShoulderTransform->getRotationX() << std::endl ;
 }
 
 void RobotController::updateRobotRightShoulderAngle()

@@ -107,8 +107,10 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotHeadTransform->setScaleTo(1,1.25,1);
 
     robotTorsoTransform->setColor(1,1,0);
-    robotTorsoTransform->setTranslationTo(0,-12,10);
+    //robotTorsoTransform->setTranslationTo(20,-12,90);
+    robotTorsoTransform->setTranslationTo(0,-12,0);
     robotTorsoTransform->setScaleTo(4,4,4);
+    robotTorsoTransform->setRotationTo(0,180,0);
 
     robotLeftThighTransform->setTranslationTo(-.30,-1,0);
     robotLeftThighTransform->setColor(.8,.5,0);

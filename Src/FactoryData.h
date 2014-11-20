@@ -17,6 +17,7 @@
 #include <BuildingBlock.h>
 #include "Window.h"
 #include "CameraController.h"
+#include "AudioPlayer.h"
 
 class Transform;
 class RobotTorsoModel;
@@ -75,6 +76,8 @@ extern BuildingBlock    *roomBackWall               ;
 extern BuildingBlock    *roomCeiling                ;
 
 extern CameraController *cameraController           ;
+
+extern AudioPlayer      *audioPlayer                ;
 }
 
 #endif // FACTORYDATA_H

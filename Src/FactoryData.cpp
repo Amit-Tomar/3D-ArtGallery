@@ -50,4 +50,6 @@ BuildingBlock    *roomFrontWallIn             = new BuildingBlock("../Textures/w
 BuildingBlock    *roomBackWall                = new BuildingBlock("../Textures/wall1.bmp");
 BuildingBlock    *roomCeiling                 = new BuildingBlock("../Textures/wall2.bmp");
 CameraController *cameraController            = new CameraController();
+
+AudioPlayer      *audioPlayer                 = new AudioPlayer();
 }
