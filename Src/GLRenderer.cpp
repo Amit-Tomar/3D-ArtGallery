@@ -158,13 +158,13 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomRightWallTransform->setScaleTo(roomScale,1,roomScale);
     roomRightWallTransform->setRotationTo(0,0,90);
 
-    roomFrontWallTransform->setTranslationTo(0,0,-20);
-    roomFrontWallTransform->setScaleTo(roomScale*1.5,1,roomScale*1.5);
+    roomFrontWallTransform->setTranslationTo(0,10,-20);
+    roomFrontWallTransform->setScaleTo(roomScale*1.5,1,roomScale);
     roomFrontWallTransform->setRotationTo(90,0,0);
 
     // For testing
     robotTorsoTransform->setScaleTo(2.5,2.5,2.5);
-    robotController->moveRobotTo(-10,20);
+    robotController->moveRobotTo(-10,40);
 }
 
 GLRenderer::~GLRenderer()
@@ -179,6 +179,11 @@ QSize GLRenderer::minimumSizeHint() const
 QSize GLRenderer::sizeHint() const
 {
     return QSize(1500, 800);
+}
+
+RobotController *GLRenderer::getRobotController()
+{
+    return robotController;
 }
 
 static void qNormalizeAngle(int &angle)
@@ -244,22 +249,22 @@ void GLRenderer::paintGL()
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
     // For rotating the scene using mouse
-//    glTranslatef( 0.0, 0.0, -10.0);
-//    glRotatef(xRot / 16.0, 1.0, 0.0, 0.0);
-//    glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
-//    glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
 
-//    glScalef(scale,scale,scale);
+    /*
+    glTranslatef( 0.0, 0.0, -10.0);
+    glRotatef(xRot / 16.0, 1.0, 0.0, 0.0);
+    glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
+    glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
 
+    glScalef(scale,scale,scale);
+    */
 
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
     float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
     glEnable(GL_COLOR_MATERIAL);
     glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 
-    gluLookAt(robotTorsoTransform->getTranslationX(), robotTorsoTransform->getTranslationY(), robotTorsoTransform->getTranslationZ(), robotController->getRobotDestinationX(),robotController->getRobotDestinationY(),robotController->getRobotDestinationZ(),0,1,0);
-
-    std::cout << "Look at : " << robotTorsoTransform->getTranslationX() << " : " << robotTorsoTransform->getTranslationY() << " : " << robotTorsoTransform->getTranslationZ() << std::endl ;
+    cameraController->repositionCamera();
 
     // Scenegraph Traversal
     glPushMatrix();
@@ -273,25 +278,37 @@ void GLRenderer::paintGL()
 
 void GLRenderer::resizeGL(int width, int height)
 {
-    //@TBD To check, why this ?
-        //glViewport((width - side) / 2, (height - side) / 2, side, side);
-        glViewport(0,0,width,height);
+   glViewport(0,0,width,height);
 
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        gluPerspective(100,width/height,1,100);
-        //glTranslatef(-1,-1,-1);
-        //glOrtho(-1, +1, -1, +1, 4.0, 15.0);
-        //gluLookAt(0,0,45,0,0,0,0,1,0);
-        glMatrixMode(GL_MODELVIEW);
-        //gluLookAt(20,0,5,0,0,0,0,1,0);
-
-        //glTranslatef(1,1,1);
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
+   gluPerspective(100,width/height,1,100);
+   glMatrixMode(GL_MODELVIEW);
 }
 
 void GLRenderer::mousePressEvent(QMouseEvent *event)
 {
     lastPos = event->pos();
+    double modelview[16], projection[16];
+        int viewport[4];
+        int x = event->x(), y = event->y();
+        double objx = 0, objy=0, objz=0;
+        float z = 1;
+
+        /*Read the projection, modelview and viewport matrices
+        using the glGet functions.*/
+        glGetDoublev( GL_PROJECTION_MATRIX, projection );
+        glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
+        glGetIntegerv( GL_VIEWPORT, viewport );
+
+        //Read the window z value from the z-buffer
+        glReadPixels( x, viewport[3]-y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z );
+
+        //Use the gluUnProject to get the world co-ordinates of
+        //the point the user clicked and save in objx, objy, objz.
+        gluUnProject( x, viewport[3]-y, z, modelview, projection, viewport, &objx, &objy, &objz );
+
+        robotController->moveRobotTo(objx,-objz);
 
 //    float window_width,window_height;
 //      float ratio_x,ratio_y,cy;
@@ -327,7 +344,6 @@ void GLRenderer::mousePressEvent(QMouseEvent *event)
 //        robotController->moveRobotTo(wx,wz);
 
 
-
 }
 
 /*
@@ -338,7 +354,20 @@ void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
     // Scale
     if( keyevent->key() == Qt::Key_C )
     {
+        if( false == cameraController->isCameraFollowingRobot() )
+        {
+            cameraController->setCameraFollowingRobotStatus(true);
+        }
 
+        else
+        {
+            cameraController->setCameraFollowingRobotStatus(false);
+        }
+    }
+
+    if( keyevent->key() == Qt::Key_M )
+    {
+        robotController->moveRobotTo( robotController->getRobotDestinationX() + 5, robotController->getRobotDestinationX());
     }
 
     glDraw();
