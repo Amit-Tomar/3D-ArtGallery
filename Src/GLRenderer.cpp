@@ -289,6 +289,27 @@ void GLRenderer::resizeGL(int width, int height)
 void GLRenderer::mousePressEvent(QMouseEvent *event)
 {
     lastPos = event->pos();
+
+    double modelview[16], projection[16];
+    int viewport[4];
+    int x = event->x(), y = event->y();
+    double objx = 0, objy=0, objz=0;
+    float z = 1;
+
+    /*Read the projection, modelview and viewport matrices
+    using the glGet functions.*/
+    glGetDoublev( GL_PROJECTION_MATRIX, projection );
+    glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
+    glGetIntegerv( GL_VIEWPORT, viewport );
+
+    //Read the window z value from the z-buffer
+    glReadPixels( x, viewport[3]-y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z );
+
+    //Use the gluUnProject to get the world co-ordinates of
+    //the point the user clicked and save in objx, objy, objz.
+    gluUnProject( x, viewport[3]-y, z, modelview, projection, viewport, &objx, &objy, &objz );
+
+    robotController->moveRobotTo(objx,-objz);
 }
 
 /*
