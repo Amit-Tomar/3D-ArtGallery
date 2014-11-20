@@ -25,6 +25,7 @@ RobotController::RobotController(): QObject( NULL )
 void RobotController::moveRobotTo(float finalX , float finalZ )
 {
     stopRobotMotion();
+
     if( finalZ > 0 )
         robotTorsoTransform->setRotationTo(0, atan(finalX/finalZ) * 57.2957795130,0);
     else

@@ -17,10 +17,12 @@ public:
     void depthFirstTraversal();
     void deleteAllChildren();
     void removeChild(unsigned int);
-    bool  isTransformationNode ;
+    bool isTransformationNode ;
+    void setTraversal(bool status) { performTraversal = status; }
 
 private:
 
+    bool performTraversal;
     std::vector<ScenegraphNode*> childrenList;
 };
 

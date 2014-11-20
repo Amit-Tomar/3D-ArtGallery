@@ -4,7 +4,11 @@ Camera::Camera()
 {
     eyeX = 0;
     eyeY = 0;
-    eyeZ = 45;
+    // Viewpoint from outside the room
+    //eyeZ = 80;
+
+    // Viewpoint from inside the room
+    eyeZ = 40;
     directionX = 0;
     directionY = 0;
     directionZ = 0;

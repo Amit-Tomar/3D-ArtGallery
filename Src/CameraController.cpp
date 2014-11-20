@@ -10,11 +10,16 @@ void CameraController::repositionCamera()
     if( cameraFollowingRobot )
     {
          Factory::camera->setEyePosition(Factory::robotTorsoTransform->getTranslationX(), Factory::robotTorsoTransform->getTranslationY(), Factory::robotTorsoTransform->getTranslationZ());
-         Factory::camera->setCameraDirection( Factory::window->glWidget->getRobotController()->getRobotDestinationX(),Factory::window->glWidget->getRobotController()->getRobotDestinationY(),Factory::window->glWidget->getRobotController()->getRobotDestinationZ());
+         Factory::camera->setCameraDirection( Factory::window->glWidget->getRobotController()->getRobotDestinationX(),5,Factory::window->glWidget->getRobotController()->getRobotDestinationZ());
     }
     else
     {
-        Factory::camera->setEyePosition(0,0,45);
+        // Viewpoint from outside the room
+        //eyeZ = 80;
+
+        // Viewpoint from inside the room
+        //eyeZ = 40;
+        Factory::camera->setEyePosition(0,0,60);
         Factory::camera->setCameraDirection( 0,0,0);
     }
 }

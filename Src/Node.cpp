@@ -3,6 +3,7 @@
 ScenegraphNode::ScenegraphNode(bool isTransformationNode)
 {
     this->isTransformationNode  = isTransformationNode;
+    performTraversal = true;
 }
 
 ScenegraphNode::~ScenegraphNode()
@@ -18,6 +19,9 @@ void ScenegraphNode::addChild(ScenegraphNode * childNode)
 
 void ScenegraphNode::depthFirstTraversal()
 {
+    if(!performTraversal)
+        return;
+
     if(isTransformationNode)
         glPushMatrix();
 

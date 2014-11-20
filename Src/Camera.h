@@ -13,9 +13,11 @@ public:
     void setEyePosition(float,float,float);
     void setCameraDirection(float,float,float);
 
+    float eyeX, eyeY, eyeZ, directionX, directionY, directionZ, upX, upY, upZ;
+
 private:
 
-    float eyeX, eyeY, eyeZ, directionX, directionY, directionZ, upX, upY, upZ;
+//    float eyeX, eyeY, eyeZ, directionX, directionY, directionZ, upX, upY, upZ;
 };
 
 #endif // CAMERA_H

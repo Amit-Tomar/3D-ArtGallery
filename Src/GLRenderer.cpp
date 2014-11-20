@@ -86,16 +86,19 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomLeftWallTransform->addChild(roomLeftWall);
 
     roomRootNode->addChild(roomRightWallTransform);
-    roomRightWallTransform->addChild(roomRightWal);
+    roomRightWallTransform->addChild(roomRightWall);
 
     roomRootNode->addChild(roomFrontWallTransform);
-    roomFrontWallTransform->addChild(roomFrontWal);
+    roomFrontWallTransform->addChild(roomFrontWall);
 
     roomRootNode->addChild(roomBackWallTransform);
     roomBackWallTransform->addChild(roomBackWall);
 
     roomRootNode->addChild(roomCeilingTransform);
     roomCeilingTransform->addChild(roomCeiling);
+
+    roomRootNode->addChild(roomFrontWallInTransform);
+    roomFrontWallInTransform->addChild(roomFrontWallIn);
 
     // Apply Transforms
 
@@ -104,7 +107,8 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotHeadTransform->setScaleTo(1,1.25,1);
 
     robotTorsoTransform->setColor(1,1,0);
-    robotTorsoTransform->setTranslationTo(0,0,0);
+    robotTorsoTransform->setTranslationTo(0,-12,10);
+    robotTorsoTransform->setScaleTo(4,4,4);
 
     robotLeftThighTransform->setTranslationTo(-.30,-1,0);
     robotLeftThighTransform->setColor(.8,.5,0);
@@ -144,27 +148,39 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightShoeTransform->setTranslationTo(0,-.70,.15);
     robotRightShoeTransform->setRotationTo(90,0,0);
 
-    unsigned int roomScale = 40 ;
+    const unsigned int roomScale = 100 ;
+    int roomDepthFromCentre = 25 ;
 
     // Room transforms
-    roomFloorTransform->setTranslationTo(0,-8,0);
-    roomFloorTransform->setScaleTo(roomScale* 1.5,roomScale* 1.5,roomScale* 3.5);
+    roomFloorTransform->setTranslationTo(0,-roomDepthFromCentre,0);
+    roomFloorTransform->setScaleTo(roomScale,1,roomScale*2);
 
-    roomLeftWallTransform->setTranslationTo(-30,10,0);
-    roomLeftWallTransform->setScaleTo(roomScale,1,roomScale);
+    roomCeilingTransform->setTranslationTo(0,roomDepthFromCentre,0);
+    roomCeilingTransform->setScaleTo(roomScale,1,roomScale*2);
+    roomCeilingTransform->setRotationTo(180,0,0);
+
+    roomLeftWallTransform->setTranslationTo(-50,roomDepthFromCentre,0);
+    roomLeftWallTransform->setScaleTo(roomScale,1,roomScale*2);
     roomLeftWallTransform->setRotationTo(0,0,-90);
 
-    roomRightWallTransform->setTranslationTo(30,10,0);
-    roomRightWallTransform->setScaleTo(roomScale,1,roomScale);
+    roomRightWallTransform->setTranslationTo(50,roomDepthFromCentre,0);
+    roomRightWallTransform->setScaleTo(roomScale,1,roomScale*2);
     roomRightWallTransform->setRotationTo(0,0,90);
 
-    roomFrontWallTransform->setTranslationTo(0,10,-20);
-    roomFrontWallTransform->setScaleTo(roomScale*1.5,1,roomScale);
+    roomFrontWallTransform->setTranslationTo(0,0,60);
+    roomFrontWallTransform->setScaleTo(roomScale,1,roomScale*.55);
     roomFrontWallTransform->setRotationTo(90,0,0);
 
+    roomFrontWallInTransform->setTranslationTo(0,0,60);
+    roomFrontWallInTransform->setScaleTo(roomScale,1,roomScale*.55);
+    roomFrontWallInTransform->setRotationTo(-90,0,0);
+
+    roomBackWallTransform->setTranslationTo(0,roomDepthFromCentre,-40);
+    roomBackWallTransform->setScaleTo(roomScale,1,roomScale);
+    roomBackWallTransform->setRotationTo(90,0,0);
+
     // For testing
-    robotTorsoTransform->setScaleTo(2.5,2.5,2.5);
-    robotController->moveRobotTo(-10,40);
+    //robotController->moveRobotTo(-10,40);
 }
 
 GLRenderer::~GLRenderer()
@@ -250,14 +266,12 @@ void GLRenderer::paintGL()
 
     // For rotating the scene using mouse
 
-    /*
-    glTranslatef( 0.0, 0.0, -10.0);
-    glRotatef(xRot / 16.0, 1.0, 0.0, 0.0);
-    glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
-    glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
+//    glTranslatef( 0.0, 0.0, -10.0);
+//    glRotatef(xRot / 16.0, 1.0, 0.0, 0.0);
+//    glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
+//    glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
 
-    glScalef(scale,scale,scale);
-    */
+//    glScalef(scale,scale,scale);
 
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
     float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -279,10 +293,9 @@ void GLRenderer::paintGL()
 void GLRenderer::resizeGL(int width, int height)
 {
    glViewport(0,0,width,height);
-
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective(100,width/height,1,100);
+   gluPerspective(110,width/height,1,500);
    glMatrixMode(GL_MODELVIEW);
 }
 
@@ -317,23 +330,65 @@ void GLRenderer::mousePressEvent(QMouseEvent *event)
 */
 void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
 {
-    // Scale
+    // Change the viewpoint b/w Robot and Room corner
     if( keyevent->key() == Qt::Key_C )
     {
         if( false == cameraController->isCameraFollowingRobot() )
         {
             cameraController->setCameraFollowingRobotStatus(true);
+            robotRootNode->setTraversal(false);
         }
 
         else
         {
             cameraController->setCameraFollowingRobotStatus(false);
+            robotRootNode->setTraversal(true);
         }
     }
 
-    if( keyevent->key() == Qt::Key_M )
+    else if( keyevent->key() == Qt::Key_M )
     {
         robotController->moveRobotTo( robotController->getRobotDestinationX() + 5, robotController->getRobotDestinationX());
+    }
+
+    else if( keyevent->key() == Qt::Key_Up )
+    {
+        camera->setEyePosition(camera->eyeX,camera->eyeY,camera->eyeZ-5);
+    }
+
+    else if( keyevent->key() == Qt::Key_Down )
+    {
+        camera->setEyePosition(camera->eyeX,camera->eyeY,camera->eyeZ+5);
+    }
+
+    else if( keyevent->key() == Qt::Key_Left )
+    {
+        camera->setEyePosition(camera->eyeX+5,camera->eyeY,camera->eyeZ);
+    }
+
+    else if( keyevent->key() == Qt::Key_M )
+    {
+        robotController->moveRobotTo( robotController->getRobotDestinationX() + 5, robotController->getRobotDestinationX());
+    }
+
+    else if( keyevent->key() == Qt::Key_W )
+    {
+        camera->setCameraDirection(camera->directionX+15,camera->directionY,camera->directionZ);
+    }
+
+    else if( keyevent->key() == Qt::Key_S )
+    {
+        camera->setCameraDirection(camera->directionX-15,camera->directionY,camera->directionZ);
+    }
+
+    else if( keyevent->key() == Qt::Key_A )
+    {
+        camera->setCameraDirection(camera->directionX,camera->directionY,camera->directionZ+15);
+    }
+
+    else if( keyevent->key() == Qt::Key_D )
+    {
+        camera->setCameraDirection(camera->directionX,camera->directionY,camera->directionZ-15);
     }
 
     glDraw();

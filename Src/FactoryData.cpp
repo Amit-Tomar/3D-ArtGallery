@@ -38,14 +38,16 @@ Transform       *roomFloorTransform          = new Transform();
 Transform       *roomLeftWallTransform       = new Transform();
 Transform       *roomRightWallTransform      = new Transform();
 Transform       *roomFrontWallTransform      = new Transform();
+Transform       *roomFrontWallInTransform    = new Transform();
 Transform       *roomBackWallTransform       = new Transform();
 Transform       *roomCeilingTransform        = new Transform();
 
 BuildingBlock    *roomFloor                   = new BuildingBlock("../Textures/floor1.bmp");
 BuildingBlock    *roomLeftWall                = new BuildingBlock("../Textures/wall2.bmp");
-BuildingBlock    *roomRightWal                = new BuildingBlock("../Textures/wall2.bmp");
-BuildingBlock    *roomFrontWal                = new BuildingBlock("../Textures/wall3.bmp");
-BuildingBlock    *roomBackWall                = new BuildingBlock("../Textures/wall2.bmp");
+BuildingBlock    *roomRightWall               = new BuildingBlock("../Textures/wall2.bmp");
+BuildingBlock    *roomFrontWall               = new BuildingBlock("../Textures/wall3.bmp");
+BuildingBlock    *roomFrontWallIn             = new BuildingBlock("../Textures/wall3Mirror.bmp");
+BuildingBlock    *roomBackWall                = new BuildingBlock("../Textures/wall1.bmp");
 BuildingBlock    *roomCeiling                 = new BuildingBlock("../Textures/wall2.bmp");
 CameraController *cameraController            = new CameraController();
 }

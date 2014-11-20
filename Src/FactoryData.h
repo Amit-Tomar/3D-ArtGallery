@@ -62,16 +62,19 @@ extern Transform       *roomFloorTransform          ;
 extern Transform       *roomLeftWallTransform       ;
 extern Transform       *roomRightWallTransform      ;
 extern Transform       *roomFrontWallTransform      ;
+extern Transform       *roomFrontWallInTransform    ;
 extern Transform       *roomBackWallTransform       ;
 extern Transform       *roomCeilingTransform        ;
 
-extern BuildingBlock    *roomFloor                   ;
-extern BuildingBlock    *roomLeftWall                ;
-extern BuildingBlock    *roomRightWal                ;
-extern BuildingBlock    *roomFrontWal                ;
-extern BuildingBlock    *roomBackWall                ;
-extern BuildingBlock    *roomCeiling                 ;
-extern CameraController *cameraController            ;
+extern BuildingBlock    *roomFloor                  ;
+extern BuildingBlock    *roomLeftWall               ;
+extern BuildingBlock    *roomRightWall              ;
+extern BuildingBlock    *roomFrontWall              ;
+extern BuildingBlock    *roomFrontWallIn            ;
+extern BuildingBlock    *roomBackWall               ;
+extern BuildingBlock    *roomCeiling                ;
+
+extern CameraController *cameraController           ;
 }
 
 #endif // FACTORYDATA_H
