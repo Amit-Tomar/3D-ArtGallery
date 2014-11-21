@@ -22,7 +22,8 @@ HEADERS       = \
     TransformTypes.h \
     CameraController.h \
     GLUTBuildingBlockTypes.h \
-    AudioPlayer.h
+    AudioPlayer.h \
+    DoorController.h
 
 
 
@@ -48,7 +49,8 @@ SOURCES       = main.cpp \
     RobotTorsoModel.cpp \
     CameraController.cpp \
     BuildingBlock.cpp \
-    AudioPlayer.cpp
+    AudioPlayer.cpp \
+    DoorController.cpp
 
 
 QT           += opengl widgets multimedia

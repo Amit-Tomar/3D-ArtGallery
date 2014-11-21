@@ -66,7 +66,11 @@ extern Transform       *roomFrontWallTransform      ;
 extern Transform       *roomFrontWallInTransform    ;
 extern Transform       *roomBackWallTransform       ;
 extern Transform       *roomCeilingTransform        ;
+extern Transform       *roomFrontWallLeftDoorTransform       ;
+extern Transform       *roomFrontWallRightDoorTransform      ;
 
+extern BuildingBlock   *roomFrontWallLeftDoor       ;
+extern BuildingBlock   *roomFrontWallRightDoor      ;
 extern BuildingBlock    *roomFloor                  ;
 extern BuildingBlock    *roomLeftWall               ;
 extern BuildingBlock    *roomRightWall              ;

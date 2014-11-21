@@ -18,6 +18,7 @@ GLRenderer::GLRenderer(QWidget *parent)
         thread of their own to be running.
     */
     robotController = new RobotController();
+    doorController  = new DoorController();
 
     qtGreen = QColor::fromCmykF(0.40, 0.0, 1.0, 0.0);
     qtPurple = QColor::fromCmykF(0.39, 0.39, 0.0, 0.0);
@@ -90,6 +91,12 @@ GLRenderer::GLRenderer(QWidget *parent)
 
     roomRootNode->addChild(roomFrontWallTransform);
     roomFrontWallTransform->addChild(roomFrontWall);
+
+    roomRootNode->addChild(roomFrontWallLeftDoorTransform);
+    roomFrontWallLeftDoorTransform->addChild(roomFrontWallLeftDoor);
+
+    roomRootNode->addChild(roomFrontWallRightDoorTransform);
+    roomFrontWallRightDoorTransform->addChild(roomFrontWallRightDoor);
 
     roomRootNode->addChild(roomBackWallTransform);
     roomBackWallTransform->addChild(roomBackWall);
@@ -170,7 +177,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomRightWallTransform->setRotationTo(0,0,90);
 
     roomFrontWallTransform->setTranslationTo(0,0,60);
-    roomFrontWallTransform->setScaleTo(roomScale,1,roomScale*.55);
+    roomFrontWallTransform->setScaleTo(roomScale,1,roomScale*.5);
     roomFrontWallTransform->setRotationTo(90,0,0);
 
     roomFrontWallInTransform->setTranslationTo(0,0,60);
@@ -180,6 +187,14 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomBackWallTransform->setTranslationTo(0,roomDepthFromCentre,-40);
     roomBackWallTransform->setScaleTo(roomScale,1,roomScale);
     roomBackWallTransform->setRotationTo(90,0,0);
+
+    roomFrontWallLeftDoorTransform->setTranslationTo(20,-5,65);
+    roomFrontWallLeftDoorTransform->setRotationTo(90,0,0);
+    roomFrontWallLeftDoorTransform->setScaleTo(roomScale/8.5,1,2*roomScale/5.75);
+
+    roomFrontWallRightDoorTransform->setTranslationTo(31.5,-5,65);
+    roomFrontWallRightDoorTransform->setRotationTo(90,0,0);
+    roomFrontWallRightDoorTransform->setScaleTo(roomScale/8.5,1,2*roomScale/5.75);
 
     // For testing
     //robotController->moveRobotTo(-10,40);

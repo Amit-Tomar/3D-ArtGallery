@@ -15,10 +15,12 @@ public:
 public slots :
 
     void playBootSound();
+    void playDoorSound();
 
 private:
 
-    QMediaPlayer * player;
+    QMediaPlayer * playerBoot;
+    QMediaPlayer * playerDoor;
 };
 
 #endif // AUDIOPLAYER_H

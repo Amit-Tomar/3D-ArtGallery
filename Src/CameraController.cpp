@@ -19,7 +19,7 @@ void CameraController::repositionCamera()
 
         // Viewpoint from inside the room
         //eyeZ = 60;
-        Factory::camera->setEyePosition(0,0,60);
+        Factory::camera->setEyePosition(0,0,110);
         Factory::camera->setCameraDirection( 0,0,0);
     }
 }

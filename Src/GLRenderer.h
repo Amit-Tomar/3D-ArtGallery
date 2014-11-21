@@ -9,6 +9,9 @@
 #include "GL/freeglut.h"
 #include "Node.h"
 #include "Transform.h"
+#include "DoorController.h"
+
+class DoorController;
 
 class GLRenderer : public QGLWidget
 {
@@ -54,6 +57,7 @@ private:
     float lightPositionZ;
     bool  lightMovementEnabled;
     RobotController *robotController;
+    DoorController  *doorController ;
 
     Quaternions quaternion;
 };
