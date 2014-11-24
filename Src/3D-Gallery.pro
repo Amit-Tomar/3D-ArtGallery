@@ -21,9 +21,9 @@ HEADERS       = \
     BuildingBlock.h \
     TransformTypes.h \
     CameraController.h \
-    GLUTBuildingBlockTypes.h \
     AudioPlayer.h \
-    DoorController.h
+    DoorController.h \
+    PaintingCube.h \
 
 
 
@@ -50,7 +50,8 @@ SOURCES       = main.cpp \
     CameraController.cpp \
     BuildingBlock.cpp \
     AudioPlayer.cpp \
-    DoorController.cpp
+    DoorController.cpp \
+    PaintingCube.cpp \
 
 
 QT           += opengl widgets multimedia

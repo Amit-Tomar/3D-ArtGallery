@@ -7,8 +7,6 @@ DoorController::DoorController()
 
     INTERPOLATION_MIN = 0 ;
     INTERPOLATION_MAX = 100;
-
-    openDoor();
 }
 
 void DoorController::openDoor()
@@ -22,11 +20,11 @@ void DoorController::openDoor()
 
 void DoorController::closeDoor()
 {
-    roomFrontWallRightDoorTransform->setTranslationTo(31.5,-5,65);
-    roomFrontWallRightDoorTransform->setRotationTo(90,0,0);
+    Factory::roomFrontWallRightDoorTransform->setTranslationTo(31.5,-5,65);
+    Factory::roomFrontWallRightDoorTransform->setRotationTo(90,0,0);
 
-    roomFrontWallLeftDoorTransform->setTranslationTo(20,-5,65);
-    roomFrontWallLeftDoorTransform->setRotationTo(90,0,0);
+    Factory::roomFrontWallLeftDoorTransform->setTranslationTo(20,-5,65);
+    Factory::roomFrontWallLeftDoorTransform->setRotationTo(90,0,0);
 }
 
 void DoorController::updateDoorPositions()

@@ -17,6 +17,7 @@
 #include <BuildingBlock.h>
 #include "Window.h"
 #include "CameraController.h"
+#include "PaintingCube.h"
 #include "AudioPlayer.h"
 
 class Transform;
@@ -24,6 +25,8 @@ class RobotTorsoModel;
 class Camera;
 class Window;
 class CameraController;
+class DoorController;
+class AudioPlayer;
 
 namespace Factory
 {
@@ -66,22 +69,24 @@ extern Transform       *roomFrontWallTransform      ;
 extern Transform       *roomFrontWallInTransform    ;
 extern Transform       *roomBackWallTransform       ;
 extern Transform       *roomCeilingTransform        ;
-extern Transform       *roomFrontWallLeftDoorTransform       ;
-extern Transform       *roomFrontWallRightDoorTransform      ;
+extern Transform       *painting1Transform          ;
 
-extern BuildingBlock   *roomFrontWallLeftDoor       ;
-extern BuildingBlock   *roomFrontWallRightDoor      ;
-extern BuildingBlock    *roomFloor                  ;
-extern BuildingBlock    *roomLeftWall               ;
-extern BuildingBlock    *roomRightWall              ;
-extern BuildingBlock    *roomFrontWall              ;
-extern BuildingBlock    *roomFrontWallIn            ;
-extern BuildingBlock    *roomBackWall               ;
-extern BuildingBlock    *roomCeiling                ;
+extern Transform       *roomFrontWallLeftDoorTransform  ;
+extern Transform       *roomFrontWallRightDoorTransform ;
 
-extern CameraController *cameraController           ;
-
-extern AudioPlayer      *audioPlayer                ;
+extern BuildingBlock    *roomFrontWallLeftDoor       ;
+extern BuildingBlock    *roomFrontWallRightDoor      ;
+extern BuildingBlock    *roomFloor                   ;
+extern BuildingBlock    *roomLeftWall                ;
+extern BuildingBlock    *roomRightWall               ;
+extern BuildingBlock    *roomFrontWall               ;
+extern BuildingBlock    *roomFrontWallIn             ;
+extern BuildingBlock    *roomBackWall                ;
+extern BuildingBlock    *roomCeiling                 ;
+extern BuildingBlock    *painting1                   ;
+extern PaintingCube     *paintingFrame1              ;
+extern AudioPlayer      *audioPlayer                 ;
+extern CameraController *cameraController            ;
 }
 
 #endif // FACTORYDATA_H

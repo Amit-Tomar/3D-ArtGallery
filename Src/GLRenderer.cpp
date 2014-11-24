@@ -107,6 +107,11 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomRootNode->addChild(roomFrontWallInTransform);
     roomFrontWallInTransform->addChild(roomFrontWallIn);
 
+
+	roomRootNode->addChild(painting1Transform);
+    painting1Transform->addChild(paintingFrame1);
+    painting1Transform->addChild(painting1);
+
     // Apply Transforms
 
     robotHeadTransform->setTranslationTo(0,1.50,0);
@@ -114,8 +119,9 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotHeadTransform->setScaleTo(1,1.25,1);
 
     robotTorsoTransform->setColor(1,1,0);
-    //robotTorsoTransform->setTranslationTo(20,-12,90);
-    robotTorsoTransform->setTranslationTo(0,-12,0);
+    //robotTorsoTransform->setTranslationTo(0,-12,0);
+    robotTorsoTransform->setTranslationTo(25,-12,90);
+    //robotTorsoTransform->setTranslationTo(0,-12,0);
     robotTorsoTransform->setScaleTo(4,4,4);
     robotTorsoTransform->setRotationTo(0,180,0);
 
@@ -158,6 +164,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightShoeTransform->setRotationTo(90,0,0);
 
     const unsigned int roomScale = 100 ;
+    unsigned int paintingScale = 10 ;
     int roomDepthFromCentre = 25 ;
 
     // Room transforms
@@ -180,13 +187,16 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomFrontWallTransform->setScaleTo(roomScale,1,roomScale*.5);
     roomFrontWallTransform->setRotationTo(90,0,0);
 
-    roomFrontWallInTransform->setTranslationTo(0,0,60);
-    roomFrontWallInTransform->setScaleTo(roomScale,1,roomScale*.55);
-    roomFrontWallInTransform->setRotationTo(-90,0,0);
-
     roomBackWallTransform->setTranslationTo(0,roomDepthFromCentre,-40);
     roomBackWallTransform->setScaleTo(roomScale,1,roomScale);
     roomBackWallTransform->setRotationTo(90,0,0);
+
+    //painting transforms
+
+    painting1Transform->setTranslationTo(25,10,0);
+
+    painting1Transform->setScaleTo(paintingScale,1,paintingScale);
+    painting1Transform->setRotationTo(0,0,90);
 
     roomFrontWallLeftDoorTransform->setTranslationTo(20,-5,65);
     roomFrontWallLeftDoorTransform->setRotationTo(90,0,0);
@@ -197,7 +207,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomFrontWallRightDoorTransform->setScaleTo(roomScale/8.5,1,2*roomScale/5.75);
 
     // For testing
-    //robotController->moveRobotTo(-10,40);
+    // robotController->moveRobotTo(-10,40);
 }
 
 GLRenderer::~GLRenderer()
@@ -295,7 +305,7 @@ void GLRenderer::paintGL()
     glEnable(GL_COLOR_MATERIAL);
     glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 
-    cameraController->repositionCamera();
+    Factory::cameraController->repositionCamera();
 
     // Scenegraph Traversal
     glPushMatrix();
@@ -339,7 +349,8 @@ void GLRenderer::mousePressEvent(QMouseEvent *event)
     //the point the user clicked and save in objx, objy, objz.
     gluUnProject( x, viewport[3]-y, z, modelview, projection, viewport, &objx, &objy, &objz );
 
-    robotController->moveRobotTo(objx,-objz);
+    std::cout << "Clicked " << objx << " , " << objz << std::endl ;
+    robotController->moveRobotTo(objx,objz);
 }
 
 /*
@@ -406,6 +417,11 @@ void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
     else if( keyevent->key() == Qt::Key_D )
     {
         camera->setCameraDirection(camera->directionX,camera->directionY,camera->directionZ-15);
+    }
+
+    else if( keyevent->key() == Qt::Key_O )
+    {
+        doorController->openDoor();
     }
 
     glDraw();

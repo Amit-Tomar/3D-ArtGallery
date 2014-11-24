@@ -5,8 +5,6 @@
 #include <QPropertyAnimation>
 #include "FactoryData.h"
 
-using namespace Factory;
-
 class DoorController: public QObject
 {
     Q_OBJECT

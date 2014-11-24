@@ -41,20 +41,22 @@ Transform       *roomFrontWallTransform      = new Transform();
 Transform       *roomFrontWallInTransform    = new Transform();
 Transform       *roomBackWallTransform       = new Transform();
 Transform       *roomCeilingTransform        = new Transform();
+Transform       *painting1Transform          = new Transform();
+
 Transform       *roomFrontWallLeftDoorTransform  = new Transform();
 Transform       *roomFrontWallRightDoorTransform = new Transform();
 
+BuildingBlock    *roomFrontWallLeftDoor       = new BuildingBlock("../Textures/doorLeft.bmp");
+BuildingBlock    *roomFrontWallRightDoor      = new BuildingBlock("../Textures/doorRight.bmp");
 BuildingBlock    *roomFloor                   = new BuildingBlock("../Textures/floor1.bmp");
-BuildingBlock    *roomLeftWall                = new BuildingBlock("../Textures/wall2.bmp");
-BuildingBlock    *roomRightWall               = new BuildingBlock("../Textures/wall2.bmp");
+BuildingBlock    *roomLeftWall                = new BuildingBlock("../Textures/wall1.bmp");
+BuildingBlock    *roomRightWall               = new BuildingBlock("../Textures/wall1.bmp");
 BuildingBlock    *roomFrontWall               = new BuildingBlock("../Textures/wall3_noDoor.bmp");
 BuildingBlock    *roomFrontWallIn             = new BuildingBlock("../Textures/wall3Mirror.bmp");
 BuildingBlock    *roomBackWall                = new BuildingBlock("../Textures/wall1.bmp");
 BuildingBlock    *roomCeiling                 = new BuildingBlock("../Textures/wall2.bmp");
-BuildingBlock    *roomFrontWallLeftDoor       = new BuildingBlock("../Textures/doorLeft.bmp");
-BuildingBlock    *roomFrontWallRightDoor      = new BuildingBlock("../Textures/doorRight.bmp");
-
+BuildingBlock    *painting1                   = new BuildingBlock("../Textures/painting1.bmp");
 CameraController *cameraController            = new CameraController();
-
 AudioPlayer      *audioPlayer                 = new AudioPlayer();
+PaintingCube     *paintingFrame1              = new PaintingCube();
 }
