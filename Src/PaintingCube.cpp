@@ -16,8 +16,9 @@ void PaintingCube::renderPaintingCube()
 {
     //painting placing board
     glPushMatrix();
-    glColor3f(.5,.5,.5);
+    glColor3f(1,1,1);
     glScalef(1,-0.5,1);
+    glTranslatef(-.01,0,-.01);
     glutSolidCube(1);
     glPopMatrix();
 }

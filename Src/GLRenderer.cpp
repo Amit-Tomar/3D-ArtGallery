@@ -107,10 +107,33 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomRootNode->addChild(roomFrontWallInTransform);
     roomFrontWallInTransform->addChild(roomFrontWallIn);
 
-
+    // Add paintings
 	roomRootNode->addChild(painting1Transform);
-    painting1Transform->addChild(paintingFrame1);
     painting1Transform->addChild(painting1);
+
+    roomRootNode->addChild(painting2Transform);
+    painting2Transform->addChild(painting2);
+
+    roomRootNode->addChild(painting3Transform);
+    painting3Transform->addChild(painting3);
+
+    roomRootNode->addChild(painting4Transform);
+    painting4Transform->addChild(painting4);
+
+    roomRootNode->addChild(painting5Transform);
+    painting5Transform->addChild(painting5);
+
+    roomRootNode->addChild(painting6Transform);
+    painting6Transform->addChild(painting6);
+
+    roomRootNode->addChild(painting7Transform);
+    painting7Transform->addChild(painting7);
+
+    roomRootNode->addChild(painting8Transform);
+    painting8Transform->addChild(painting8);
+
+    roomRootNode->addChild(painting9Transform);
+    painting9Transform->addChild(painting9);
 
     // Apply Transforms
 
@@ -164,7 +187,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightShoeTransform->setRotationTo(90,0,0);
 
     const unsigned int roomScale = 100 ;
-    unsigned int paintingScale = 10 ;
+    unsigned int paintingScale = 15 ;
     int roomDepthFromCentre = 25 ;
 
     // Room transforms
@@ -191,13 +214,6 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomBackWallTransform->setScaleTo(roomScale,1,roomScale);
     roomBackWallTransform->setRotationTo(90,0,0);
 
-    //painting transforms
-
-    painting1Transform->setTranslationTo(25,10,0);
-
-    painting1Transform->setScaleTo(paintingScale,1,paintingScale);
-    painting1Transform->setRotationTo(0,0,90);
-
     roomFrontWallLeftDoorTransform->setTranslationTo(20,-5,65);
     roomFrontWallLeftDoorTransform->setRotationTo(90,0,0);
     roomFrontWallLeftDoorTransform->setScaleTo(roomScale/8.5,1,2*roomScale/5.75);
@@ -205,6 +221,44 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomFrontWallRightDoorTransform->setTranslationTo(31.5,-5,65);
     roomFrontWallRightDoorTransform->setRotationTo(90,0,0);
     roomFrontWallRightDoorTransform->setScaleTo(roomScale/8.5,1,2*roomScale/5.75);
+
+    //painting transforms
+
+    painting1Transform->setTranslationTo(-30,0,-35);
+    painting1Transform->setScaleTo(paintingScale,1,paintingScale*2);
+    painting1Transform->setRotationTo(90,0,0);
+
+    painting2Transform->setTranslationTo( 0,0,-35);
+    painting2Transform->setScaleTo(paintingScale,1,paintingScale*2);
+    painting2Transform->setRotationTo(90,0,0);
+
+    painting3Transform->setTranslationTo( 30,0,-35);
+    painting3Transform->setScaleTo(paintingScale,1,paintingScale*2);
+    painting3Transform->setRotationTo(90,0,0);
+
+    painting4Transform->setTranslationTo( 45,0,-15);
+    painting4Transform->setScaleTo(paintingScale,1,paintingScale*2);
+    painting4Transform->setRotationTo(90,0,90);
+
+    painting5Transform->setTranslationTo( 45,0,5);
+    painting5Transform->setScaleTo(paintingScale,1,paintingScale*2);
+    painting5Transform->setRotationTo(90,0,90);
+
+    painting6Transform->setTranslationTo( 45,0,25);
+    painting6Transform->setScaleTo(paintingScale,1,paintingScale*2);
+    painting6Transform->setRotationTo(90,0,90);
+
+    painting7Transform->setTranslationTo( -45,0,-15);
+    painting7Transform->setScaleTo(paintingScale,1,paintingScale*2);
+    painting7Transform->setRotationTo(90,0,-90);
+
+    painting8Transform->setTranslationTo( -45,0,5);
+    painting8Transform->setScaleTo(paintingScale,1,paintingScale*2);
+    painting8Transform->setRotationTo(90,0,-90);
+
+    painting9Transform->setTranslationTo( -45,0,25);
+    painting9Transform->setScaleTo(paintingScale,1,paintingScale*2);
+    painting9Transform->setRotationTo(90,0,-90);
 
     // For testing
     // robotController->moveRobotTo(-10,40);

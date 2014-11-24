@@ -69,7 +69,16 @@ extern Transform       *roomFrontWallTransform      ;
 extern Transform       *roomFrontWallInTransform    ;
 extern Transform       *roomBackWallTransform       ;
 extern Transform       *roomCeilingTransform        ;
+
 extern Transform       *painting1Transform          ;
+extern Transform       *painting2Transform          ;
+extern Transform       *painting3Transform          ;
+extern Transform       *painting4Transform          ;
+extern Transform       *painting5Transform          ;
+extern Transform       *painting6Transform          ;
+extern Transform       *painting7Transform          ;
+extern Transform       *painting8Transform          ;
+extern Transform       *painting9Transform          ;
 
 extern Transform       *roomFrontWallLeftDoorTransform  ;
 extern Transform       *roomFrontWallRightDoorTransform ;
@@ -84,7 +93,14 @@ extern BuildingBlock    *roomFrontWallIn             ;
 extern BuildingBlock    *roomBackWall                ;
 extern BuildingBlock    *roomCeiling                 ;
 extern BuildingBlock    *painting1                   ;
-extern PaintingCube     *paintingFrame1              ;
+extern BuildingBlock    *painting2                   ;
+extern BuildingBlock    *painting3                   ;
+extern BuildingBlock    *painting4                   ;
+extern BuildingBlock    *painting5                   ;
+extern BuildingBlock    *painting6                   ;
+extern BuildingBlock    *painting7                   ;
+extern BuildingBlock    *painting8                   ;
+extern BuildingBlock    *painting9                   ;
 extern AudioPlayer      *audioPlayer                 ;
 extern CameraController *cameraController            ;
 }

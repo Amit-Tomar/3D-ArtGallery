@@ -8,7 +8,7 @@ RobotController::RobotController(): QObject( NULL )
     lefthandMotionForward = true;
     INTERPOLATION_MIN   = 0 ;
     INTERPOLATION_MAX   = 100;
-    robotSpeed = .002;
+    robotSpeed = .005;
     animationRobotX = new QPropertyAnimation(this, "robotX");
     animationRobotY = new QPropertyAnimation(this, "robotY");
     animationRobotZ = new QPropertyAnimation(this, "robotZ");
