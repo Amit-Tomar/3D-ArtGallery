@@ -58,7 +58,7 @@ SOURCES       = main.cpp \
 
 QT           += opengl widgets multimedia
 
-LIBS += -lGL -lGLU -lGLEW -lglut
+LIBS += -lGL -lGLU -lGLEW -lglut -lSOIL
 
 OTHER_FILES += \
     vshader.glsl \
