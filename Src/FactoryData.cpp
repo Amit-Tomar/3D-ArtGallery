@@ -74,4 +74,13 @@ BuildingBlock    *painting8                   = new BuildingBlock("../Textures/p
 BuildingBlock    *painting9                   = new BuildingBlock("../Textures/painting9.png");
 CameraController *cameraController            = new CameraController();
 AudioPlayer      *audioPlayer                 = new AudioPlayer();
+PaintingFrame     *painting1Frame             = new PaintingFrame();
+PaintingFrame     *painting2Frame             = new PaintingFrame();
+PaintingFrame     *painting3Frame             = new PaintingFrame();
+PaintingFrame     *painting4Frame             = new PaintingFrame();
+PaintingFrame     *painting5Frame             = new PaintingFrame();
+PaintingFrame     *painting6Frame             = new PaintingFrame();
+PaintingFrame     *painting7Frame             = new PaintingFrame();
+PaintingFrame     *painting8Frame             = new PaintingFrame();
+PaintingFrame     *painting9Frame             = new PaintingFrame();
 }

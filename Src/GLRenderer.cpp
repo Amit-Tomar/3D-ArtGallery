@@ -24,9 +24,9 @@ GLRenderer::GLRenderer(QWidget *parent)
     qtPurple = QColor::fromCmykF(0.39, 0.39, 0.0, 0.0);
     setFocusPolicy(Qt::ClickFocus);
     scale = .20 ;
-    lightPositionX = 1.5 ;
-    lightPositionY = 1.5 ;
-    lightPositionZ = 1.5 ;
+    lightPositionX = .3 ;
+    lightPositionY = .3;
+    lightPositionZ = .3 ;
     lightMovementEnabled = true ;
 
     /*
@@ -109,30 +109,39 @@ GLRenderer::GLRenderer(QWidget *parent)
 
     // Add paintings
 	roomRootNode->addChild(painting1Transform);
+    painting1Transform->addChild(painting1Frame);
     painting1Transform->addChild(painting1);
 
     roomRootNode->addChild(painting2Transform);
+    painting2Transform->addChild(painting2Frame);
     painting2Transform->addChild(painting2);
 
     roomRootNode->addChild(painting3Transform);
+    painting3Transform->addChild(painting3Frame);
     painting3Transform->addChild(painting3);
 
     roomRootNode->addChild(painting4Transform);
+    painting4Transform->addChild(painting4Frame);
     painting4Transform->addChild(painting4);
 
     roomRootNode->addChild(painting5Transform);
+    painting5Transform->addChild(painting5Frame);
     painting5Transform->addChild(painting5);
 
     roomRootNode->addChild(painting6Transform);
+    painting6Transform->addChild(painting6Frame);
     painting6Transform->addChild(painting6);
 
     roomRootNode->addChild(painting7Transform);
+    painting7Transform->addChild(painting7Frame);
     painting7Transform->addChild(painting7);
 
     roomRootNode->addChild(painting8Transform);
+    painting8Transform->addChild(painting8Frame);
     painting8Transform->addChild(painting8);
 
     roomRootNode->addChild(painting9Transform);
+    painting9Transform->addChild(painting9Frame);
     painting9Transform->addChild(painting9);
 
     // Apply Transforms
@@ -142,10 +151,8 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotHeadTransform->setScaleTo(1,1.25,1);
 
     robotTorsoTransform->setColor(1,1,0);
-    //robotTorsoTransform->setTranslationTo(0,-12,0);
-    robotTorsoTransform->setTranslationTo(25,-12,90);
-    //robotTorsoTransform->setTranslationTo(0,-12,0);
-    robotTorsoTransform->setScaleTo(4,4,4);
+    robotTorsoTransform->setTranslationTo(25,-10,90);
+    robotTorsoTransform->setScaleTo(5,5,5);
     robotTorsoTransform->setRotationTo(0,180,0);
 
     robotLeftThighTransform->setTranslationTo(-.30,-1,0);
@@ -244,11 +251,11 @@ GLRenderer::GLRenderer(QWidget *parent)
     painting4Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting4Transform->setRotationTo(90,0,90);
 
-    painting5Transform->setTranslationTo( 45,0,15);
+    painting5Transform->setTranslationTo( 45,0,10);
     painting5Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting5Transform->setRotationTo(90,0,90);
 
-    painting6Transform->setTranslationTo( 45,0,45);
+    painting6Transform->setTranslationTo( 45,0,35);
     painting6Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting6Transform->setRotationTo(90,0,90);
 
@@ -256,11 +263,11 @@ GLRenderer::GLRenderer(QWidget *parent)
     painting7Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting7Transform->setRotationTo(90,0,-90);
 
-    painting8Transform->setTranslationTo( -45,0,15);
+    painting8Transform->setTranslationTo( -45,0,10);
     painting8Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting8Transform->setRotationTo(90,0,-90);
 
-    painting9Transform->setTranslationTo( -45,0,45);
+    painting9Transform->setTranslationTo( -45,0,35);
     painting9Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting9Transform->setRotationTo(90,0,-90);
 
@@ -335,19 +342,22 @@ void GLRenderer::initializeGL()
     glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
     glEnable(GL_MULTISAMPLE);
     glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHT1);
     glEnable(GL_NORMALIZE);
 }
 
 void GLRenderer::paintGL()
 {
-    GLfloat light_position[] = { lightPositionX, lightPositionY, lightPositionZ, 0.0 };
+    GLfloat light1_position[] = { 19, 1, 1, 1.0 };
+    GLfloat light2_position[] = { 1,1,-35, 1.0 };
     glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_NORMALIZE);
 
     glLoadIdentity();
 
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    glLightfv(GL_LIGHT0, GL_POSITION, light1_position);
+    glLightfv(GL_LIGHT1, GL_POSITION, light2_position);
 
     // For rotating the scene using mouse
 
@@ -358,7 +368,6 @@ void GLRenderer::paintGL()
 
 //    glScalef(scale,scale,scale);
 
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
     float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
     glEnable(GL_COLOR_MATERIAL);
     glMaterialfv(GL_FRONT, GL_AMBIENT, color);

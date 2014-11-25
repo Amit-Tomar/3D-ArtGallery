@@ -23,8 +23,8 @@ HEADERS       = \
     CameraController.h \
     AudioPlayer.h \
     DoorController.h \
-    PaintingCube.h \
-    PaintingsController.h
+    PaintingsController.h \
+    PaintingFrame.h
 
 
 
@@ -52,8 +52,8 @@ SOURCES       = main.cpp \
     BuildingBlock.cpp \
     AudioPlayer.cpp \
     DoorController.cpp \
-    PaintingCube.cpp \
-    PaintingsController.cpp
+    PaintingsController.cpp \
+    PaintingFrame.cpp
 
 
 QT           += opengl widgets multimedia

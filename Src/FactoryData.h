@@ -17,7 +17,7 @@
 #include <BuildingBlock.h>
 #include "Window.h"
 #include "CameraController.h"
-#include "PaintingCube.h"
+#include "PaintingFrame.h"
 #include "AudioPlayer.h"
 
 class Transform;
@@ -103,6 +103,19 @@ extern BuildingBlock    *painting8                   ;
 extern BuildingBlock    *painting9                   ;
 extern AudioPlayer      *audioPlayer                 ;
 extern CameraController *cameraController            ;
+extern PaintingFrame     *painting1Frame              ;
+extern PaintingFrame     *painting2Frame              ;
+extern PaintingFrame     *painting3Frame              ;
+extern PaintingFrame     *painting4Frame              ;
+extern PaintingFrame     *painting5Frame              ;
+extern PaintingFrame     *painting6Frame              ;
+extern PaintingFrame     *painting7Frame              ;
+extern PaintingFrame     *painting8Frame              ;
+extern PaintingFrame     *painting9Frame              ;
 }
+
+
+
+
 
 #endif // FACTORYDATA_H

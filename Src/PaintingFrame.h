@@ -4,10 +4,10 @@
 #include <cstdio>
 #include "Node.h"
 
-class PaintingCube: public ScenegraphNode
+class PaintingFrame: public ScenegraphNode
 {
 public:
-    PaintingCube();
+    PaintingFrame();
     void traverseNode();
 private:
 

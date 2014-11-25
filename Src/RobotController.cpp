@@ -8,7 +8,7 @@ RobotController::RobotController(): QObject( NULL )
     lefthandMotionForward = true;
     INTERPOLATION_MIN   = 0 ;
     INTERPOLATION_MAX   = 100;
-    robotSpeed = .0035;
+    robotSpeed = .0025;
     animationRobotX = new QPropertyAnimation(this, "robotX");
     animationRobotY = new QPropertyAnimation(this, "robotY");
     animationRobotZ = new QPropertyAnimation(this, "robotZ");
@@ -157,7 +157,7 @@ void RobotController::updateRightLegThighAngle()
 void RobotController::updateRightLegKneeAngle()
 {
     robotRightKneeTransform->setRotationTo(
-                ((5-20)*m_interpolationVariable)/100 + 20,
+                ((5-10)*m_interpolationVariable)/100 + 10,
                 robotRightKneeTransform->getRotationY(),
                 robotRightThighTransform->getRotationZ());
 }
