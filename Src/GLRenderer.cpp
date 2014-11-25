@@ -218,11 +218,11 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomBackWallTransform->setScaleTo(roomScale,1,roomScale);
     roomBackWallTransform->setRotationTo(90,0,0);
 
-    roomFrontWallLeftDoorTransform->setTranslationTo(20,-5,65);
+    roomFrontWallLeftDoorTransform->setTranslationTo(18,-5,65);
     roomFrontWallLeftDoorTransform->setRotationTo(90,0,0);
     roomFrontWallLeftDoorTransform->setScaleTo(roomScale/8.5,1,2*roomScale/5.75);
 
-    roomFrontWallRightDoorTransform->setTranslationTo(31.5,-5,65);
+    roomFrontWallRightDoorTransform->setTranslationTo(28.5,-5,65);
     roomFrontWallRightDoorTransform->setRotationTo(90,0,0);
     roomFrontWallRightDoorTransform->setScaleTo(roomScale/8.5,1,2*roomScale/5.75);
 
