@@ -3,6 +3,25 @@
 CameraController::CameraController()
 {
     cameraFollowingRobot = false ;
+
+    Point p;
+    p.x = 0.0;
+    p.y = 0.0;
+    p.z = 60.0;
+
+    pointOfViewList.push_back(p);
+
+    p.x = 0.0;
+    p.y = 0.0;
+    p.z = 110.0;
+
+    pointOfViewList.push_back(p);
+
+    p.x = 0.0;
+    p.y = 0.0;
+    p.z = -35.0;
+
+    pointOfViewList.push_back(p);
 }
 
 void CameraController::repositionCamera()
@@ -13,13 +32,14 @@ void CameraController::repositionCamera()
          Factory::camera->setCameraDirection( Factory::window->glWidget->getRobotController()->getRobotDestinationX(),5,Factory::window->glWidget->getRobotController()->getRobotDestinationZ());
     }
     else
-    {
-        // Viewpoint from outside the room
-        //eyeZ = 110;
-
-        // Viewpoint from inside the room
-        //eyeZ = 60;
-        Factory::camera->setEyePosition(0,0,60);
-        Factory::camera->setCameraDirection( 0,0,0);
+    {        
+         Factory::camera->setEyePosition(pointOfViewList[viewPointPositionNumber].x, pointOfViewList[viewPointPositionNumber].y, pointOfViewList[viewPointPositionNumber].z);
+         Factory::camera->setCameraDirection(0,0,0);
     }
+}
+
+void CameraController::moveCameraToNextViewPoint()
+{
+    ++ viewPointPositionNumber;
+    viewPointPositionNumber %= pointOfViewList.size();
 }

@@ -24,6 +24,7 @@ HEADERS       = \
     AudioPlayer.h \
     DoorController.h \
     PaintingCube.h \
+    PaintingsController.h
 
 
 
@@ -52,6 +53,7 @@ SOURCES       = main.cpp \
     AudioPlayer.cpp \
     DoorController.cpp \
     PaintingCube.cpp \
+    PaintingsController.cpp
 
 
 QT           += opengl widgets multimedia

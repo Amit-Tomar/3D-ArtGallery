@@ -236,27 +236,27 @@ GLRenderer::GLRenderer(QWidget *parent)
     painting3Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting3Transform->setRotationTo(90,0,0);
 
-    painting4Transform->setTranslationTo( 45,0,-15);
+    painting4Transform->setTranslationTo( 45,0,-10);
     painting4Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting4Transform->setRotationTo(90,0,90);
 
-    painting5Transform->setTranslationTo( 45,0,5);
+    painting5Transform->setTranslationTo( 45,0,15);
     painting5Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting5Transform->setRotationTo(90,0,90);
 
-    painting6Transform->setTranslationTo( 45,0,25);
+    painting6Transform->setTranslationTo( 45,0,45);
     painting6Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting6Transform->setRotationTo(90,0,90);
 
-    painting7Transform->setTranslationTo( -45,0,-15);
+    painting7Transform->setTranslationTo( -45,0,-10);
     painting7Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting7Transform->setRotationTo(90,0,-90);
 
-    painting8Transform->setTranslationTo( -45,0,5);
+    painting8Transform->setTranslationTo( -45,0,15);
     painting8Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting8Transform->setRotationTo(90,0,-90);
 
-    painting9Transform->setTranslationTo( -45,0,25);
+    painting9Transform->setTranslationTo( -45,0,45);
     painting9Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting9Transform->setRotationTo(90,0,-90);
 
@@ -428,54 +428,14 @@ void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
         }
     }
 
-    else if( keyevent->key() == Qt::Key_M )
-    {
-        robotController->moveRobotTo( robotController->getRobotDestinationX() + 5, robotController->getRobotDestinationX());
-    }
-
-    else if( keyevent->key() == Qt::Key_Up )
-    {
-        camera->setEyePosition(camera->eyeX,camera->eyeY,camera->eyeZ-5);
-    }
-
-    else if( keyevent->key() == Qt::Key_Down )
-    {
-        camera->setEyePosition(camera->eyeX,camera->eyeY,camera->eyeZ+5);
-    }
-
-    else if( keyevent->key() == Qt::Key_Left )
-    {
-        camera->setEyePosition(camera->eyeX+5,camera->eyeY,camera->eyeZ);
-    }
-
-    else if( keyevent->key() == Qt::Key_M )
-    {
-        robotController->moveRobotTo( robotController->getRobotDestinationX() + 5, robotController->getRobotDestinationX());
-    }
-
-    else if( keyevent->key() == Qt::Key_W )
-    {
-        camera->setCameraDirection(camera->directionX+15,camera->directionY,camera->directionZ);
-    }
-
-    else if( keyevent->key() == Qt::Key_S )
-    {
-        camera->setCameraDirection(camera->directionX-15,camera->directionY,camera->directionZ);
-    }
-
-    else if( keyevent->key() == Qt::Key_A )
-    {
-        camera->setCameraDirection(camera->directionX,camera->directionY,camera->directionZ+15);
-    }
-
-    else if( keyevent->key() == Qt::Key_D )
-    {
-        camera->setCameraDirection(camera->directionX,camera->directionY,camera->directionZ-15);
-    }
-
     else if( keyevent->key() == Qt::Key_O )
     {
         doorController->openDoor();
+    }
+
+    else if( keyevent->key() == Qt::Key_V )
+    {
+        cameraController->moveCameraToNextViewPoint();
     }
 
     glDraw();
