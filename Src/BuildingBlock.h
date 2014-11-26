@@ -25,8 +25,6 @@ private:
     void renderBuildingBlock();
     GLuint textureId;
     std::string textureImagePath;
-    Image * image;
-    int loadImage();
     bool textureBinded;
 };
 

@@ -53,6 +53,7 @@ Transform       *painting9Transform          = new Transform();
 
 Transform       *roomFrontWallLeftDoorTransform  = new Transform();
 Transform       *roomFrontWallRightDoorTransform = new Transform();
+Transform       *teapotTransform                 = new Transform();
 
 BuildingBlock    *roomFrontWallLeftDoor       = new BuildingBlock("../Textures/doorLeft.png");
 BuildingBlock    *roomFrontWallRightDoor      = new BuildingBlock("../Textures/doorRight.png");
@@ -83,4 +84,5 @@ PaintingFrame     *painting6Frame             = new PaintingFrame();
 PaintingFrame     *painting7Frame             = new PaintingFrame();
 PaintingFrame     *painting8Frame             = new PaintingFrame();
 PaintingFrame     *painting9Frame             = new PaintingFrame();
+Teapot            *teapot                     = new Teapot();
 }

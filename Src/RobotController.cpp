@@ -61,6 +61,7 @@ void RobotController::stopRobotMotion()
 {
     interpolationVariableAnimation->stop();
     animationRobotX->stop();
+    animationRobotY->stop();
     animationRobotZ->stop();
 
     robotLeftThighTransform->setTranslationTo(-.30,-1,0);

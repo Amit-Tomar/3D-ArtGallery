@@ -19,6 +19,7 @@
 #include "CameraController.h"
 #include "PaintingFrame.h"
 #include "AudioPlayer.h"
+#include "Teapot.h"
 
 class Transform;
 class RobotTorsoModel;
@@ -79,9 +80,16 @@ extern Transform       *painting6Transform          ;
 extern Transform       *painting7Transform          ;
 extern Transform       *painting8Transform          ;
 extern Transform       *painting9Transform          ;
+extern Transform       *teapotTransform             ;
 
 extern Transform       *roomFrontWallLeftDoorTransform  ;
 extern Transform       *roomFrontWallRightDoorTransform ;
+
+extern AudioPlayer      *audioPlayer                 ;
+extern CameraController *cameraController            ;
+extern Teapot           *teapot                      ;
+
+
 
 extern BuildingBlock    *roomFrontWallLeftDoor       ;
 extern BuildingBlock    *roomFrontWallRightDoor      ;
@@ -101,8 +109,7 @@ extern BuildingBlock    *painting6                   ;
 extern BuildingBlock    *painting7                   ;
 extern BuildingBlock    *painting8                   ;
 extern BuildingBlock    *painting9                   ;
-extern AudioPlayer      *audioPlayer                 ;
-extern CameraController *cameraController            ;
+
 extern PaintingFrame     *painting1Frame              ;
 extern PaintingFrame     *painting2Frame              ;
 extern PaintingFrame     *painting3Frame              ;

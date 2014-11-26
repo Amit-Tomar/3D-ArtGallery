@@ -144,6 +144,10 @@ GLRenderer::GLRenderer(QWidget *parent)
     painting9Transform->addChild(painting9Frame);
     painting9Transform->addChild(painting9);
 
+    // Add obstacles
+    roomCentralTransform->addChild(teapotTransform);
+    teapotTransform->addChild(teapot);
+
     // Apply Transforms
 
     robotHeadTransform->setTranslationTo(0,1.50,0);
@@ -205,12 +209,12 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomCeilingTransform->setScaleTo(roomScale,1,roomScale*2);
     roomCeilingTransform->setRotationTo(180,0,0);
 
-    roomLeftWallTransform->setTranslationTo(-50,roomDepthFromCentre,0);
-    roomLeftWallTransform->setScaleTo(roomScale,1,roomScale*2);
+    roomLeftWallTransform->setTranslationTo(-50,0,18);
+    roomLeftWallTransform->setScaleTo(roomScale*.5,1,roomScale*1.2);
     roomLeftWallTransform->setRotationTo(0,0,-90);
 
-    roomRightWallTransform->setTranslationTo(50,roomDepthFromCentre,0);
-    roomRightWallTransform->setScaleTo(roomScale,1,roomScale*2);
+    roomRightWallTransform->setTranslationTo(50,0,18);
+    roomRightWallTransform->setScaleTo(roomScale*.5,1,roomScale*1.2);
     roomRightWallTransform->setRotationTo(0,0,90);
 
     roomFrontWallTransform->setTranslationTo(0,0,60);
@@ -247,7 +251,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     painting3Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting3Transform->setRotationTo(90,0,0);
 
-    painting4Transform->setTranslationTo( 45,0,-10);
+    painting4Transform->setTranslationTo( 45,0,-15);
     painting4Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting4Transform->setRotationTo(90,0,90);
 
@@ -259,7 +263,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     painting6Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting6Transform->setRotationTo(90,0,90);
 
-    painting7Transform->setTranslationTo( -45,0,-10);
+    painting7Transform->setTranslationTo( -45,0,-15);
     painting7Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting7Transform->setRotationTo(90,0,-90);
 
@@ -270,6 +274,9 @@ GLRenderer::GLRenderer(QWidget *parent)
     painting9Transform->setTranslationTo( -45,0,35);
     painting9Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting9Transform->setRotationTo(90,0,-90);
+
+    teapotTransform->setTranslationTo(0,-15,0);
+    teapotTransform->setRotationTo(90,0,0);
 
     // For testing
     // robotController->moveRobotTo(-10,40);
@@ -348,8 +355,8 @@ void GLRenderer::initializeGL()
 
 void GLRenderer::paintGL()
 {
-    GLfloat light1_position[] = { 19, 1, 1, 1.0 };
-    GLfloat light2_position[] = { 1,1,-35, 1.0 };
+    GLfloat light1_position[] = { 0,0,0, 1.0  };
+    GLfloat light2_position[] = { 0,0,20, 1.0 };
     glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_NORMALIZE);
@@ -359,6 +366,12 @@ void GLRenderer::paintGL()
     glLightfv(GL_LIGHT0, GL_POSITION, light1_position);
     glLightfv(GL_LIGHT1, GL_POSITION, light2_position);
 
+    float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    //glEnable(GL_COLOR_MATERIAL);
+
+    glMaterialfv(GL_FRONT, GL_SPECULAR, color);
+    //glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, color);
+
     // For rotating the scene using mouse
 
 //    glTranslatef( 0.0, 0.0, -10.0);
@@ -367,10 +380,6 @@ void GLRenderer::paintGL()
 //    glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
 
 //    glScalef(scale,scale,scale);
-
-    float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-    glEnable(GL_COLOR_MATERIAL);
-    glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 
     Factory::cameraController->repositionCamera();
 
@@ -389,7 +398,7 @@ void GLRenderer::resizeGL(int width, int height)
    glViewport(0,0,width,height);
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective(110,width/height,1,500);
+   gluPerspective(110,width/height,1,200);
    glMatrixMode(GL_MODELVIEW);
 }
 
