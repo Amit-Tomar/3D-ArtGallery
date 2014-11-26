@@ -155,7 +155,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotHeadTransform->setScaleTo(1,1.25,1);
 
     robotTorsoTransform->setColor(1,1,0);
-    robotTorsoTransform->setTranslationTo(25,-10,90);
+    robotTorsoTransform->setTranslationTo(25,-10,80);
     robotTorsoTransform->setScaleTo(5,5,5);
     robotTorsoTransform->setRotationTo(0,180,0);
 
@@ -229,7 +229,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomBackWallTransform->setScaleTo(roomScale,1,roomScale);
     roomBackWallTransform->setRotationTo(90,0,0);
 
-    roomFrontWallLeftDoorTransform->setTranslationTo(18,-5,65);
+    roomFrontWallLeftDoorTransform->setTranslationTo(17,-5,65);
     roomFrontWallLeftDoorTransform->setRotationTo(90,0,0);
     roomFrontWallLeftDoorTransform->setScaleTo(roomScale/8.5,1,2*roomScale/5.75);
 
@@ -350,6 +350,7 @@ void GLRenderer::initializeGL()
     glEnable(GL_MULTISAMPLE);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHT1);
+    glEnable(GL_LIGHT2);
     glEnable(GL_NORMALIZE);
 }
 
@@ -367,10 +368,23 @@ void GLRenderer::paintGL()
     glLightfv(GL_LIGHT1, GL_POSITION, light2_position);
 
     float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-    //glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_COLOR_MATERIAL);
 
-    glMaterialfv(GL_FRONT, GL_SPECULAR, color);
-    //glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, color);
+    //glMaterialfv(GL_FRONT, GL_SPECULAR, color);
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, color);
+
+
+    GLfloat spot_position [] = { -30, 0, 0, 0.0 };
+    GLfloat spot_direction [] = { -30, 10, 0 };
+
+    glEnable(GL_LIGHT2);
+    glShadeModel(GL_SMOOTH);
+    glEnable(GL_NORMALIZE);
+
+    glLightfv (GL_LIGHT2, GL_POSITION, spot_position);
+    glLightfv (GL_LIGHT2, GL_SPOT_DIRECTION, spot_direction);
+    glLightf (GL_LIGHT2, GL_SPOT_CUTOFF, 45.0);
+    glLightf (GL_LIGHT2, GL_SPOT_EXPONENT, 4.0);
 
     // For rotating the scene using mouse
 
@@ -387,7 +401,7 @@ void GLRenderer::paintGL()
     glPushMatrix();
     scenegraphRootNode->depthFirstTraversal();
     glPopMatrix();
-
+    glDisable ( GL_LIGHTING ) ;
     // Draw  Axis
     renderAxes();
     update();
@@ -398,7 +412,7 @@ void GLRenderer::resizeGL(int width, int height)
    glViewport(0,0,width,height);
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective(110,width/height,1,200);
+   gluPerspective(120,width/height,1,200);
    glMatrixMode(GL_MODELVIEW);
 }
 
@@ -458,6 +472,22 @@ void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
     else if( keyevent->key() == Qt::Key_V )
     {
         cameraController->moveCameraToNextViewPoint();
+    }
+
+    else if( keyevent->key() == Qt::Key_J )
+    {
+        robotController->jumpRobot(1);
+    }
+
+    else if( keyevent->key() == Qt::Key_1 )
+    {
+        paintingCOntroller->startPaintingMotion();
+    }
+
+    else if( keyevent->key() == Qt::Key_R )
+    {
+        robotController->stopRobotMotion();
+        robotTorsoTransform->setTranslationTo(25,-10,30);
     }
 
     glDraw();

@@ -17,7 +17,7 @@ typedef struct Image Image;
 class BuildingBlock: public ScenegraphNode
 {
 public:
-    BuildingBlock(std::string = "");
+    BuildingBlock(std::string, unsigned int = 1);
     void traverseNode();
 
 private:
@@ -26,6 +26,7 @@ private:
     GLuint textureId;
     std::string textureImagePath;
     bool textureBinded;
+    unsigned int textureRepeatNumber;
 };
 
 #endif // BUILDINGBLOCK_H

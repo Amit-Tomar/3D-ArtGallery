@@ -20,6 +20,7 @@
 #include "PaintingFrame.h"
 #include "AudioPlayer.h"
 #include "Teapot.h"
+#include "PaintingsController.h"
 
 class Transform;
 class RobotTorsoModel;
@@ -28,6 +29,7 @@ class Window;
 class CameraController;
 class DoorController;
 class AudioPlayer;
+class PaintingsController;
 
 namespace Factory
 {
@@ -88,7 +90,7 @@ extern Transform       *roomFrontWallRightDoorTransform ;
 extern AudioPlayer      *audioPlayer                 ;
 extern CameraController *cameraController            ;
 extern Teapot           *teapot                      ;
-
+extern PaintingsController * paintingCOntroller      ;
 
 
 extern BuildingBlock    *roomFrontWallLeftDoor       ;

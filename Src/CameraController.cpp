@@ -7,7 +7,7 @@ CameraController::CameraController()
     Point p;
     p.x = 0.0;
     p.y = 0.0;
-    p.z = 110.0;
+    p.z = 100.0;
 
     pointOfViewList.push_back(p);
 

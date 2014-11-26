@@ -30,7 +30,7 @@ void DoorController::closeDoor()
 void DoorController::updateDoorPositions()
 {
     Factory::roomFrontWallLeftDoorTransform->setRotationTo( Factory::roomFrontWallLeftDoorTransform->getRotationX() ,Factory::roomFrontWallLeftDoorTransform->getRotationY(), ((84)*m_interpolationVariable)/100);
-    Factory::roomFrontWallLeftDoorTransform->setTranslationTo((((14-18)*m_interpolationVariable)/100) + 18, Factory::roomFrontWallLeftDoorTransform->getTranslationY(),Factory::roomFrontWallLeftDoorTransform->getTranslationZ() );
+    Factory::roomFrontWallLeftDoorTransform->setTranslationTo((((14-17)*m_interpolationVariable)/100) + 17, Factory::roomFrontWallLeftDoorTransform->getTranslationY(),Factory::roomFrontWallLeftDoorTransform->getTranslationZ() );
 
     Factory::roomFrontWallRightDoorTransform->setRotationTo( Factory::roomFrontWallRightDoorTransform->getRotationX() ,Factory::roomFrontWallRightDoorTransform->getRotationY(), ((-30)*m_interpolationVariable)/100 );
     Factory::roomFrontWallRightDoorTransform->setTranslationTo( (((32.5-28.5)*m_interpolationVariable)/100) + 28.5, Factory::roomFrontWallRightDoorTransform->getTranslationY(),Factory::roomFrontWallRightDoorTransform->getTranslationZ() );

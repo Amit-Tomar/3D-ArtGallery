@@ -11,5 +11,5 @@ void Teapot::traverseNode()
 
 void Teapot::renderTeapot()
 {
-    glutSolidCylinder(5,10,100,10);
+    glutSolidCylinder(3,5,100,10);
 }

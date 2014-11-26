@@ -4,13 +4,14 @@ GLfloat vertices[] =  { -0.5f, 0.0f, 0.5f,   0.5f, 0.0f, 0.5f,   0.5f, 0.0f, -0.
 GLfloat texcoords[] = { 0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0};
 GLubyte cubeIndices[24] = {0,1,2,3};
 
-BuildingBlock::BuildingBlock(std::string path)
+BuildingBlock::BuildingBlock(std::string path, unsigned int textureRepeatNumber)
 {
     textureImagePath = path;
     textureBinded = false;
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     textureImagePath = path;
+    this->textureRepeatNumber = textureRepeatNumber ;
 }
 
 void BuildingBlock::traverseNode()
@@ -42,6 +43,8 @@ void BuildingBlock::renderBuildingBlock()
     }
 
     glBindTexture(GL_TEXTURE_2D, textureId);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
     glColor3f (1.0,1.0,1.0);
@@ -50,11 +53,11 @@ void BuildingBlock::renderBuildingBlock()
     glNormal3f( 0.0f, 1.0f, 0.0f);
     glTexCoord2f(0,0);
     glVertex3f(vertices[0],vertices[1],vertices[2]);
-    glTexCoord2f(1,0);
+    glTexCoord2f(textureRepeatNumber,0);
     glVertex3f(vertices[3],vertices[4],vertices[5]);
-    glTexCoord2f(1,1);
+    glTexCoord2f(textureRepeatNumber,textureRepeatNumber);
     glVertex3f(vertices[6],vertices[7],vertices[8]);
-    glTexCoord2f(0,1);
+    glTexCoord2f(0,textureRepeatNumber);
     glVertex3f(vertices[9],vertices[10],vertices[11]);
     glEnd();
 

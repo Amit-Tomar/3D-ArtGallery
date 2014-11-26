@@ -13,10 +13,10 @@ void PaintingFrame::traverseNode()
        renderPaintingCube();
 }
 void PaintingFrame::renderPaintingCube()
-{
+{    
     //painting placing board
     glPushMatrix();
-    glColor3f(.85,.85,.85);
+    glColor3f(.75,.75,.75);
     glScalef(1,-1,1);
     glTranslatef(-.01,0,-.01);
     glutSolidCube(1);

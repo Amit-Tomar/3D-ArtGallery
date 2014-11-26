@@ -79,7 +79,11 @@ void RobotController::stopRobotMotion()
 
 void RobotController::jumpRobot(float height)
 {
-
+    animationRobotY->setKeyValueAt (0, -10);
+    animationRobotY->setKeyValueAt (.5, 0);
+    animationRobotY->setKeyValueAt (1, -10);
+    animationRobotY->setDuration(8000);
+    animationRobotY->start();
 }
 
 void RobotController::turnRobot(float angleX, float angleY, float angleZ)
@@ -90,11 +94,18 @@ void RobotController::turnRobot(float angleX, float angleY, float angleZ)
 void RobotController::updateRobotX()
 {
     robotTorsoTransform->setTranslationTo(m_robotX,robotTorsoTransform->getTranslationY(),robotTorsoTransform->getTranslationZ());
+
+    std::cout << m_robotX << std::endl;
+    std::cout << m_robotZ << std::endl;
+
+    if( m_robotX < 10 && m_robotY < 10  && m_robotY == 0 )
+        jumpRobot(1);
 }
 
 void RobotController::updateRobotY()
 {
-    robotTorsoTransform->setTranslationTo(robotTorsoTransform->getTranslationX(),m_robotY,robotTorsoTransform->getTranslationZ());
+    //robotTorsoTransform->setTranslationTo(robotTorsoTransform->getTranslationX(),m_robotY,robotTorsoTransform->getTranslationZ());
+    robotTorsoTransform->setTranslationTo( robotTorsoTransform->getTranslationX(), m_robotY, robotTorsoTransform->getTranslationZ() );
 }
 
 void RobotController::updateRobotZ()
@@ -115,6 +126,7 @@ void RobotController::updateRobotLeftShoulderAngle()
 
         Y = (d-c)*(X-a)/(b-a) + c
     */
+
     robotLeftShoulderTransform->setRotationTo( ((130-70)*m_interpolationVariable)/100 + 70  ,robotLeftShoulderTransform->getRotationY(), robotLeftShoulderTransform->getRotationZ());
     updateRobotRightShoulderAngle();
     updateLeftLegThighAngle();
