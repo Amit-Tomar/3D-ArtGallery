@@ -403,7 +403,7 @@ void GLRenderer::paintGL()
     glPopMatrix();
     glDisable ( GL_LIGHTING ) ;
     // Draw  Axis
-    renderAxes();
+    // renderAxes();
     update();
 }
 
@@ -481,7 +481,12 @@ void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
 
     else if( keyevent->key() == Qt::Key_1 )
     {
-        paintingCOntroller->startPaintingMotion();
+        paintingCOntroller->startPaintingHangingMotion();
+    }
+
+    else if( keyevent->key() == Qt::Key_2 )
+    {
+        paintingCOntroller->startPaintingFallingMotion();
     }
 
     else if( keyevent->key() == Qt::Key_R )
