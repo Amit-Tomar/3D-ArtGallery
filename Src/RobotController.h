@@ -50,6 +50,7 @@ private slots:
     void updateLeftLegKneeAngle();
     void updateRightLegThighAngle();
     void updateRightLegKneeAngle();
+    void robotLanded();
 
 signals:
     void    robotXChanged(float);
@@ -83,6 +84,8 @@ private:
     QPropertyAnimation * animationRobotY;
     QPropertyAnimation * animationRobotZ;
     QPropertyAnimation * interpolationVariableAnimation;
+
+    bool robotInJump;
 };
 
 #endif // ROBOTCONTROLLER_H

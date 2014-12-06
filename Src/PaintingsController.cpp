@@ -21,7 +21,7 @@ PaintingsController::PaintingsController()
     interpolVarFallingAnimation->setKeyValueAt(0,INTERPOLATION_MIN);
     interpolVarFallingAnimation->setKeyValueAt(1,INTERPOLATION_MAX);
     interpolVarFallingAnimation->setEasingCurve(QEasingCurve::OutBounce);
-    interpolVarFallingAnimation->setDuration(5000);
+    interpolVarFallingAnimation->setDuration(2000);
 }
 
 void PaintingsController::startPaintingHangingMotion()

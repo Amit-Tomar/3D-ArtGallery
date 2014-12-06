@@ -4,6 +4,7 @@ using namespace Factory;
 
 RobotController::RobotController(): QObject( NULL )
 {
+    robotInJump = false;
     robotLeftArmTopAngle = 60;
     lefthandMotionForward = true;
     INTERPOLATION_MIN   = 0 ;
@@ -12,13 +13,14 @@ RobotController::RobotController(): QObject( NULL )
     animationRobotX = new QPropertyAnimation(this, "robotX");
     animationRobotY = new QPropertyAnimation(this, "robotY");
     animationRobotZ = new QPropertyAnimation(this, "robotZ");
-    interpolationVariableAnimation  = new QPropertyAnimation(this, "interpolationVariable");
+    interpolationVariableAnimation = new QPropertyAnimation(this, "interpolationVariable");
 
     QObject::connect(this, SIGNAL(robotXChanged(float)), this, SLOT(updateRobotX()));
     QObject::connect(this, SIGNAL(robotYChanged(float)), this, SLOT(updateRobotY()));
     QObject::connect(this, SIGNAL(robotZChanged(float)), this, SLOT(updateRobotZ()));
 
     QObject::connect(animationRobotX, SIGNAL(finished()), this, SLOT(stopRobotMotion()));
+    QObject::connect(animationRobotY, SIGNAL(finished()), this, SLOT(robotLanded()));
     QObject::connect(this, SIGNAL(interpolationVariableChanged(float)), this, SLOT(updateRobotLeftShoulderAngle()));
 }
 
@@ -79,10 +81,11 @@ void RobotController::stopRobotMotion()
 
 void RobotController::jumpRobot(float height)
 {
+    animationRobotY->stop();
     animationRobotY->setKeyValueAt (0, -10);
-    animationRobotY->setKeyValueAt (.5, 0);
+    animationRobotY->setKeyValueAt (.5, -5);
     animationRobotY->setKeyValueAt (1, -10);
-    animationRobotY->setDuration(8000);
+    animationRobotY->setDuration(5000);
     animationRobotY->start();
 }
 
@@ -95,11 +98,18 @@ void RobotController::updateRobotX()
 {
     robotTorsoTransform->setTranslationTo(m_robotX,robotTorsoTransform->getTranslationY(),robotTorsoTransform->getTranslationZ());
 
+    std::cout << ":---------------" << std::endl ;
     std::cout << m_robotX << std::endl;
+    std::cout << m_robotY << std::endl;
     std::cout << m_robotZ << std::endl;
+    std::cout << ":---------------" << std::endl ;
 
-    if( m_robotX < 10 && m_robotY < 10  && m_robotY == 0 )
+    if( m_robotX < 5 && m_robotZ < 5 && m_robotX > -5 && m_robotZ > -5 && false == robotInJump )
+    {
+        std::cout << "Jump" << std::endl;
+        robotInJump = true;
         jumpRobot(1);
+    }
 }
 
 void RobotController::updateRobotY()
@@ -126,6 +136,9 @@ void RobotController::updateRobotLeftShoulderAngle()
 
         Y = (d-c)*(X-a)/(b-a) + c
     */
+
+    if( robotInJump )
+        return;
 
     robotLeftShoulderTransform->setRotationTo( ((130-70)*m_interpolationVariable)/100 + 70  ,robotLeftShoulderTransform->getRotationY(), robotLeftShoulderTransform->getRotationZ());
     updateRobotRightShoulderAngle();
@@ -173,4 +186,10 @@ void RobotController::updateRightLegKneeAngle()
                 ((5-10)*m_interpolationVariable)/100 + 10,
                 robotRightKneeTransform->getRotationY(),
                 robotRightThighTransform->getRotationZ());
+}
+
+void RobotController::robotLanded()
+{
+    std::cout << "Robo landed" << std::endl;
+    robotInJump = false;
 }

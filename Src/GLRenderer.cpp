@@ -77,7 +77,6 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightShoeTransform->addChild(robotRightShoe);
 
     // Add room walls
-
     roomCentralTransform->addChild(roomRootNode);
 
     roomRootNode->addChild(roomFloorTransform);
@@ -149,14 +148,13 @@ GLRenderer::GLRenderer(QWidget *parent)
     teapotTransform->addChild(teapot);
 
     // Apply Transforms
-
     robotHeadTransform->setTranslationTo(0,1.50,0);
     robotHeadTransform->setColor(1,0,0);
     robotHeadTransform->setScaleTo(1,1.25,1);
 
     robotTorsoTransform->setColor(1,1,0);
     robotTorsoTransform->setTranslationTo(25,-10,80);
-    robotTorsoTransform->setScaleTo(5,5,5);
+    robotTorsoTransform->setScaleTo(4.5,4.5,4.5);
     robotTorsoTransform->setRotationTo(0,180,0);
 
     robotLeftThighTransform->setTranslationTo(-.30,-1,0);
@@ -237,8 +235,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomFrontWallRightDoorTransform->setRotationTo(90,0,0);
     roomFrontWallRightDoorTransform->setScaleTo(roomScale/8.5,1,2*roomScale/5.75);
 
-    //painting transforms
-
+    //Painting transforms
     painting1Transform->setTranslationTo(-30,0,-35);
     painting1Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting1Transform->setRotationTo(90,0,0);
@@ -275,8 +272,10 @@ GLRenderer::GLRenderer(QWidget *parent)
     painting9Transform->setScaleTo(paintingScale,1,paintingScale*2);
     painting9Transform->setRotationTo(90,0,-90);
 
-    teapotTransform->setTranslationTo(0,-15,0);
+    teapotTransform->setTranslationTo(0,-25,0);
     teapotTransform->setRotationTo(90,0,0);
+    teapotTransform->setColor(.5,0,0);
+    teapotTransform->setScaleTo(1,.55,.35);
 
     // For testing
     // robotController->moveRobotTo(-10,40);
@@ -412,7 +411,7 @@ void GLRenderer::resizeGL(int width, int height)
    glViewport(0,0,width,height);
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective(120,width/height,1,200);
+   gluPerspective(110,width/height,1,200);
    glMatrixMode(GL_MODELVIEW);
 }
 
