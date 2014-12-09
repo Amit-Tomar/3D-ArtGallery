@@ -98,12 +98,6 @@ void RobotController::updateRobotX()
 {
     robotTorsoTransform->setTranslationTo(m_robotX,robotTorsoTransform->getTranslationY(),robotTorsoTransform->getTranslationZ());
 
-    std::cout << ":---------------" << std::endl ;
-    std::cout << m_robotX << std::endl;
-    std::cout << m_robotY << std::endl;
-    std::cout << m_robotZ << std::endl;
-    std::cout << ":---------------" << std::endl ;
-
     if( m_robotX < 5 && m_robotZ < 5 && m_robotX > -5 && m_robotZ > -5 && false == robotInJump )
     {
         std::cout << "Jump" << std::endl;

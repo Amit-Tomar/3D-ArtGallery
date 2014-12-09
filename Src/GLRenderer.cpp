@@ -107,45 +107,16 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomFrontWallInTransform->addChild(roomFrontWallIn);
 
     // Add paintings
-	roomRootNode->addChild(painting1Transform);
-    painting1Transform->addChild(painting1Frame);
-    painting1Transform->addChild(painting1);
-
-    roomRootNode->addChild(painting2Transform);
-    painting2Transform->addChild(painting2Frame);
-    painting2Transform->addChild(painting2);
-
-    roomRootNode->addChild(painting3Transform);
-    painting3Transform->addChild(painting3Frame);
-    painting3Transform->addChild(painting3);
-
-    roomRootNode->addChild(painting4Transform);
-    painting4Transform->addChild(painting4Frame);
-    painting4Transform->addChild(painting4);
-
-    roomRootNode->addChild(painting5Transform);
-    painting5Transform->addChild(painting5Frame);
-    painting5Transform->addChild(painting5);
-
-    roomRootNode->addChild(painting6Transform);
-    painting6Transform->addChild(painting6Frame);
-    painting6Transform->addChild(painting6);
-
-    roomRootNode->addChild(painting7Transform);
-    painting7Transform->addChild(painting7Frame);
-    painting7Transform->addChild(painting7);
-
-    roomRootNode->addChild(painting8Transform);
-    painting8Transform->addChild(painting8Frame);
-    painting8Transform->addChild(painting8);
-
-    roomRootNode->addChild(painting9Transform);
-    painting9Transform->addChild(painting9Frame);
-    painting9Transform->addChild(painting9);
+    for( int i = 0 ; i < 9; ++ i )
+    {
+        roomRootNode->addChild(paintingTransformList[i]);
+        paintingTransformList[i]->addChild(paintingFramesList[i]);
+        paintingTransformList[i]->addChild(paintingsList[i]);
+    }
 
     // Add obstacles
-    roomCentralTransform->addChild(teapotTransform);
-    teapotTransform->addChild(teapot);
+    roomCentralTransform->addChild(obstacleTransform);
+    obstacleTransform->addChild(obstacle);
 
     // Apply Transforms
     robotHeadTransform->setTranslationTo(0,1.50,0);
@@ -191,9 +162,11 @@ GLRenderer::GLRenderer(QWidget *parent)
 
     robotLeftShoeTransform->setTranslationTo(0,-.70,.15);
     robotLeftShoeTransform->setRotationTo(90,0,0);
+    robotLeftShoeTransform->setColor(0,0,.15);
 
     robotRightShoeTransform->setTranslationTo(0,-.70,.15);
     robotRightShoeTransform->setRotationTo(90,0,0);
+    robotRightShoeTransform->setColor(0,0,.15);
 
     const unsigned int roomScale = 100 ;
     unsigned int paintingScale = 15 ;
@@ -236,46 +209,46 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomFrontWallRightDoorTransform->setScaleTo(roomScale/8.5,1,2*roomScale/5.75);
 
     //Painting transforms
-    painting1Transform->setTranslationTo(-30,0,-35);
-    painting1Transform->setScaleTo(paintingScale,1,paintingScale*2);
-    painting1Transform->setRotationTo(90,0,0);
+    paintingTransformList[0]->setTranslationTo(-30,0,-35);
+    paintingTransformList[0]->setScaleTo(paintingScale,1,paintingScale*2);
+    paintingTransformList[0]->setRotationTo(90,0,0);
 
-    painting2Transform->setTranslationTo( 0,0,-35);
-    painting2Transform->setScaleTo(paintingScale,1,paintingScale*2);
-    painting2Transform->setRotationTo(90,0,0);
+    paintingTransformList[1]->setTranslationTo( 0,0,-35);
+    paintingTransformList[1]->setScaleTo(paintingScale,1,paintingScale*2);
+    paintingTransformList[1]->setRotationTo(90,0,0);
 
-    painting3Transform->setTranslationTo( 30,0,-35);
-    painting3Transform->setScaleTo(paintingScale,1,paintingScale*2);
-    painting3Transform->setRotationTo(90,0,0);
+    paintingTransformList[2]->setTranslationTo( 30,0,-35);
+    paintingTransformList[2]->setScaleTo(paintingScale,1,paintingScale*2);
+    paintingTransformList[2]->setRotationTo(90,0,0);
 
-    painting4Transform->setTranslationTo( 45,0,-15);
-    painting4Transform->setScaleTo(paintingScale,1,paintingScale*2);
-    painting4Transform->setRotationTo(90,0,90);
+    paintingTransformList[3]->setTranslationTo( 45,0,-15);
+    paintingTransformList[3]->setScaleTo(paintingScale,1,paintingScale*2);
+    paintingTransformList[3]->setRotationTo(90,0,90);
 
-    painting5Transform->setTranslationTo( 45,0,10);
-    painting5Transform->setScaleTo(paintingScale,1,paintingScale*2);
-    painting5Transform->setRotationTo(90,0,90);
+    paintingTransformList[4]->setTranslationTo( 45,0,10);
+    paintingTransformList[4]->setScaleTo(paintingScale,1,paintingScale*2);
+    paintingTransformList[4]->setRotationTo(90,0,90);
 
-    painting6Transform->setTranslationTo( 45,0,35);
-    painting6Transform->setScaleTo(paintingScale,1,paintingScale*2);
-    painting6Transform->setRotationTo(90,0,90);
+    paintingTransformList[5]->setTranslationTo( 45,0,35);
+    paintingTransformList[5]->setScaleTo(paintingScale,1,paintingScale*2);
+    paintingTransformList[5]->setRotationTo(90,0,90);
 
-    painting7Transform->setTranslationTo( -45,0,-15);
-    painting7Transform->setScaleTo(paintingScale,1,paintingScale*2);
-    painting7Transform->setRotationTo(90,0,-90);
+    paintingTransformList[6]->setTranslationTo( -45,0,-15);
+    paintingTransformList[6]->setScaleTo(paintingScale,1,paintingScale*2);
+    paintingTransformList[6]->setRotationTo(90,0,-90);
 
-    painting8Transform->setTranslationTo( -45,0,10);
-    painting8Transform->setScaleTo(paintingScale,1,paintingScale*2);
-    painting8Transform->setRotationTo(90,0,-90);
+    paintingTransformList[7]->setTranslationTo( -45,0,10);
+    paintingTransformList[7]->setScaleTo(paintingScale,1,paintingScale*2);
+    paintingTransformList[7]->setRotationTo(90,0,-90);
 
-    painting9Transform->setTranslationTo( -45,0,35);
-    painting9Transform->setScaleTo(paintingScale,1,paintingScale*2);
-    painting9Transform->setRotationTo(90,0,-90);
+    paintingTransformList[8]->setTranslationTo( -45,0,35);
+    paintingTransformList[8]->setScaleTo(paintingScale,1,paintingScale*2);
+    paintingTransformList[8]->setRotationTo(90,0,-90);
 
-    teapotTransform->setTranslationTo(0,-25,0);
-    teapotTransform->setRotationTo(90,0,0);
-    teapotTransform->setColor(.5,0,0);
-    teapotTransform->setScaleTo(1,.55,.35);
+    obstacleTransform->setTranslationTo(0,-25,0);
+    obstacleTransform->setRotationTo(90,0,0);
+    obstacleTransform->setColor(.5,0,0);
+    obstacleTransform->setScaleTo(1,.55,.35);
 
     // For testing
     // robotController->moveRobotTo(-10,40);
@@ -480,12 +453,12 @@ void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
 
     else if( keyevent->key() == Qt::Key_1 )
     {
-        paintingCOntroller->startPaintingHangingMotion();
+        paintingController->startPaintingHangingMotion();
     }
 
     else if( keyevent->key() == Qt::Key_2 )
     {
-        paintingCOntroller->startPaintingFallingMotion();
+        paintingController->startPaintingFallingMotion();
     }
 
     else if( keyevent->key() == Qt::Key_R )

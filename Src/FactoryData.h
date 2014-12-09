@@ -8,6 +8,7 @@
 #include "RobotLegBottom.h"
 #include "RobotLegTop.h"
 #include "RobotHead.h"
+#include <qfiledialog.h>
 #include <LightSource.h>
 #include <Camera.h>
 #include <GroupNode.h>
@@ -19,7 +20,7 @@
 #include "CameraController.h"
 #include "PaintingFrame.h"
 #include "AudioPlayer.h"
-#include "Teapot.h"
+#include "Obstacle.h"
 #include "PaintingsController.h"
 
 class Transform;
@@ -73,24 +74,16 @@ extern Transform       *roomFrontWallInTransform    ;
 extern Transform       *roomBackWallTransform       ;
 extern Transform       *roomCeilingTransform        ;
 
-extern Transform       *painting1Transform          ;
-extern Transform       *painting2Transform          ;
-extern Transform       *painting3Transform          ;
-extern Transform       *painting4Transform          ;
-extern Transform       *painting5Transform          ;
-extern Transform       *painting6Transform          ;
-extern Transform       *painting7Transform          ;
-extern Transform       *painting8Transform          ;
-extern Transform       *painting9Transform          ;
-extern Transform       *teapotTransform             ;
+
+extern Transform       *obstacleTransform             ;
 
 extern Transform       *roomFrontWallLeftDoorTransform  ;
 extern Transform       *roomFrontWallRightDoorTransform ;
 
-extern AudioPlayer      *audioPlayer                 ;
-extern CameraController *cameraController            ;
-extern Teapot           *teapot                      ;
-extern PaintingsController * paintingCOntroller      ;
+extern AudioPlayer          *audioPlayer              ;
+extern CameraController     *cameraController         ;
+extern Obstacle             *obstacle                 ;
+extern PaintingsController  * paintingController      ;
 
 
 extern BuildingBlock    *roomFrontWallLeftDoor       ;
@@ -102,29 +95,12 @@ extern BuildingBlock    *roomFrontWall               ;
 extern BuildingBlock    *roomFrontWallIn             ;
 extern BuildingBlock    *roomBackWall                ;
 extern BuildingBlock    *roomCeiling                 ;
-extern BuildingBlock    *painting1                   ;
-extern BuildingBlock    *painting2                   ;
-extern BuildingBlock    *painting3                   ;
-extern BuildingBlock    *painting4                   ;
-extern BuildingBlock    *painting5                   ;
-extern BuildingBlock    *painting6                   ;
-extern BuildingBlock    *painting7                   ;
-extern BuildingBlock    *painting8                   ;
-extern BuildingBlock    *painting9                   ;
 
-extern PaintingFrame     *painting1Frame              ;
-extern PaintingFrame     *painting2Frame              ;
-extern PaintingFrame     *painting3Frame              ;
-extern PaintingFrame     *painting4Frame              ;
-extern PaintingFrame     *painting5Frame              ;
-extern PaintingFrame     *painting6Frame              ;
-extern PaintingFrame     *painting7Frame              ;
-extern PaintingFrame     *painting8Frame              ;
-extern PaintingFrame     *painting9Frame              ;
+extern std::vector<Transform*> paintingTransformList;
+extern std::vector<BuildingBlock*> paintingsList;
+extern std::vector<PaintingFrame*> paintingFramesList;
+
+void generateAllObjects();
 }
-
-
-
-
 
 #endif // FACTORYDATA_H

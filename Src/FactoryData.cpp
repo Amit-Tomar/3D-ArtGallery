@@ -3,87 +3,150 @@
 namespace Factory
 {
 Window          *window                      = NULL;
-GroupNode       *scenegraphRootNode          = new GroupNode() ;
-LightSource     *centralLightSource          = new LightSource();
-Camera          *camera                      = new Camera();
-GroupNode       *robotRootNode               = new GroupNode() ;
-GroupNode       *roomRootNode                = new GroupNode() ;
-RoomModel       *roomModel                   = new RoomModel();
-RobotTorsoModel *robotTorso                  = new RobotTorsoModel();
-RobotLegTop     *robotLeftLegTop             = new RobotLegTop();
-RobotLegTop     *robotRightLegTop            = new RobotLegTop();
-RobotLegBottom  *robotLeftLegBottom          = new RobotLegBottom();
-RobotLegBottom  *robotRightLegBottom         = new RobotLegBottom();
-RobotArmTop     *robotRightArmTop            = new RobotArmTop();
-RobotArmTop     *robotLeftArmTop             = new RobotArmTop();
-RobotArmBottom  *robotRightBottom            = new RobotArmBottom();
-RobotArmBottom  *robotLeftBottom             = new RobotArmBottom();
-RobotHead       *robotHead                   = new RobotHead();
-RobotShoe       *robotLeftShoe               = new RobotShoe();
-RobotShoe       *robotRightShoe              = new RobotShoe();
-Transform       *robotLeftThighTransform     = new Transform();
-Transform       *robotRightThighTransform    = new Transform();
-Transform       *robotLeftKneeTransform      = new Transform();
-Transform       *robotRightKneeTransform     = new Transform();
-Transform       *robotLeftShoulderTransform  = new Transform();
-Transform       *robotRightShoulderTransform = new Transform();
-Transform       *robotLeftElbowTransform     = new Transform();
-Transform       *robotRightElbowTransform    = new Transform();
-Transform       *robotHeadTransform          = new Transform();
-Transform       *robotTorsoTransform         = new Transform();
-Transform       *roomCentralTransform        = new Transform();
-Transform       *robotLeftShoeTransform      = new Transform();
-Transform       *robotRightShoeTransform     = new Transform();
-Transform       *roomFloorTransform          = new Transform();
-Transform       *roomLeftWallTransform       = new Transform();
-Transform       *roomRightWallTransform      = new Transform();
-Transform       *roomFrontWallTransform      = new Transform();
-Transform       *roomFrontWallInTransform    = new Transform();
-Transform       *roomBackWallTransform       = new Transform();
-Transform       *roomCeilingTransform        = new Transform();
-Transform       *painting1Transform          = new Transform();
-Transform       *painting2Transform          = new Transform();
-Transform       *painting3Transform          = new Transform();
-Transform       *painting4Transform          = new Transform();
-Transform       *painting5Transform          = new Transform();
-Transform       *painting6Transform          = new Transform();
-Transform       *painting7Transform          = new Transform();
-Transform       *painting8Transform          = new Transform();
-Transform       *painting9Transform          = new Transform();
+GroupNode       *scenegraphRootNode          = NULL;
+LightSource     *centralLightSource          = NULL;
+Camera          *camera                      = NULL;
+GroupNode       *robotRootNode               = NULL;
+GroupNode       *roomRootNode                = NULL;
+RoomModel       *roomModel                   = NULL;
+RobotTorsoModel *robotTorso                  = NULL;
+RobotLegTop     *robotLeftLegTop             = NULL;
+RobotLegTop     *robotRightLegTop            = NULL;
+RobotLegBottom  *robotLeftLegBottom          = NULL;
+RobotLegBottom  *robotRightLegBottom         = NULL;
+RobotArmTop     *robotRightArmTop            = NULL;
+RobotArmTop     *robotLeftArmTop             = NULL;
+RobotArmBottom  *robotRightBottom            = NULL;
+RobotArmBottom  *robotLeftBottom             = NULL;
+RobotHead       *robotHead                   = NULL;
+RobotShoe       *robotLeftShoe               = NULL;
+RobotShoe       *robotRightShoe              = NULL;
+Transform       *robotLeftThighTransform     = NULL;
+Transform       *robotRightThighTransform    = NULL;
+Transform       *robotLeftKneeTransform      = NULL;
+Transform       *robotRightKneeTransform     = NULL;
+Transform       *robotLeftShoulderTransform  = NULL;
+Transform       *robotRightShoulderTransform = NULL;
+Transform       *robotLeftElbowTransform     = NULL;
+Transform       *robotRightElbowTransform    = NULL;
+Transform       *robotHeadTransform          = NULL;
+Transform       *robotTorsoTransform         = NULL;
+Transform       *roomCentralTransform        = NULL;
+Transform       *robotLeftShoeTransform      = NULL;
+Transform       *robotRightShoeTransform     = NULL;
+Transform       *roomFloorTransform          = NULL;
+Transform       *roomLeftWallTransform       = NULL;
+Transform       *roomRightWallTransform      = NULL;
+Transform       *roomFrontWallTransform      = NULL;
+Transform       *roomFrontWallInTransform    = NULL;
+Transform       *roomBackWallTransform       = NULL;
+Transform       *roomCeilingTransform        = NULL;
 
-Transform       *roomFrontWallLeftDoorTransform  = new Transform();
-Transform       *roomFrontWallRightDoorTransform = new Transform();
-Transform       *teapotTransform                 = new Transform();
 
-BuildingBlock    *roomFrontWallLeftDoor       = new BuildingBlock("../Textures/doorLeft.png");
-BuildingBlock    *roomFrontWallRightDoor      = new BuildingBlock("../Textures/doorRight.png");
-BuildingBlock    *roomFloor                   = new BuildingBlock("../Textures/floor1.png");
-BuildingBlock    *roomLeftWall                = new BuildingBlock("../Textures/wall1Long.png",12);
-BuildingBlock    *roomRightWall               = new BuildingBlock("../Textures/wall1Long.png",12);
-BuildingBlock    *roomFrontWall               = new BuildingBlock("../Textures/wall3_noDoor.png");
-BuildingBlock    *roomFrontWallIn             = new BuildingBlock("../Textures/wall3Mirror.png");
-BuildingBlock    *roomBackWall                = new BuildingBlock("../Textures/wall1.png",5);
-BuildingBlock    *roomCeiling                 = new BuildingBlock("../Textures/wall2.png",12);
-BuildingBlock    *painting1                   = new BuildingBlock("../Textures/painting1.png");
-BuildingBlock    *painting2                   = new BuildingBlock("../Textures/painting2.png");
-BuildingBlock    *painting3                   = new BuildingBlock("../Textures/painting3.png");
-BuildingBlock    *painting4                   = new BuildingBlock("../Textures/painting4.png");
-BuildingBlock    *painting5                   = new BuildingBlock("../Textures/painting5.png");
-BuildingBlock    *painting6                   = new BuildingBlock("../Textures/painting6.png");
-BuildingBlock    *painting7                   = new BuildingBlock("../Textures/painting7.png");
-BuildingBlock    *painting8                   = new BuildingBlock("../Textures/painting8.png");
-BuildingBlock    *painting9                   = new BuildingBlock("../Textures/painting9.png");
-CameraController *cameraController            = new CameraController();
-PaintingsController * paintingCOntroller      = new PaintingsController();
-AudioPlayer      *audioPlayer                 = new AudioPlayer();
-PaintingFrame     *painting1Frame             = new PaintingFrame();
-PaintingFrame     *painting2Frame             = new PaintingFrame();
-PaintingFrame     *painting3Frame             = new PaintingFrame();
-PaintingFrame     *painting4Frame             = new PaintingFrame();
-PaintingFrame     *painting5Frame             = new PaintingFrame();
-PaintingFrame     *painting6Frame             = new PaintingFrame();
-PaintingFrame     *painting7Frame             = new PaintingFrame();
-PaintingFrame     *painting8Frame             = new PaintingFrame();
-PaintingFrame     *painting9Frame             = new PaintingFrame();
-Teapot            *teapot                     = new Teapot();
+Transform       *roomFrontWallLeftDoorTransform  = NULL;
+Transform       *roomFrontWallRightDoorTransform = NULL;
+Transform       *obstacleTransform               = NULL;
+
+BuildingBlock    *roomFrontWallLeftDoor       = NULL;
+BuildingBlock    *roomFrontWallRightDoor      = NULL;
+BuildingBlock    *roomFloor                   = NULL;
+BuildingBlock    *roomLeftWall                = NULL;
+BuildingBlock    *roomRightWall               = NULL;
+BuildingBlock    *roomFrontWall               = NULL;
+BuildingBlock    *roomFrontWallIn             = NULL;
+BuildingBlock    *roomBackWall                = NULL;
+BuildingBlock    *roomCeiling                 = NULL;
+
+std::vector<Transform*> paintingTransformList;
+std::vector<BuildingBlock*> paintingsList;
+std::vector<PaintingFrame*> paintingFramesList;
+
+CameraController    *cameraController         = NULL;
+PaintingsController * paintingController      = NULL;
+AudioPlayer         *audioPlayer              = NULL;
+Obstacle            *obstacle                 = NULL;
+
+void generateAllObjects()
+{
+    window                      = NULL;
+    scenegraphRootNode          = new GroupNode() ;
+    centralLightSource          = new LightSource();
+    camera                      = new Camera();
+    robotRootNode               = new GroupNode() ;
+    roomRootNode                = new GroupNode() ;
+    roomModel                   = new RoomModel();
+    robotTorso                  = new RobotTorsoModel();
+    robotLeftLegTop             = new RobotLegTop();
+    robotRightLegTop            = new RobotLegTop();
+    robotLeftLegBottom          = new RobotLegBottom();
+    robotRightLegBottom         = new RobotLegBottom();
+    robotRightArmTop            = new RobotArmTop();
+    robotLeftArmTop             = new RobotArmTop();
+    robotRightBottom            = new RobotArmBottom();
+    robotLeftBottom             = new RobotArmBottom();
+    robotHead                   = new RobotHead();
+    robotLeftShoe               = new RobotShoe();
+    robotRightShoe              = new RobotShoe();
+    robotLeftThighTransform     = new Transform();
+    robotRightThighTransform    = new Transform();
+    robotLeftKneeTransform      = new Transform();
+    robotRightKneeTransform     = new Transform();
+    robotLeftShoulderTransform  = new Transform();
+    robotRightShoulderTransform = new Transform();
+    robotLeftElbowTransform     = new Transform();
+    robotRightElbowTransform    = new Transform();
+    robotHeadTransform          = new Transform();
+    robotTorsoTransform         = new Transform();
+    roomCentralTransform        = new Transform();
+    robotLeftShoeTransform      = new Transform();
+    robotRightShoeTransform     = new Transform();
+    roomFloorTransform          = new Transform();
+    roomLeftWallTransform       = new Transform();
+    roomRightWallTransform      = new Transform();
+    roomFrontWallTransform      = new Transform();
+    roomFrontWallInTransform    = new Transform();
+    roomBackWallTransform       = new Transform();
+    roomCeilingTransform        = new Transform();
+
+    for( int i = 0 ; i < 10 ; ++i )
+        paintingTransformList.push_back( new Transform() );
+
+    roomFrontWallLeftDoorTransform      = new Transform();
+    roomFrontWallRightDoorTransform     = new Transform();
+    obstacleTransform                   = new Transform();
+
+    roomFrontWallLeftDoor       = new BuildingBlock("../Textures/doorLeft.png");
+    roomFrontWallRightDoor      = new BuildingBlock("../Textures/doorRight.png");
+    roomFloor                   = new BuildingBlock("../Textures/floor1.png");
+    roomLeftWall                = new BuildingBlock("../Textures/wall1Long.png",12);
+    roomRightWall               = new BuildingBlock("../Textures/wall1Long.png",12);
+    roomFrontWall               = new BuildingBlock("../Textures/wall3_noDoor.png");
+    roomFrontWallIn             = new BuildingBlock("../Textures/wall3Mirror.png");
+    roomBackWall                = new BuildingBlock("../Textures/wall1.png",5);
+    roomCeiling                 = new BuildingBlock("../Textures/wall2.png",12);   
+
+    for( int i = 0 ; i < 10 ; ++i )
+        paintingFramesList.push_back( new PaintingFrame());
+
+    cameraController            = new CameraController();
+    paintingController          = new PaintingsController();
+    audioPlayer                 = new AudioPlayer();
+    obstacle                    = new Obstacle();
+
+    QString dir = QFileDialog::getExistingDirectory(NULL, QObject::tr("Open Directory"), "./", QFileDialog::ShowDirsOnly);
+    QStringList nameFilter(QString::fromStdString("*.png"));
+    QDir directory(dir);
+    QStringList txtFilesAndDirectories = directory.entryList(nameFilter);
+
+    for( int i = 0 ; i < txtFilesAndDirectories.length() ; ++ i )
+    {
+        std::string fileName = dir.toStdString()+ "/"  +(txtFilesAndDirectories[i].toStdString()) ;
+        std::cout << fileName << std::endl;
+        paintingsList.push_back( new BuildingBlock(fileName));
+    }
+
+    for( int i = txtFilesAndDirectories.length() ; i < 10 ; ++i )
+        paintingsList.push_back( new BuildingBlock("../Textures/painting1.png"));
+}
+
 }

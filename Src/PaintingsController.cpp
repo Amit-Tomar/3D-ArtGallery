@@ -38,11 +38,11 @@ void PaintingsController::startPaintingFallingMotion()
 
 void PaintingsController::updatePaintingHangAngle()
 {
-    Factory::painting5Transform->setRotationTo( ((130-90)*m_interpolVarHanging)/100 + 90  ,Factory::painting5Transform->getRotationY(), Factory::painting5Transform->getRotationZ() );
+    Factory::paintingTransformList[4]->setRotationTo( ((130-90)*m_interpolVarHanging)/100 + 90  ,Factory::paintingTransformList[4]->getRotationY(), Factory::paintingTransformList[4]->getRotationZ() );
 }
 
 void PaintingsController::updatePaintingFallAngle()
 {
-    Factory::painting4Transform->setRotationTo( Factory::painting4Transform->getRotationX(), ((90)*m_interpolVarFalling)/100 + 0 , Factory::painting4Transform->getRotationZ() );
-    Factory::painting4Transform->setTranslationTo( ((30-45)*m_interpolVarFalling)/100 + 45 ,((-23)*m_interpolVarFalling)/100, Factory::painting4Transform->getTranslationZ() );
+    Factory::paintingTransformList[3]->setRotationTo( Factory::paintingTransformList[3]->getRotationX(), ((90)*m_interpolVarFalling)/100 + 0 , Factory::paintingTransformList[3]->getRotationZ() );
+    Factory::paintingTransformList[3]->setTranslationTo( ((30-45)*m_interpolVarFalling)/100 + 45 ,((-23)*m_interpolVarFalling)/100, Factory::paintingTransformList[3]->getTranslationZ() );
 }

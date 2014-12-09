@@ -25,7 +25,7 @@ HEADERS       = \
     DoorController.h \
     PaintingsController.h \
     PaintingFrame.h \
-    Teapot.h
+    Obstacle.h
 
 
 
@@ -55,7 +55,7 @@ SOURCES       = main.cpp \
     DoorController.cpp \
     PaintingsController.cpp \
     PaintingFrame.cpp \
-    Teapot.cpp
+    Obstacle.cpp
 
 
 QT           += opengl widgets multimedia
