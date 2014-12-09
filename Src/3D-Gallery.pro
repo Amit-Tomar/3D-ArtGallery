@@ -25,7 +25,8 @@ HEADERS       = \
     DoorController.h \
     PaintingsController.h \
     PaintingFrame.h \
-    Obstacle.h
+    Obstacle.h \
+    VideoPlayer.h
 
 
 
@@ -55,10 +56,11 @@ SOURCES       = main.cpp \
     DoorController.cpp \
     PaintingsController.cpp \
     PaintingFrame.cpp \
-    Obstacle.cpp
+    Obstacle.cpp \
+    VideoPlayer.cpp
 
 
-QT           += opengl widgets multimedia
+QT           += opengl widgets multimedia multimediawidgets
 
 LIBS += -lGL -lGLU -lGLEW -lglut -lSOIL
 

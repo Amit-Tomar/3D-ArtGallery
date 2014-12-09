@@ -60,6 +60,7 @@ private:
     DoorController  *doorController ;
 
     Quaternions quaternion;
+    bool videoPlaying;
 };
 
 #endif

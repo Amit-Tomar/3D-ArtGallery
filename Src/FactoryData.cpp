@@ -64,6 +64,7 @@ std::vector<PaintingFrame*> paintingFramesList;
 CameraController    *cameraController         = NULL;
 PaintingsController * paintingController      = NULL;
 AudioPlayer         *audioPlayer              = NULL;
+VideoPlayer         *videoPlayer              = NULL ;
 Obstacle            *obstacle                 = NULL;
 
 void generateAllObjects()
@@ -131,6 +132,7 @@ void generateAllObjects()
     cameraController            = new CameraController();
     paintingController          = new PaintingsController();
     audioPlayer                 = new AudioPlayer();
+
     obstacle                    = new Obstacle();
 
     QString dir = QFileDialog::getExistingDirectory(NULL, QObject::tr("Open Directory"), "./", QFileDialog::ShowDirsOnly);
@@ -146,7 +148,7 @@ void generateAllObjects()
     }
 
     for( int i = txtFilesAndDirectories.length() ; i < 10 ; ++i )
-        paintingsList.push_back( new BuildingBlock("../Textures/painting1.png"));
+        paintingsList.push_back( new BuildingBlock("../Paintings/painting1.png"));
 }
 
 }

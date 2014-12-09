@@ -22,6 +22,7 @@
 #include "AudioPlayer.h"
 #include "Obstacle.h"
 #include "PaintingsController.h"
+#include "VideoPlayer.h"
 
 class Transform;
 class RobotTorsoModel;
@@ -81,6 +82,7 @@ extern Transform       *roomFrontWallLeftDoorTransform  ;
 extern Transform       *roomFrontWallRightDoorTransform ;
 
 extern AudioPlayer          *audioPlayer              ;
+extern VideoPlayer          *videoPlayer              ;
 extern CameraController     *cameraController         ;
 extern Obstacle             *obstacle                 ;
 extern PaintingsController  * paintingController      ;

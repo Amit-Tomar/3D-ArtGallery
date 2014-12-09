@@ -12,6 +12,7 @@ GLRenderer::GLRenderer(QWidget *parent)
     xRot = 0;
     yRot = 5;
     zRot = 145;
+    videoPlaying = false;
 
     /*
         Robot controller is declared here because signals/slots require a UI
@@ -162,11 +163,11 @@ GLRenderer::GLRenderer(QWidget *parent)
 
     robotLeftShoeTransform->setTranslationTo(0,-.70,.15);
     robotLeftShoeTransform->setRotationTo(90,0,0);
-    robotLeftShoeTransform->setColor(0,0,.15);
+    robotLeftShoeTransform->setColor(0,0,0);
 
     robotRightShoeTransform->setTranslationTo(0,-.70,.15);
     robotRightShoeTransform->setRotationTo(90,0,0);
-    robotRightShoeTransform->setColor(0,0,.15);
+    robotRightShoeTransform->setColor(0,0,0);
 
     const unsigned int roomScale = 100 ;
     unsigned int paintingScale = 15 ;
@@ -465,6 +466,18 @@ void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
     {
         robotController->stopRobotMotion();
         robotTorsoTransform->setTranslationTo(25,-10,30);
+    }
+
+    else if( keyevent->key() == Qt::Key_P )
+    {
+        if( false == videoPlaying )
+            Factory::videoPlayer->setVisible(true);
+        else
+            Factory::videoPlayer->setVisible(false);
+
+        Factory::videoPlayer->play();
+
+        videoPlaying = !videoPlaying;
     }
 
     glDraw();
