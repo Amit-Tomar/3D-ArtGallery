@@ -44,6 +44,9 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotTorso->addChild(robotHeadTransform);
     robotHeadTransform->addChild(robotHead);
 
+    // Robot Hat
+    robotHead->addChild(robotHatTransform);
+    robotHatTransform->addChild(robotHat);
 
     // Left Hand
     robotTorso->addChild(robotLeftShoulderTransform);
@@ -168,6 +171,11 @@ GLRenderer::GLRenderer(QWidget *parent)
     robotRightShoeTransform->setTranslationTo(0,-.70,.15);
     robotRightShoeTransform->setRotationTo(90,0,0);
     robotRightShoeTransform->setColor(0,0,0);
+
+    robotHatTransform->setTranslationTo(0,1,0);
+    robotHatTransform->setScaleTo(.25,.25,.25);
+    robotHatTransform->setRotationTo(90,0,0);
+    robotHatTransform->setColor((float)65/255,(float)22/255,(float)22/255);
 
     const unsigned int roomScale = 100 ;
     unsigned int paintingScale = 15 ;

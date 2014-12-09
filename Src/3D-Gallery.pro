@@ -26,7 +26,8 @@ HEADERS       = \
     PaintingsController.h \
     PaintingFrame.h \
     Obstacle.h \
-    VideoPlayer.h
+    VideoPlayer.h \
+    RobotHat.h
 
 
 
@@ -57,7 +58,8 @@ SOURCES       = main.cpp \
     PaintingsController.cpp \
     PaintingFrame.cpp \
     Obstacle.cpp \
-    VideoPlayer.cpp
+    VideoPlayer.cpp \
+    RobotHat.cpp
 
 
 QT           += opengl widgets multimedia multimediawidgets

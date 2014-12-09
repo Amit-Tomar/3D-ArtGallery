@@ -23,6 +23,7 @@
 #include "Obstacle.h"
 #include "PaintingsController.h"
 #include "VideoPlayer.h"
+#include "RobotHat.h"
 
 class Transform;
 class RobotTorsoModel;
@@ -54,6 +55,7 @@ extern RobotArmBottom  *robotLeftBottom             ;
 extern RobotHead       *robotHead                   ;
 extern RobotShoe       *robotLeftShoe               ;
 extern RobotShoe       *robotRightShoe              ;
+extern RobotHat        *robotHat                    ;
 extern Transform       *robotLeftThighTransform     ;
 extern Transform       *robotRightThighTransform    ;
 extern Transform       *robotLeftKneeTransform      ;
@@ -67,6 +69,7 @@ extern Transform       *robotTorsoTransform         ;
 extern Transform       *roomCentralTransform        ;
 extern Transform       *robotLeftShoeTransform      ;
 extern Transform       *robotRightShoeTransform     ;
+extern Transform       *robotHatTransform           ;
 extern Transform       *roomFloorTransform          ;
 extern Transform       *roomLeftWallTransform       ;
 extern Transform       *roomRightWallTransform      ;

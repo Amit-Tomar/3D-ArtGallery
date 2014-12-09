@@ -21,6 +21,7 @@ RobotArmBottom  *robotLeftBottom             = NULL;
 RobotHead       *robotHead                   = NULL;
 RobotShoe       *robotLeftShoe               = NULL;
 RobotShoe       *robotRightShoe              = NULL;
+RobotHat        *robotHat                    = NULL;
 Transform       *robotLeftThighTransform     = NULL;
 Transform       *robotRightThighTransform    = NULL;
 Transform       *robotLeftKneeTransform      = NULL;
@@ -34,6 +35,7 @@ Transform       *robotTorsoTransform         = NULL;
 Transform       *roomCentralTransform        = NULL;
 Transform       *robotLeftShoeTransform      = NULL;
 Transform       *robotRightShoeTransform     = NULL;
+Transform       *robotHatTransform           = NULL;
 Transform       *roomFloorTransform          = NULL;
 Transform       *roomLeftWallTransform       = NULL;
 Transform       *roomRightWallTransform      = NULL;
@@ -88,6 +90,7 @@ void generateAllObjects()
     robotHead                   = new RobotHead();
     robotLeftShoe               = new RobotShoe();
     robotRightShoe              = new RobotShoe();
+    robotHat                    = new RobotHat();
     robotLeftThighTransform     = new Transform();
     robotRightThighTransform    = new Transform();
     robotLeftKneeTransform      = new Transform();
@@ -101,6 +104,7 @@ void generateAllObjects()
     roomCentralTransform        = new Transform();
     robotLeftShoeTransform      = new Transform();
     robotRightShoeTransform     = new Transform();
+    robotHatTransform           = new Transform();
     roomFloorTransform          = new Transform();
     roomLeftWallTransform       = new Transform();
     roomRightWallTransform      = new Transform();
@@ -124,7 +128,7 @@ void generateAllObjects()
     roomFrontWall               = new BuildingBlock("../Textures/wall3_noDoor.png");
     roomFrontWallIn             = new BuildingBlock("../Textures/wall3Mirror.png");
     roomBackWall                = new BuildingBlock("../Textures/wall1.png",5);
-    roomCeiling                 = new BuildingBlock("../Textures/wall2.png",12);   
+    roomCeiling                 = new BuildingBlock("../Textures/wall2.png",12);
 
     for( int i = 0 ; i < 10 ; ++i )
         paintingFramesList.push_back( new PaintingFrame());
