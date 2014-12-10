@@ -22,6 +22,8 @@ RobotController::RobotController(): QObject( NULL )
     QObject::connect(animationRobotX, SIGNAL(finished()), this, SLOT(stopRobotMotion()));
     QObject::connect(animationRobotY, SIGNAL(finished()), this, SLOT(robotLanded()));
     QObject::connect(this, SIGNAL(interpolationVariableChanged(float)), this, SLOT(updateRobotLeftShoulderAngle()));
+
+    animationRobotY->setEasingCurve(QEasingCurve::OutBounce);
 }
 
 void RobotController::moveRobotTo(float finalX , float finalZ )

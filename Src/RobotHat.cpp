@@ -2,6 +2,7 @@
 
 RobotHat::RobotHat()
 {
+
 }
 
 void RobotHat::traverseNode()
