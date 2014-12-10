@@ -28,7 +28,8 @@ HEADERS       = \
     Obstacle.h \
     VideoPlayer.h \
     RobotHat.h \
-    PLYLoader.h
+    PLYLoader.h \
+    RoomController.h
 
 
 
@@ -61,7 +62,8 @@ SOURCES       = main.cpp \
     Obstacle.cpp \
     VideoPlayer.cpp \
     RobotHat.cpp \
-    PLYLoader.cpp
+    PLYLoader.cpp \
+    RoomController.cpp
 
 
 QT           += opengl widgets multimedia multimediawidgets

@@ -65,8 +65,9 @@ std::vector<PaintingFrame*> paintingFramesList;
 
 CameraController    *cameraController         = NULL;
 PaintingsController * paintingController      = NULL;
+RoomController      * roomController          = NULL;
 AudioPlayer         *audioPlayer              = NULL;
-VideoPlayer         *videoPlayer              = NULL ;
+VideoPlayer         *videoPlayer              = NULL;
 Obstacle            *obstacle                 = NULL;
 
 void generateAllObjects()
@@ -138,6 +139,7 @@ void generateAllObjects()
     audioPlayer                 = new AudioPlayer();
 
     obstacle                    = new Obstacle();
+    roomController              = new RoomController();
 
     QString dir = QFileDialog::getExistingDirectory(NULL, QObject::tr("Open Directory"), "./", QFileDialog::ShowDirsOnly);
     QStringList nameFilter(QString::fromStdString("*.png"));

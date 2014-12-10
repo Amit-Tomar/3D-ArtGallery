@@ -24,6 +24,7 @@
 #include "PaintingsController.h"
 #include "VideoPlayer.h"
 #include "RobotHat.h"
+#include "RoomController.h"
 
 class Transform;
 class RobotTorsoModel;
@@ -33,6 +34,7 @@ class CameraController;
 class DoorController;
 class AudioPlayer;
 class PaintingsController;
+class RoomController;
 
 namespace Factory
 {
@@ -89,7 +91,7 @@ extern VideoPlayer          *videoPlayer              ;
 extern CameraController     *cameraController         ;
 extern Obstacle             *obstacle                 ;
 extern PaintingsController  * paintingController      ;
-
+extern RoomController  * roomController               ;
 
 extern BuildingBlock    *roomFrontWallLeftDoor       ;
 extern BuildingBlock    *roomFrontWallRightDoor      ;

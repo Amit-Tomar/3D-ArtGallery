@@ -194,11 +194,11 @@ GLRenderer::GLRenderer(QWidget *parent)
     roomCeilingTransform->setRotationTo(180,0,0);
 
     roomLeftWallTransform->setTranslationTo(-50,0,18);
-    roomLeftWallTransform->setScaleTo(roomScale*.5,1,roomScale*1.2);
+    roomLeftWallTransform->setScaleTo(roomScale*.5,1,roomScale*1.80);
     roomLeftWallTransform->setRotationTo(0,0,-90);
 
     roomRightWallTransform->setTranslationTo(50,0,18);
-    roomRightWallTransform->setScaleTo(roomScale*.5,1,roomScale*1.2);
+    roomRightWallTransform->setScaleTo(roomScale*.5,1,roomScale*1.80);
     roomRightWallTransform->setRotationTo(0,0,90);
 
     roomFrontWallTransform->setTranslationTo(0,0,60);
@@ -329,23 +329,17 @@ void GLRenderer::initializeGL()
     qglClearColor(qtPurple.dark());
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
-  //  glShadeModel(GL_SMOOTH);
-  //  glEnable(GL_LIGHTING);
-  //  glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
-    glEnable(GL_MULTISAMPLE);
-   // glEnable(GL_LIGHT0);
-   // glEnable(GL_LIGHT1);
-   // glEnable(GL_LIGHT2);
+    glShadeModel(GL_SMOOTH);
+    glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+    glEnable(GL_MULTISAMPLE);   
     glEnable(GL_NORMALIZE);
 }
 
 void GLRenderer::paintGL()
 {
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_NORMALIZE);
 
-    GLfloat color[] = {1.0f, 1.0f, 1.0f, 1.0f};
     GLfloat mat_specular[] = { 0.3, 1.0, 0.3, 1.0 };
     GLfloat mat_shininess[] = { 40.0 };
     glClearColor (1.0, 1.0, 1.0, 0.0);
@@ -353,45 +347,43 @@ void GLRenderer::paintGL()
     glLoadIdentity();
     glEnable(GL_LIGHTING);
 
-
     if ( torchLight )
     {
-    glEnable(GL_LIGHT0);
+        glEnable(GL_LIGHT0);
 
-    GLfloat light_position[] = { Factory::robotTorsoTransform->getTranslationX(), Factory::robotTorsoTransform->getTranslationY(), Factory::robotTorsoTransform->getTranslationZ() , 1.0 };
-    GLfloat spotDir[] = { robotController->getRobotDestinationX(),robotController->getRobotDestinationY(),robotController->getRobotDestinationZ() };
+        GLfloat light_position[] = { Factory::robotTorsoTransform->getTranslationX(), Factory::robotTorsoTransform->getTranslationY(), Factory::robotTorsoTransform->getTranslationZ() , 1.0 };
+        GLfloat spotDir[] = { robotController->getRobotDestinationX(),robotController->getRobotDestinationY(),robotController->getRobotDestinationZ() };
 
-    glShadeModel (GL_SMOOTH);
-    glLightfv(GL_LIGHT0,GL_SPECULAR,mat_specular);
-    glLightfv(GL_LIGHT0,GL_POSITION,light_position);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+        glShadeModel (GL_SMOOTH);
+        glLightfv(GL_LIGHT0,GL_SPECULAR,mat_specular);
+        glLightfv(GL_LIGHT0,GL_POSITION,light_position);
+        glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+        glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
-    // Definig spotlight attributes
+        // Definig spotlight attributes
 
-    glLightf(GL_LIGHT0,GL_SPOT_CUTOFF,15.0);
-    glLightf(GL_LIGHT0,GL_SPOT_EXPONENT,50.0);
-    glLightfv(GL_LIGHT0,GL_SPOT_DIRECTION,spotDir);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_DEPTH_TEST);
+        glLightf(GL_LIGHT0,GL_SPOT_CUTOFF,15.0);
+        glLightf(GL_LIGHT0,GL_SPOT_EXPONENT,50.0);
+        glLightfv(GL_LIGHT0,GL_SPOT_DIRECTION,spotDir);
+        glEnable(GL_COLOR_MATERIAL);
+        glEnable(GL_DEPTH_TEST);
 
     }
+
     if ( globalLight )
     {
-    GLfloat pos[4] = {0, 10, 0, 1};
-    GLfloat white[4] = {1.0, 1.0, 1.0 ,1.0};
+        GLfloat pos[4] = {0, 10, 0, 1};
+        GLfloat white[4] = {1.0, 1.0, 1.0 ,1.0};
 
-    glEnable(GL_LIGHT3);
-    glLightfv(GL_LIGHT3, GL_POSITION, pos);
-    glLightfv(GL_LIGHT3, GL_SPECULAR, white);
-    glLightfv(GL_LIGHT3, GL_DIFFUSE, white);
+        glEnable(GL_LIGHT3);
+        glLightfv(GL_LIGHT3, GL_POSITION, pos);
+        glLightfv(GL_LIGHT3, GL_SPECULAR, white);
+        glLightfv(GL_LIGHT3, GL_DIFFUSE, white);
 
     }
 
     if ( toggleLight )
     {
-
-   //     glEnable(GL_LIGHT1);
         glEnable(GL_LIGHT2);
 
         GLfloat mat_specular_1[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -433,9 +425,6 @@ void GLRenderer::paintGL()
         glLightfv(GL_LIGHT2,GL_SPOT_DIRECTION,spotDir_2);
         glEnable(GL_COLOR_MATERIAL);
         glEnable(GL_DEPTH_TEST);
-
-
-
     }
 
 
@@ -455,7 +444,7 @@ void GLRenderer::paintGL()
     scenegraphRootNode->depthFirstTraversal();
     glPopMatrix();
 
-if ( torchLight == false)
+    if ( torchLight == false)
         glDisable(GL_LIGHT0);
 
     if ( toggleLight == false)
@@ -463,9 +452,9 @@ if ( torchLight == false)
         glDisable(GL_LIGHT1);
         glDisable(GL_LIGHT2);
     }
+
     if( globalLight == false)
         glDisable(GL_LIGHT3);
-
 
     glDisable ( GL_LIGHTING ) ;
     // Draw  Axis
@@ -573,7 +562,7 @@ void GLRenderer::keyPressEvent(QKeyEvent *keyevent)
         videoPlaying = !videoPlaying;
     }
 
-else if( keyevent->key() == Qt::Key_T )   // Light on/off torch effect.
+    else if( keyevent->key() == Qt::Key_T )   // Light on/off torch effect.
     {
         if( torchLight == true)
             torchLight = false;
@@ -587,14 +576,17 @@ else if( keyevent->key() == Qt::Key_T )   // Light on/off torch effect.
         else
             toggleLight = true;
     }
+
     else if( keyevent->key() == Qt::Key_M )   // Light translate effect;
     {
         spotX += 2;
     }
+
     else if( keyevent->key() == Qt::Key_N )   // Light translate effect;
     {
         spotX -= 2;
     }
+
     else if( keyevent->key() == Qt::Key_G )   // Light translate effect;
     {
         if( globalLight )
@@ -603,6 +595,10 @@ else if( keyevent->key() == Qt::Key_T )   // Light on/off torch effect.
             globalLight = true;
     }
 
+    else if( keyevent->key() == Qt::Key_W )
+    {
+        Factory::roomController->moveBackWall();
+    }
 
     glDraw();
     update();
