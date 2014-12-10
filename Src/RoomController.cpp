@@ -16,7 +16,6 @@ void RoomController::moveBackWall()
     interpolationVariableAnimation->setKeyValueAt(1,INTERPOLATION_MAX);
     interpolationVariableAnimation->setEasingCurve(QEasingCurve::OutBounce);
     interpolationVariableAnimation->start();
-    Factory::audioPlayer->playDoorSound();
 }
 
 
