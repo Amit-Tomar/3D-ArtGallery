@@ -13,9 +13,9 @@ void RobotHat::traverseNode()
 void RobotHat::renderHat()
 {
     glPushMatrix();
-    glTranslatef(0.0,0.0f,2.5f);
-    glRotatef(25.0,0.0,1.0,0.0);
+    glTranslatef(0.0,0.0f,3.0f);
+    glRotatef(20.0,0.0,1.0,0.0);
     glutSolidCylinder(3,.5,50,50);
     glPopMatrix();
-    glutSolidCylinder(1.2,4,50,50);
+    glutSolidCylinder(1.3,4,50,50);
 }

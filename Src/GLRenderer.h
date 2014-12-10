@@ -44,6 +44,10 @@ private:
     int xRot;
     int yRot;
     int zRot;
+    int spotX;
+    bool toggleLight;
+    bool torchLight;
+    bool globalLight;
     QPoint lastPos;
     QColor qtGreen;
     QColor qtPurple;
